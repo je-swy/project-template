@@ -1,15 +1,30 @@
-document.addEventListener('DOMContentLoaded', initCarousel);
+document.addEventListener("DOMContentLoaded", initSuitcasesCarousel);
 
-function initCarousel() {
-  const slides  = document.querySelector('.carousel__slides');
-  const prevBtn = document.querySelector('.carousel__btn--prev');
-  const nextBtn = document.querySelector('.carousel__btn--next');
-  if (!slides || !prevBtn || !nextBtn) return;
+function initSuitcasesCarousel() {
+  const scrollContainer = document.getElementById("scroll-container");
+  const progressBar     = document.getElementById("scroll-progress-bar");
+  const btnLeft         = document.getElementById("scroll-left");
+  const btnRight        = document.getElementById("scroll-right");
+  const scrollAmount    = scrollContainer.clientWidth * 0.8;
 
-  nextBtn.addEventListener('click', () => {
-    slides.scrollBy({ left: slides.clientWidth * 0.8, behavior: 'smooth' });
+  if (!scrollContainer || !progressBar || !btnLeft || !btnRight) return;
+
+  // Оновлення прогрес-бара
+  function updateProgress() {
+    const maxScroll  = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+    const percent    = (scrollContainer.scrollLeft / maxScroll) * 100;
+    progressBar.style.width = `${percent}%`;
+  }
+
+  // Прокрутка
+  btnRight.addEventListener("click", () => {
+    scrollContainer.scrollBy({ left: scrollAmount, behavior: "smooth" });
   });
-  prevBtn.addEventListener('click', () => {
-    slides.scrollBy({ left: -slides.clientWidth * 0.8, behavior: 'smooth' });
+  btnLeft.addEventListener("click", () => {
+    scrollContainer.scrollBy({ left: -scrollAmount, behavior: "smooth" });
   });
+
+  scrollContainer.addEventListener("scroll", updateProgress);
+  // Ініціальна ініціалізація
+  updateProgress();
 }

@@ -65,68 +65,69 @@
       </section>
     </section>
 
-    <section class="carousel carousel_suitcases container">
-      <header class="carousel__header">
+    <section class="suitcases-carousel section container">
+      <header class="suitcases-carousel__header">
         <h2>Travel suitcases</h2>
         <p>Duis vestibulum elit vel neque pharetra</p>
       </header>
 
-      <ul class="carousel__slides" role="list" tabindex="0" aria-label="Travel suitcases carousel">
-        <li class="carousel__slide">
-          <figure>
-            <img src="/src/assets/images/homepage/travel-suitcase-1.jpg" alt="Silver suitcase" loading="lazy" />
-            <figcaption>
-              <p>
+      <div class="scroll-wrapper">
+        <ul class="scroll-container" id="scroll-container" role="list">
+          <li class="scroll-item">
+            <figure class="scroll-item__figure"
+              style="background-image: url('/src/assets/images/homepage/travel-suitcase-1.jpg')">
+              <figcaption class="scroll-item__caption">
                 Duis vestibulum elit vel neque.<br />
                 Duis vestibulum vel neque pharetra vulputate. Quisque scelerisque nisi.
-              </p>
-            </figcaption>
-          </figure>
-        </li>
-        <li class="carousel__slide">
-          <figure>
-            <img src="/src/assets/images/homepage/travel-suitcase-2.jpg" alt="Silver suitcase in airport"
-              loading="lazy" />
-            <figcaption>
-              <p>
+              </figcaption>
+            </figure>
+          </li>
+
+          <li class="scroll-item">
+            <figure class="scroll-item__figure"
+              style="background-image: url('/src/assets/images/homepage/travel-suitcase-2.jpg')">
+              <figcaption class="scroll-item__caption">
                 Neque vestibulum elit vel neque.<br />
                 Duis vestibulum vel neque pharetra vulputate. Quisque scelerisque nisi.
-              </p>
-            </figcaption>
-          </figure>
-        </li>
-        <li class="carousel__slide">
-          <figure>
-            <img src="/src/assets/images/homepage/travel-suitcase-3.jpg" alt="Bronze suitcase in airport"
-              loading="lazy" />
-            <figcaption>
-              <p>
-                Elitus sitbulum elit vel velneque.<br />
-                Duis vestibulum vel neque pharetra vulputate. Quisque scelerisque nisi.
-              </p>
-            </figcaption>
-          </figure>
-        </li>
-        <li class="carousel__slide">
-          <figure>
-            <img src="/src/assets/images/homepage/travel-suitcase-4.jpg" alt="Orange suitcase in hotel"
-              loading="lazy" />
-            <figcaption>
-              <p>
-                Vel vestibulum elit vel eluen.<br />
-                Duis vestibulum vel neque pharetra vulputate. Quisque scelerisque nisi.
-              </p>
-            </figcaption>
-          </figure>
-        </li>
-      </ul>
+              </figcaption>
+            </figure>
+          </li>
 
-      <button class="carousel__btn carousel__btn--prev" aria-label="Previous slide">
-        ←
-      </button>
-      <button class="carousel__btn carousel__btn--next" aria-label="Next slide">
-        →
-      </button>
+          <li class="scroll-item">
+            <figure class="scroll-item__figure"
+              style="background-image: url('/src/assets/images/homepage/travel-suitcase-3.jpg')">
+              <figcaption class="scroll-item__caption">
+                Elituis vestibulum elit vel neque.<br />
+                Duis vestibulum vel neque pharetra vulputate. Quisque scelerisque nisi.
+              </figcaption>
+            </figure>
+          </li>
+
+          <li class="scroll-item">
+            <figure class="scroll-item__figure"
+              style="background-image: url('/src/assets/images/homepage/travel-suitcase-4.jpg')">
+              <figcaption class="scroll-item__caption">
+                Vel vestibulum elit tuvel equen.<br />
+                Duis vestibulum vel neque pharetra vulputate. Quisque scelerisque nisi.
+              </figcaption>
+            </figure>
+          </li>
+        </ul>
+
+        <div class="scroll-controls">
+          <div class="progress-wrapper">
+            <div class="scroll-progress">
+              <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
+            </div>
+          </div>
+          <div class="scroll-buttons">
+            <button class="scroll-button" id="scroll-left" aria-label="Previous"><img
+                src="/src/assets/images/homepage/meteor-icons_arrow-left.svg" alt="" /></button>
+            <button class="scroll-button" id="scroll-right" aria-label="Next"><img
+                src="/src/assets/images/homepage/meteor-icons_arrow-right.svg" alt="" /></button>
+          </div>
+        </div>
+      </div>
     </section>
 
 
@@ -134,8 +135,8 @@
   </main>
 
   <footer id="footer" class="footer"></footer>
-  <script src="js/main.js"></script>
-  <script src="js/homepage.js"></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/homepage.js" defer></script>
 </body>
 
 </html>

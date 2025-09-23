@@ -203,90 +203,180 @@
   }
 }
 
-.carousel {
+.suitcases-carousel {
   &__header {
     text-align: center;
-    margin-bottom: clamp(20px, 5vw, 40px);
+    margin-bottom: clamp(24px, 5vw, 48px);
 
     h2 {
       @include mixins.fonts(vars.$mont-font, 24px, 32px, 900, vars.$black);
     }
-
     p {
-      @include mixins.fonts(vars.$mont-font, 14px, 16px, 400, vars.$black);
+      @include mixins.fonts(vars.$mont-font, 24px, 32px, 400, vars.$black);
     }
   }
+}
 
-  &__slides {
-    /* make UL the scrolling viewport */
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+.scroll-wrapper {
+  position: relative;
+  padding-bottom: clamp(24px, 5vw, 48px);
+}
 
-    display: flex;
-    gap: clamp(16px, 4vw, 32px);
-    padding: 0;
+.scroll-container {
+  display: flex;
+  gap: clamp(16px, 4vw, 32px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: clamp(16px, 3vw, 24px);
+  margin: 0;
+  list-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.scroll-item {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  box-sizing: border-box;
+  background: rgba(83, 83, 98, 0.1);
+  border: 1px solid #33333a;
+  backdrop-filter: blur(4.2px);
+  border-radius: 12px;
+  padding: clamp(24px, 4vw, 40px);
+  color: vars.$white;
+
+  figure {
     margin: 0;
-    list-style: none;
+    display: flex;
+    flex-direction: column;
   }
 
-  &__slide {
-    flex: 0 0 80%; /* mobile: one slide */
-    scroll-snap-align: start;
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: clamp(16px, 3vw, 24px);
+  }
+
+  figcaption {
+    @include mixins.fonts(vars.$mont-font, 24px, 32px, 400, vars.$white);
+  }
+}
+
+/* Горизонтальний скрол-контейнер */
+.scroll-container {
+  @include mixins.flex-row(flex-start, flex-start, clamp(16px, 4vw, 32px));
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: clamp(24px, 5vw, 48px);
+  margin: 0;
+  list-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Окремий слайд як фон + текст */
+.scroll-item {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  box-sizing: border-box;
+
+  &__figure {
+    margin: 0;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    @include mixins.flex-column(flex-end, center, 0);
+  }
+
+  &__caption {
+    width: 100%;
+    background-color: rgba(vars.$black, 0.4);
+    padding: clamp(16px, 3vw, 24px);
     box-sizing: border-box;
 
-    figure {
+    p {
+      @include mixins.fonts(vars.$mont-font, 16px, 18px, 400, vars.$white);
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      background-color: vars.$white;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-
-      img {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
-
-      figcaption {
-        padding: clamp(16px, 3vw, 24px);
-
-        @include mixins.fonts(vars.$mont-font, 14px, 16px, 400, vars.$black);
-      }
     }
   }
+}
 
-  &__btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: vars.$white;
-    border: none;
-    padding: clamp(8px, 1.5vw, 12px);
-    cursor: pointer;
-    z-index: 2;
-    font-size: clamp(16px, 2vw, 24px);
-    border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+/* Кнопки та прогрес-бар */
+.scroll-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  @include mixins.flex-row(space-between, center, clamp(32px, 8vw, 64px));
+}
 
-    &--prev {
-      left: clamp(10px, 2vw, 20px);
-    }
+.progress-wrapper {
+  flex: 1;
+}
 
-    &--next {
-      right: clamp(10px, 2vw, 20px);
-    }
+.scroll-progress {
+  width: 100%;
+  height: 4px;
+  background: rgba(vars.$white, 0.2);
+  border-radius: 2px;
+}
+
+.scroll-progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(267.34deg, vars.$gold 5%, vars.$dark-grey 95%);
+  border-radius: 2px;
+  transition: width 0.2s ease-out;
+}
+
+.scroll-buttons {
+  @include mixins.flex-row(flex-start, center, clamp(12px, 2vw, 16px));
+}
+
+.scroll-button {
+  width: 32px;
+  height: 32px;
+  background: vars.$dark-grey;
+  border: none;
+  border-radius: 50%;
+  @include mixins.flex-row(center, center, 0);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.1s;
+
+  img {
+    filter: brightness(0) invert(1);
   }
 
-  @include mixins.respond(tablet) {
-    &__slide {
-      flex: 0 0 45%; /* two slides on tablet */
-    }
+  &:hover,
+  &:active {
+    background: linear-gradient(
+      274.43deg,
+      vars.$gold -3.28%,
+      vars.$pink 132.5%
+    );
+    transform: scale(0.95);
   }
+}
 
-  @include mixins.respond(desktop) {
-    &__slide {
-      flex: 0 0 23%; /* four slides on desktop */
-    }
+/* Адаптивна ширина слайдів */
+@include mixins.respond(tablet) {
+  .scroll-item {
+    flex: 0 0 80%;
+  }
+}
+
+@include mixins.respond(desktop) {
+  .scroll-item {
+    flex: 0 0 33.333%;
   }
 }

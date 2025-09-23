@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap");
 /* Mobile-first: min-width */
 *,
@@ -795,84 +796,194 @@ button {
   display: inline-block;
 }
 
-.carousel__header {
+.suitcases-carousel__header {
   text-align: center;
-  margin-bottom: clamp(20px, 5vw, 40px);
+  margin-bottom: clamp(24px, 5vw, 48px);
 }
-.carousel__header h2 {
+.suitcases-carousel__header h2 {
   font-family: "Montserrat", sans-serif;
   font-size: clamp(24px, 1.5vw, 32px);
   font-weight: 900;
   color: #000000;
 }
-.carousel__header p {
+.suitcases-carousel__header p {
   font-family: "Montserrat", sans-serif;
-  font-size: clamp(14px, 1.5vw, 16px);
+  font-size: clamp(24px, 1.5vw, 32px);
   font-weight: 400;
   color: #000000;
 }
-.carousel__slides {
-  /* make UL the scrolling viewport */
+
+.scroll-wrapper {
+  position: relative;
+  padding-bottom: clamp(24px, 5vw, 48px);
+}
+
+.scroll-container {
+  display: flex;
+  gap: clamp(16px, 4vw, 32px);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  display: flex;
-  gap: clamp(16px, 4vw, 32px);
-  padding: 0;
+  padding-bottom: clamp(16px, 3vw, 24px);
   margin: 0;
   list-style: none;
+  scrollbar-width: none;
 }
-.carousel__slide {
-  flex: 0 0 80%; /* mobile: one slide */
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-item {
+  flex: 0 0 100%;
   scroll-snap-align: start;
   box-sizing: border-box;
+  background: rgba(83, 83, 98, 0.1);
+  border: 1px solid #33333a;
+  backdrop-filter: blur(4.2px);
+  border-radius: 12px;
+  padding: clamp(24px, 4vw, 40px);
+  color: #ffffff;
 }
-.carousel__slide figure {
+.scroll-item figure {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
-.carousel__slide figure img {
+.scroll-item img {
   width: 100%;
   height: auto;
   display: block;
+  margin-bottom: clamp(16px, 3vw, 24px);
 }
-.carousel__slide figure figcaption {
-  padding: clamp(16px, 3vw, 24px);
+.scroll-item figcaption {
   font-family: "Montserrat", sans-serif;
-  font-size: clamp(14px, 1.5vw, 16px);
+  font-size: clamp(24px, 1.5vw, 32px);
   font-weight: 400;
-  color: #000000;
+  color: #ffffff;
 }
-.carousel__btn {
+
+/* Горизонтальний скрол-контейнер */
+.scroll-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: clamp(16px, 4vw, 32px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: clamp(24px, 5vw, 48px);
+  margin: 0;
+  list-style: none;
+  scrollbar-width: none;
+}
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Окремий слайд як фон + текст */
+.scroll-item {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  box-sizing: border-box;
+}
+.scroll-item__figure {
+  margin: 0;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0;
+}
+.scroll-item__caption {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: clamp(16px, 3vw, 24px);
+  box-sizing: border-box;
+}
+.scroll-item__caption p {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(16px, 1.5vw, 18px);
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0;
+}
+
+/* Кнопки та прогрес-бар */
+.scroll-controls {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #ffffff;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(32px, 8vw, 64px);
+}
+
+.progress-wrapper {
+  flex: 1;
+}
+
+.scroll-progress {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.scroll-progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(267.34deg, #f5b423 5%, #504e4a 95%);
+  border-radius: 2px;
+  transition: width 0.2s ease-out;
+}
+
+.scroll-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: clamp(12px, 2vw, 16px);
+}
+
+.scroll-button {
+  width: 32px;
+  height: 32px;
+  background: #504e4a;
   border: none;
-  padding: clamp(8px, 1.5vw, 12px);
-  cursor: pointer;
-  z-index: 2;
-  font-size: clamp(16px, 2vw, 24px);
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.1s;
 }
-.carousel__btn--prev {
-  left: clamp(10px, 2vw, 20px);
+.scroll-button img {
+  filter: brightness(0) invert(1);
 }
-.carousel__btn--next {
-  right: clamp(10px, 2vw, 20px);
+.scroll-button:hover, .scroll-button:active {
+  background: linear-gradient(274.43deg, #f5b423 -3.28%, #b92770 132.5%);
+  transform: scale(0.95);
 }
+
+/* Адаптивна ширина слайдів */
 @media (min-width: 1024px) {
-  .carousel__slide {
-    flex: 0 0 45%; /* two slides on tablet */
+  .scroll-item {
+    flex: 0 0 80%;
   }
 }
 @media (min-width: 1440px) {
-  .carousel__slide {
-    flex: 0 0 23%; /* four slides on desktop */
+  .scroll-item {
+    flex: 0 0 33.333%;
   }
 }
 
