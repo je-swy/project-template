@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/src/js/main.css">
+</head>
+
+<body>
+    <header id="header" class="header container"></header>
+
+    <main>
+        <section id="cart-items">
+            <h2>Items in Your Cart</h2>
+            <ul>
+                <li>
+                    <span class="item-name">Product 1</span>
+                    <span class="item-price">$10.00</span>
+                    <button class="remove-item">Remove</button>
+                </li>
+                <li>
+                    <span class="item-name">Product 2</span>
+                    <span class="item-price">$15.00</span>
+                    <button class="remove-item">Remove</button>
+                </li>
+                <!-- Add more items as needed -->
+            </ul>
+        </section>
+        <section id="cart-summary">
+            <h2>Cart Summary</h2>
+            <p>Total: <span id="total-price">$25.00</span></p>
+            <button id="checkout-button">Proceed to Checkout</button>
+        </section>
+    </main>
+    <footer id="footer" class="footer"></footer>
+
+
+    <script src="/src/js/main.js"></script>
+</body>
+
+</html>

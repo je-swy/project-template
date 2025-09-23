@@ -1,0 +1,54 @@
+@use "./variables" as vars;
+
+@mixin fonts(
+  $font: vars.$mont-font,
+  $size-min: 14px,
+  $size-max: 18px,
+  $weight: 400,
+  $color: vars.$black
+) {
+  font-family: $font;
+  font-size: clamp($size-min, 1.5vw, $size-max);
+  font-weight: $weight;
+  color: $color;
+}
+
+@mixin flex-row($justify: flex-start, $align: stretch, $gap: 0) {
+  display: flex;
+  flex-direction: row;
+  justify-content: $justify;
+  align-items: $align;
+  gap: $gap;
+}
+
+@mixin flex-column($justify: flex-start, $align: stretch, $gap: 0) {
+  display: flex;
+  flex-direction: column;
+  justify-content: $justify;
+  align-items: $align;
+  gap: $gap;
+}
+
+@mixin grid($columns, $rows: auto, $gap: 0) {
+  display: grid;
+  grid-template-columns: $columns;
+  grid-template-rows: $rows;
+  gap: $gap;
+}
+
+/* Mobile-first: min-width */
+@mixin respond($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (min-width: vars.$breakpoint-mobile) {
+      @content;
+    }
+  } @else if $breakpoint == tablet {
+    @media (min-width: vars.$breakpoint-tablet) {
+      @content;
+    }
+  } @else if $breakpoint == desktop {
+    @media (min-width: vars.$breakpoint-desktop) {
+      @content;
+    }
+  }
+}

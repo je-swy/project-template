@@ -1,0 +1,23 @@
+// abstracts
+@use "abstracts/variables";
+@use "abstracts/mixins" as *;
+
+// base
+@use "base/reset" as *;
+@use "base/fonts" as *;
+
+// components
+@use "components/buttons" as *;
+@use "components/forms" as *;
+@use "components/product-card" as *;
+
+// layouts
+@use "layouts/header" as *;
+@use "layouts/footer" as *;
+
+// pages
+@use "pages/about" as *;
+@use "pages/cart" as *;
+@use "pages/catalog" as *;
+@use "pages/product-details" as *;
+@use "pages/homepage" as *;

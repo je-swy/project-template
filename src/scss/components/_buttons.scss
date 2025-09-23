@@ -1,0 +1,96 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+.btn {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+
+  // base font
+  @include mixins.fonts(vars.$mont-font, 18px, 18px, bold, vars.$white);
+  padding: 12px 28px;
+
+  // pink background variant
+  &_pink {
+    background-color: vars.$pink;
+    border: 2px solid transparent;
+
+    &:hover {
+      background-color: vars.$white;
+      color: vars.$pink;
+      border-color: vars.$pink;
+    }
+  }
+
+  // white background variant
+  &_white {
+    background-color: vars.$white;
+    color: vars.$black;
+    border: 2px solid vars.$pink;
+    border-radius: 4px;
+    padding: 14px 20px;
+    font-size: 11px;
+
+    &:hover {
+      background-color: vars.$pink;
+      color: vars.$white;
+    }
+  }
+
+  // size modifiers
+  &_big {
+    padding: 18px 25px;
+    font-size: 18px;
+  }
+
+  &_small {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  // Add to cart variant
+  &_add-to-cart {
+    @include mixins.fonts(
+      vars.$add-to-cart-sf-font,
+      17px,
+      17px,
+      bold,
+      vars.$white
+    );
+    padding: 10px 20px;
+  }
+
+  // pagination active
+  &_pagination.is-active {
+    @include mixins.fonts(
+      vars.$add-to-cart-sf-font,
+      15px,
+      15px,
+      bold,
+      vars.$white
+    );
+    background-color: vars.$pink;
+    border-radius: 4px;
+    padding: 10px 8px;
+    margin: 0 4px;
+  }
+
+  // pagination default
+  &_pagination {
+    @include mixins.fonts(
+      vars.$add-to-cart-sf-font,
+      17px,
+      17px,
+      bold,
+      vars.$black
+    );
+    background-color: vars.$white;
+    border-radius: 4px;
+    padding: 10px 8px;
+    margin: 0 4px;
+  }
+}

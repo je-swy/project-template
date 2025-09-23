@@ -1,0 +1,234 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+.header {
+  padding-top: 24px;
+  font-family: vars.$mont-font;
+
+  @include mixins.respond(tablet) {
+    padding-top: 36px;
+  }
+  @include mixins.respond(desktop) {
+    padding-top: 48px;
+  }
+
+  /* header inner container */
+  &__inner {
+    @include mixins.flex-row(space-between, center);
+    flex-wrap: wrap;
+    row-gap: 20px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid vars.$light-grey;
+
+    @include mixins.respond(tablet) {
+      padding-bottom: 40px;
+    }
+    @include mixins.respond(desktop) {
+      padding-bottom: 50px;
+    }
+  }
+
+  &__social {
+    @include mixins.flex-row(space-between, center, 10px);
+    @include mixins.respond(mobile) {
+      flex: 0 0 auto; // on wider screens, revert to one row
+      gap: 20px;
+    }
+    a {
+      @include mixins.fonts(vars.$mont-font, 14px, 14px, bold, vars.$pink);
+      margin-right: 10px;
+
+      &:hover {
+        color: vars.$black;
+      }
+    }
+  }
+
+  .logo {
+    justify-content: center;
+
+    @include mixins.respond(mobile) {
+      flex: 0 0 auto;
+      justify-content: flex-start;
+    }
+
+    @include mixins.flex-row(space-between, center);
+    @include mixins.fonts(vars.$mont-font, 24px, 30px, bold, vars.$pink);
+    text-decoration: none;
+
+    &__img {
+      margin-right: 13px;
+    }
+  }
+
+  &__icons {
+    @include mixins.flex-row(center, center, 15px);
+    flex: 1 1 100%;
+
+    & > :nth-child(3) {
+      margin-left: auto; // making the last icon (burger) to the right
+    }
+    @include mixins.respond(mobile) {
+      flex: 0 0 auto;
+      justify-content: flex-end;
+    }
+    .icon-btn {
+      @include mixins.fonts(vars.$mont-font, 18px, 18px, 400, vars.$dark-grey);
+      background: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+
+      &:hover {
+        color: vars.$pink;
+      }
+
+      /* cart count bubble */
+      .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: vars.$pink;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        @include mixins.flex-row(center, center);
+        @include mixins.fonts(vars.$mont-font, 10px, 10px, 400, vars.$white);
+      }
+    }
+  }
+}
+
+/* burger*/
+.burger {
+  display: block;
+  width: 24px;
+  height: 18px;
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+
+  span {
+    /* the three lines of the burger */
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: vars.$black;
+    border-radius: 2px;
+    transition: 0.3s ease;
+
+    &:nth-child(1) {
+      top: 0;
+    }
+    &:nth-child(2) {
+      top: 7px;
+    }
+    &:nth-child(3) {
+      top: 14px;
+    }
+  }
+
+  /* transform the burger into a cross when active */
+  &.active span:nth-child(1) {
+    transform: rotate(45deg);
+    top: 7px;
+  }
+  &.active span:nth-child(2) {
+    opacity: 0;
+  }
+  &.active span:nth-child(3) {
+    transform: rotate(-45deg);
+    top: 7px;
+  }
+}
+
+/* nav - moobile*/
+.nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 70%;
+  height: 100%;
+  background: vars.$white;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease;
+  padding-top: 80px;
+  z-index: 1000;
+
+  &.active {
+    right: 0;
+  }
+
+  &.active {
+    color: vars.$pink;
+  }
+
+  .nav__list {
+    @include mixins.flex-column(center, flex-start, 20px);
+    padding-left: 20px;
+
+    a {
+      @include mixins.fonts(vars.$mont-font, 16px, 16px, 600, vars.$black);
+    }
+  }
+}
+
+/* nav - not mobile*/
+@include mixins.respond(mobile) {
+  .header__icons li:nth-child(3) {
+    display: none;
+  }
+
+  .nav {
+    position: static;
+    width: auto;
+    height: auto;
+    background: none;
+    box-shadow: none;
+    padding-top: 0;
+    right: 0;
+    transition: none;
+
+    .nav__list {
+      @include mixins.flex-row(center, center, 29px);
+      padding-left: 0;
+      margin: 29px 0 26px 0;
+
+      li {
+        a {
+          @include mixins.fonts(vars.$mont-font, 18px, 18px, bold, vars.$black);
+
+          &:hover {
+            color: vars.$pink;
+          }
+          &.active {
+            color: vars.$pink;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* catalog arrow */
+.arrow {
+  border: solid vars.$black;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  margin: 4px 0 4px 4px;
+  &:focus,
+  &:hover {
+    border: solid vars.$pink;
+    border-width: 0 2px 2px 0;
+    padding: 3px;
+    cursor: pointer;
+  }
+}
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}

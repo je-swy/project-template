@@ -1,0 +1,292 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+.main {
+  @include mixins.flex-column(center, center, 0);
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+  h2 {
+    @include mixins.fonts(vars.$mont-font, 40px, 40px, 900, vars.$black);
+  }
+
+  @include mixins.respond(tablet) {
+    margin-top: 95px;
+    margin-bottom: 120px;
+  }
+
+  @include mixins.respond(desktop) {
+    margin-top: 95px;
+    margin-bottom: 120px;
+  }
+}
+
+.homepage_promo {
+  @include mixins.flex-column(center, center, clamp(20px, 8vw, 60px));
+  width: 100%;
+  position: relative;
+
+  .promo {
+    &_intro {
+      width: 100%;
+      background: vars.$light-color;
+      z-index: -1;
+    }
+
+    &_heading {
+      @include mixins.respond(tablet) {
+        background: url("/src/assets/images/homepage/content-hero-bag.png")
+          center right / contain no-repeat;
+      }
+
+      @include mixins.respond(desktop) {
+        background: url("/src/assets/images/homepage/content-hero-bag.png")
+          center right / contain no-repeat;
+      }
+    }
+    &_text {
+      // margin: 30px 0;
+      padding: 40px 0;
+      max-width: 640px;
+      @include mixins.flex-column(center, flex-start, clamp(20px, 8vw, 30px));
+
+      @include mixins.respond(tablet) {
+        margin-top: 40px;
+        margin-bottom: 180px;
+        padding: 165px 0;
+      }
+
+      @include mixins.respond(desktop) {
+        padding: 165px 0;
+
+        margin-top: 40px;
+        margin-bottom: 200px;
+      }
+      h1 {
+        @include mixins.fonts(vars.$mont-font, 50px, 50px, 900, vars.$black);
+      }
+      p {
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 24px;
+        max-width: 500px;
+      }
+
+      .btn {
+        margin-bottom: 32px;
+      }
+    }
+
+    &_image {
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+
+    &_details {
+      @include mixins.respond(tablet) {
+        position: relative;
+        top: -175px;
+        z-index: 100;
+      }
+    }
+    &_box {
+      // @include mixins.respond(tablet) {
+      //   position: relative;
+      //   top: -175px;
+      //   z-index: 100;
+      // }
+
+      @include mixins.flex-column(center, stretch, 0);
+      box-shadow: 0px 20px 80px rgba(193, 199, 212, 0.702);
+
+      @include mixins.respond(tablet) {
+        flex-direction: row;
+        align-items: stretch;
+      }
+    }
+
+    &_profile,
+    &_discount {
+      flex: 1 1 0; // 1 — grow; 1 — shrink; 0 — базовий розмір
+      min-width: 0; // дозволяємо стискатися менше за ширину контенту
+      box-sizing: border-box;
+    }
+
+    &_profile {
+      flex: 1;
+      padding: clamp(40px, 8vw, 80px) clamp(20px, 6vw, 60px);
+      @include mixins.flex-column(center, flex-start, 30px);
+      background-color: vars.$white;
+    }
+
+    &_avatar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+
+      img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+      }
+
+      figcaption {
+        h3 {
+          @include mixins.fonts(vars.$mont-font, 20px, 20px, 600, vars.$black);
+          margin-bottom: 7px;
+        }
+        p {
+          @include mixins.fonts(vars.$mont-font, 17px, 17px, 400, vars.$black);
+        }
+      }
+    }
+
+    &_quote {
+      @include mixins.flex-column(space-between, flex-start, 30px);
+
+      p {
+        @include mixins.fonts(vars.$mont-font, 17px, 17px, 400, vars.$black);
+        line-height: 1.6;
+      }
+    }
+
+    &_discount {
+      flex: 1;
+      position: relative;
+
+      &-bg {
+        background-image: url("/src/assets/images/homepage/hero-right-card-photo.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(80px, 12vw, 180px) clamp(20px, 6vw, 60px);
+        min-height: 500px;
+
+        position: relative;
+
+        &::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background-color: rgba(0, 0, 0, 0.4);
+          z-index: 1;
+        }
+      }
+
+      &-content {
+        position: relative;
+        z-index: 2;
+        @include mixins.flex-column(center, center, clamp(20px, 5vw, 40px));
+        max-width: 600px;
+        text-align: center;
+
+        h2 {
+          @include mixins.fonts(vars.$mont-font, 36px, 40px, 900, vars.$white);
+        }
+
+        p {
+          @include mixins.fonts(vars.$mont-font, 16px, 18px, 400, vars.$white);
+        }
+
+        .btn {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+.carousel {
+  &__header {
+    text-align: center;
+    margin-bottom: clamp(20px, 5vw, 40px);
+
+    h2 {
+      @include mixins.fonts(vars.$mont-font, 24px, 32px, 900, vars.$black);
+    }
+
+    p {
+      @include mixins.fonts(vars.$mont-font, 14px, 16px, 400, vars.$black);
+    }
+  }
+
+  &__slides {
+    /* make UL the scrolling viewport */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+
+    display: flex;
+    gap: clamp(16px, 4vw, 32px);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  &__slide {
+    flex: 0 0 80%; /* mobile: one slide */
+    scroll-snap-align: start;
+    box-sizing: border-box;
+
+    figure {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      background-color: vars.$white;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      figcaption {
+        padding: clamp(16px, 3vw, 24px);
+
+        @include mixins.fonts(vars.$mont-font, 14px, 16px, 400, vars.$black);
+      }
+    }
+  }
+
+  &__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: vars.$white;
+    border: none;
+    padding: clamp(8px, 1.5vw, 12px);
+    cursor: pointer;
+    z-index: 2;
+    font-size: clamp(16px, 2vw, 24px);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+    &--prev {
+      left: clamp(10px, 2vw, 20px);
+    }
+
+    &--next {
+      right: clamp(10px, 2vw, 20px);
+    }
+  }
+
+  @include mixins.respond(tablet) {
+    &__slide {
+      flex: 0 0 45%; /* two slides on tablet */
+    }
+  }
+
+  @include mixins.respond(desktop) {
+    &__slide {
+      flex: 0 0 23%; /* four slides on desktop */
+    }
+  }
+}
