@@ -55,3 +55,32 @@
     <li><a href="pages/contact.html">Contact Us</a></li>
   </ul>
 </nav>
+
+<!-- Modal: Log In -->
+<div class="modal" id="loginModal" aria-hidden="true">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content" role="dialog" aria-labelledby="loginTitle" aria-modal="true">
+    <button class="modal__close" type="button" aria-label="Close" data-close>&times;</button>
+    <h2 id="loginTitle">Log In</h2>
+    <form class="login-form" id="loginForm" novalidate>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required />
+        <small class="error-msg"></small>
+      </div>
+
+      <div class="form-group password-group">
+        <label for="password">Password</label>
+        <div class="password-wrapper">
+          <input type="password" id="password" name="password" placeholder="Enter your password" required />
+          <button type="button" class="toggle-password" aria-label="Show password">
+            <img src="/src/assets/images/eye.svg" alt="Show" />
+          </button>
+        </div>
+        <small class="error-msg"></small>
+      </div>
+
+      <button type="submit" class="btn-submit">Log In</button>
+    </form>
+  </div>
+</div>

@@ -11,8 +11,23 @@
 
 <body>
     <header id="header" class="header container"></header>
+
+    <main>
+        <!-- Контейнер для картки товару -->
+        <section id="product-details" class="product-details"></section>
+
+        <!-- Блок "You May Also Like" -->
+        <section class="related">
+            <h2>You May Also Like</h2>
+            <ul id="related-products" class="product-list" role="list"></ul>
+        </section>
+    </main>
+
     <footer id="footer" class="footer"></footer>
-    <script src="/src/js/main.js"></script>
+    <script type="module" src="/src/js/product-details.js"></script>
+    <script type="module" src="/src/js/main.js"></script>
+    <script type="module" src="/src/js/header.js"></script>
+
 </body>
 
 </html>

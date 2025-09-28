@@ -1,30 +1,45 @@
-document.addEventListener("DOMContentLoaded", initSuitcasesCarousel);
+// src/js/homepage.js
+// Bootstraps homepage: loads components, data, renders blocks and attaches cart delegation.
 
-function initSuitcasesCarousel() {
-  const scrollContainer = document.getElementById("scroll-container");
-  const progressBar     = document.getElementById("scroll-progress-bar");
-  const btnLeft         = document.getElementById("scroll-left");
-  const btnRight        = document.getElementById("scroll-right");
-  const scrollAmount    = scrollContainer.clientWidth * 0.8;
+import { includeComponents } from './components-loader.js';
+import { loadProducts } from './products-data.js';
+import { renderBlock } from './product-renderer.js';
+import { attachCartDelegation } from './cart.js';
+import { initCarousel } from './carousel.js';
+import { initCartCountAuto, updateCartCountUI } from './cart-count.js';
 
-  if (!scrollContainer || !progressBar || !btnLeft || !btnRight) return;
+async function init() {
+  const products = await loadProducts();
 
-  // Оновлення прогрес-бара
-  function updateProgress() {
-    const maxScroll  = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-    const percent    = (scrollContainer.scrollLeft / maxScroll) * 100;
-    progressBar.style.width = `${percent}%`;
+  // Selected Products
+  const selected = products.filter(p => Array.isArray(p.blocks) && p.blocks.includes('Selected Products'));
+  renderBlock({ products: selected, containerSelector: '#selected-products-list', limit: 4, variant: 'grid' });
+
+  // New Products Arrival
+  const news = products.filter(p => Array.isArray(p.blocks) && p.blocks.includes('New Products Arrival'));
+  renderBlock({ products: news, containerSelector: '#new-products-list', limit: 4, variant: 'grid' });
+
+  // Recommendations (random 4)
+  const shuffled = products.slice();
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
+  const recs = shuffled.slice(0, 4);
+  renderBlock({ products: recs, containerSelector: '#recommendations-list', limit: 4, variant: 'compact' });
 
-  // Прокрутка
-  btnRight.addEventListener("click", () => {
-    scrollContainer.scrollBy({ left: scrollAmount, behavior: "smooth" });
-  });
-  btnLeft.addEventListener("click", () => {
-    scrollContainer.scrollBy({ left: -scrollAmount, behavior: "smooth" });
-  });
+  // attach cart after render
+  if (typeof attachCartDelegation === 'function') attachCartDelegation();
 
-  scrollContainer.addEventListener("scroll", updateProgress);
-  // Ініціальна ініціалізація
-  updateProgress();
+  // init cart counter
+  if (typeof initCartCountAuto === 'function') initCartCountAuto();
+  if (typeof updateCartCountUI === 'function') updateCartCountUI();
+
+  // init carousel
+  if (typeof initCarousel === 'function') initCarousel();
 }
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await includeComponents(); // load header/footer first
+  await init();              // then render homepage content
+});

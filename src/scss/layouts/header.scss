@@ -94,6 +94,36 @@
         height: 16px;
         @include mixins.flex-row(center, center);
         @include mixins.fonts(vars.$mont-font, 10px, 10px, 400, vars.$white);
+
+        /* анімація появи / приховування */
+        opacity: 0;
+        transform: scale(0.85);
+        pointer-events: none;
+        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+
+        /* Коли є items — показуємо бульбашку */
+        &.is-visible {
+          opacity: 1;
+          transform: scale(1);
+          pointer-events: auto;
+          visibility: visible;
+        }
+
+        /* захищаємо від некоректного відображення при 0 (fallback) */
+        &[data-count="0"] {
+          opacity: 0;
+          transform: scale(0.85);
+          pointer-events: none;
+          visibility: hidden;
+        }
+
+        /* невеликий візуальний хак для читабельності числа */
+        &.is-visible[data-count]:not([data-count="0"]) {
+          font-weight: 700;
+          font-size: 10px;
+          line-height: 16px;
+          text-align: center;
+        }
       }
     }
   }
@@ -231,4 +261,201 @@
 .down {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
+}
+
+/* ===================== MODAL ===================== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+
+  &.active {
+    display: flex;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+  }
+
+  &__content {
+    position: relative;
+    background: vars.$white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease;
+  }
+
+  &__close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: vars.$dark-grey;
+
+    &:hover {
+      color: vars.$pink;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+/* ===================== MODAL LOGIN ===================== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0; // shorthand для top/right/bottom/left:0
+  background: rgba(0, 0, 0, 0.5);
+  @include mixins.flex-row(center, center);
+  z-index: 2000;
+
+  &.active {
+    display: flex;
+    animation: fadeIn 0.25s ease;
+  }
+
+  &__content {
+    background: vars.$white;
+    border-radius: 8px;
+    padding: 30px 25px;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    animation: slideUp 0.3s ease;
+  }
+
+  &__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: vars.$dark-grey;
+
+    &:hover {
+      color: vars.$pink;
+    }
+  }
+}
+
+/* ===================== FORM ===================== */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    label {
+      font-weight: 600;
+      font-size: 14px;
+      color: vars.$dark-grey;
+    }
+
+    input {
+      padding: 10px 12px;
+      border: 1px solid vars.$light-grey;
+      border-radius: 5px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: vars.$pink;
+      }
+    }
+
+    .error-msg {
+      font-size: 12px;
+      color: red;
+      min-height: 14px; // щоб не стрибав макет
+    }
+  }
+
+  .password-wrapper {
+    position: relative;
+
+    input {
+      width: 100%;
+      padding-right: 40px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .btn-submit {
+    background: vars.$pink;
+    color: vars.$white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+
+    // &:hover {
+    //   background: darken(vars.$pink, 5%);
+    // }
+  }
+}
+
+/* ===================== ANIMATIONS ===================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

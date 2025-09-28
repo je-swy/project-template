@@ -2,7 +2,7 @@
 @use "../abstracts/mixins" as mixins;
 
 .main {
-  @include mixins.flex-column(center, center, 0);
+  @include mixins.flex-column(center, center, 40px);
   margin-top: 50px;
   margin-bottom: 50px;
 
@@ -13,11 +13,7 @@
   @include mixins.respond(tablet) {
     margin-top: 95px;
     margin-bottom: 120px;
-  }
-
-  @include mixins.respond(desktop) {
-    margin-top: 95px;
-    margin-bottom: 120px;
+    gap: 50px;
   }
 }
 
@@ -203,155 +199,99 @@
   }
 }
 
-.suitcases-carousel {
-  &__header {
+/* 1. Carousel */
+.carousel {
+  position: relative;
+  overflow: hidden;
+
+  &-header {
     text-align: center;
     margin-bottom: clamp(24px, 5vw, 48px);
 
-    h2 {
-      @include mixins.fonts(vars.$mont-font, 24px, 32px, 900, vars.$black);
+    &_title {
+      @include mixins.fonts(vars.$mont-font, 19px, 19px, 700, vars.$black);
     }
-    p {
-      @include mixins.fonts(vars.$mont-font, 24px, 32px, 400, vars.$black);
+
+    &_subtitle {
+      @include mixins.fonts(vars.$mont-font, 19px, 19px, 400, vars.$dark-grey);
+      margin: clamp(8px, 1.5vw, 12px) 0 0;
     }
   }
-}
 
-.scroll-wrapper {
-  position: relative;
-  padding-bottom: clamp(24px, 5vw, 48px);
-}
+  /* 2. slide list */
+  &-list {
+    @include mixins.flex-row(flex-start, flex-start, 30px);
+    overflow-x: auto; // Enables horizontal scrolling if the content overflows
+    scroll-snap-type: x mandatory; // Enables snap scrolling for horizontal scroll
+    -webkit-overflow-scrolling: touch; // Enables smooth scrolling on touch devices
+    scrollbar-width: none; // Hides the scrollbar for Firefox
 
-.scroll-container {
-  display: flex;
-  gap: clamp(16px, 4vw, 32px);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: clamp(16px, 3vw, 24px);
-  margin: 0;
-  list-style: none;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-.scroll-item {
-  flex: 0 0 100%;
-  scroll-snap-align: start;
-  box-sizing: border-box;
-  background: rgba(83, 83, 98, 0.1);
-  border: 1px solid #33333a;
-  backdrop-filter: blur(4.2px);
-  border-radius: 12px;
-  padding: clamp(24px, 4vw, 40px);
-  color: vars.$white;
-
-  figure {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
+    &::-webkit-scrollbar {
+      display: none; // Hides the scrollbar for WebKit browsers (Chrome, Safari)
+    }
   }
 
-  img {
+  /* 3. Slide as backgroud + overlay + text*/
+
+  &-item {
+    // Set the flex property to allow the item to grow and shrink with a base width of 296px
+    flex: 0 0 296px;
+    // Align the item to the start of the scroll container
+    scroll-snap-align: start;
+    // Ensure the box model includes padding and border in the element's total width and height
+    box-sizing: border-box;
+  }
+
+  &-figure {
+    position: relative;
     width: 100%;
-    height: auto;
-    display: block;
-    margin-bottom: clamp(16px, 3vw, 24px);
-  }
-
-  figcaption {
-    @include mixins.fonts(vars.$mont-font, 24px, 32px, 400, vars.$white);
-  }
-}
-
-/* Горизонтальний скрол-контейнер */
-.scroll-container {
-  @include mixins.flex-row(flex-start, flex-start, clamp(16px, 4vw, 32px));
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: clamp(24px, 5vw, 48px);
-  margin: 0;
-  list-style: none;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-/* Окремий слайд як фон + текст */
-.scroll-item {
-  flex: 0 0 100%;
-  scroll-snap-align: start;
-  box-sizing: border-box;
-
-  &__figure {
-    margin: 0;
-    height: 100%;
+    padding-top: calc(600 / 296 * 100%); // maintains the height ratio
     background-size: cover;
     background-position: center;
-    position: relative;
-    @include mixins.flex-column(flex-end, center, 0);
-  }
 
-  &__caption {
-    width: 100%;
-    background-color: rgba(vars.$black, 0.4);
-    padding: clamp(16px, 3vw, 24px);
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0; // Sets the position of the pseudo-element to cover the entire parent element
+      background-color: rgba(vars.$black, 0.4);
+    }
+  }
+  &-caption {
+    position: absolute;
+    top: 378px;
+    left: 40px;
+    right: 70px;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: clamp(8px, 1.5vw, 12px);
     box-sizing: border-box;
 
-    p {
-      @include mixins.fonts(vars.$mont-font, 16px, 18px, 400, vars.$white);
-      margin: 0;
+    &_title {
+      @include mixins.fonts(vars.$mont-font, 19px, 19px, 700, vars.$white);
+    }
+
+    &_text {
+      @include mixins.fonts(vars.$mont-font, 19px, 19px, 400, vars.$white);
     }
   }
 }
 
-/* Кнопки та прогрес-бар */
-.scroll-controls {
+/* 4. Navigation buttons */
+.carousel .carousel-prev,
+.carousel-next {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  @include mixins.flex-row(space-between, center, clamp(32px, 8vw, 64px));
-}
-
-.progress-wrapper {
-  flex: 1;
-}
-
-.scroll-progress {
-  width: 100%;
-  height: 4px;
-  background: rgba(vars.$white, 0.2);
-  border-radius: 2px;
-}
-
-.scroll-progress-bar {
-  width: 0%;
-  height: 100%;
-  background: linear-gradient(267.34deg, vars.$gold 5%, vars.$dark-grey 95%);
-  border-radius: 2px;
-  transition: width 0.2s ease-out;
-}
-
-.scroll-buttons {
-  @include mixins.flex-row(flex-start, center, clamp(12px, 2vw, 16px));
-}
-
-.scroll-button {
+  top: 50%;
+  transform: translateY(-50%);
   width: 32px;
   height: 32px;
-  background: vars.$dark-grey;
+  background-color: vars.$dark-grey;
   border: none;
   border-radius: 50%;
   @include mixins.flex-row(center, center, 0);
   cursor: pointer;
-  transition: background 0.3s, transform 0.1s;
+  transition: background-color 0.3s, transform 0.1s;
 
   img {
     filter: brightness(0) invert(1);
@@ -361,22 +301,152 @@
   &:active {
     background: linear-gradient(
       274.43deg,
-      vars.$gold -3.28%,
+      vars.$medium-grey -3.28%,
       vars.$pink 132.5%
     );
-    transform: scale(0.95);
   }
 }
 
-/* Адаптивна ширина слайдів */
-@include mixins.respond(tablet) {
-  .scroll-item {
-    flex: 0 0 80%;
+.carousel-prev {
+  left: clamp(10px, 2vw, 20px);
+}
+
+.carousel-next {
+  right: clamp(10px, 2vw, 20px);
+}
+
+.testimonials {
+  &-header {
+    text-align: center;
+    margin-bottom: clamp(24px, 5vw, 48px);
+
+    &_title {
+      @include mixins.fonts(vars.$mont-font, 19px, 19px, 700, vars.$black);
+    }
+
+    &_subtitle {
+      @include mixins.fonts(vars.$mont-font, 19px, 19px, 400, vars.$dark-grey);
+      margin: clamp(8px, 1.5vw, 12px) 0 0;
+    }
+  }
+
+  .testionials-reviews {
+    @include mixins.flex-column(center, center, 20px);
+
+    @include mixins.respond(tablet) {
+      @include mixins.flex-row(center, center, 20px);
+      flex-wrap: wrap;
+    }
+  }
+
+  &-review {
+    box-shadow: 0px 20px 80px rgba(193, 199, 212, 0.702);
+    @include mixins.flex-column(center, center, 25px);
+    padding: clamp(20px, 4vw, 40px);
+    text-align: center;
+    max-width: 400px;
+    img {
+      border-radius: 50%;
+    }
+
+    p {
+      @include mixins.fonts(vars.$mont-font, 17px, 17px, 400, vars.$black);
+      line-height: 1.6;
+    }
+
+    h3 {
+      @include mixins.fonts(vars.$mont-font, 17px, 17px, bold, vars.$pink);
+    }
   }
 }
 
-@include mixins.respond(desktop) {
-  .scroll-item {
-    flex: 0 0 33.333%;
+.offer {
+  background: url("/src/assets/images/homepage/banner.jpg") center/cover
+    no-repeat;
+  background-size: 600%;
+  // inner block with content
+  @include mixins.respond(tablet) {
+    @include mixins.flex-row(space-between, center, clamp(40px, 8vw, 50px));
+    background-size: 250%;
+  }
+  @include mixins.respond(tablet) {
+    @include mixins.flex-row(space-between, center, clamp(40px, 8vw, 60px));
+    background-size: 150%;
+  }
+  // overlay
+
+  &__inner {
+    width: 100%;
+    padding: clamp(24px, 5vw, 48px);
+
+    @include mixins.flex-column(center, center, clamp(24px, 4vw, 40px));
+
+    @include mixins.respond(tablet) {
+      @include mixins.flex-row(space-between, center, clamp(40px, 8vw, 60px));
+    }
+  }
+
+  // Left block with discount
+  &__discount {
+    text-align: center;
+
+    .offer__percent {
+      @include mixins.fonts(vars.$mont-font, 100px, 236px, 900, vars.$white);
+      margin: 0;
+    }
+
+    .offer__promo {
+      @include mixins.fonts(
+        vars.$mont-font,
+        20px,
+        20px,
+        400,
+        vars.$light-color
+      );
+      margin: clamp(8px, 2vw, 16px) 0 0;
+    }
+  }
+
+  // Right block with information
+  &__info {
+    text-align: center;
+
+    @include mixins.flex-column(center, center, clamp(16px, 2.5vw, 24px));
+    padding: clamp(24px, 5vw, 40px);
+    @include mixins.respond(tablet) {
+      text-align: left;
+      justify-content: flex-start;
+    }
+
+    .offer__title {
+      @include mixins.fonts(vars.$mont-font, 32px, 40px, 900, vars.$white);
+    }
+
+    .offer__subtitle {
+      @include mixins.fonts(
+        vars.$mont-font,
+        16px,
+        18px,
+        400,
+        vars.$light-color
+      );
+      margin: clamp(12px, 2vw, 20px) 0 0;
+      max-width: 480px;
+    }
+  }
+}
+
+/* Match existing HTML: .products__header, .products__header_title, .products__header_subtitle */
+.products__header {
+  text-align: center;
+  margin-bottom: clamp(24px, 5vw, 48px);
+
+  &__title {
+    @include mixins.fonts(vars.$mont-font, 19px, 19px, 700, vars.$black);
+  }
+
+  &__subtitle {
+    @include mixins.fonts(vars.$mont-font, 19px, 19px, 400, vars.$dark-grey);
+    margin: clamp(8px, 1.5vw, 12px) 0 0;
   }
 }

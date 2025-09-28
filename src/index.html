@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -65,78 +64,159 @@
       </section>
     </section>
 
-    <section class="suitcases-carousel section container">
-      <header class="suitcases-carousel__header">
-        <h2>Travel suitcases</h2>
-        <p>Duis vestibulum elit vel neque pharetra</p>
+    <section class="carousel container" aria-label="Travel suitcases">
+      <header class="carousel-header">
+        <h2 class="carousel-header_title">Travel suitcases</h2>
+        <p class="carousel-header_subtitle">Duis vestibulum elit vel neque pharetra</p>
       </header>
 
-      <div class="scroll-wrapper">
-        <ul class="scroll-container" id="scroll-container" role="list">
-          <li class="scroll-item">
-            <figure class="scroll-item__figure"
-              style="background-image: url('/src/assets/images/homepage/travel-suitcase-1.jpg')">
-              <figcaption class="scroll-item__caption">
-                Duis vestibulum elit vel neque.<br />
+      <ul class="carousel-list" id="carousel-list" role="list">
+        <li class="carousel-item">
+          <figure class="carousel-figure"
+            style="background-image: url('/src/assets/images/homepage/travel-suitcase-1.jpg')">
+            <figcaption class="carousel-caption">
+              <h3 class="carousel-caption_title">
+                Duis vestibulum elit vel neque.
+              </h3>
+              <p class="carousel-caption_text">
                 Duis vestibulum vel neque pharetra vulputate. Quisque scelerisque nisi.
-              </figcaption>
-            </figure>
-          </li>
-
-          <li class="scroll-item">
-            <figure class="scroll-item__figure"
-              style="background-image: url('/src/assets/images/homepage/travel-suitcase-2.jpg')">
-              <figcaption class="scroll-item__caption">
-                Neque vestibulum elit vel neque.<br />
+              </p>
+            </figcaption>
+          </figure>
+        </li>
+        <li class="carousel-item">
+          <figure class="carousel-figure"
+            style="background-image: url('/src/assets/images/homepage/travel-suitcase-2.jpg')">
+            <figcaption class="carousel-caption">
+              <h3 class="carousel-caption_title">
+                Neque vestibulum elit neque.
+              </h3>
+              <p class="carousel-caption_text">
                 Duis vestibulum vel neque pharetra vulputate. Quisque scelerisque nisi.
-              </figcaption>
-            </figure>
-          </li>
-
-          <li class="scroll-item">
-            <figure class="scroll-item__figure"
-              style="background-image: url('/src/assets/images/homepage/travel-suitcase-3.jpg')">
-              <figcaption class="scroll-item__caption">
-                Elituis vestibulum elit vel neque.<br />
+              </p>
+            </figcaption>
+          </figure>
+        </li>
+        <li class="carousel-item">
+          <figure class="carousel-figure"
+            style="background-image: url('/src/assets/images/homepage/travel-suitcase-3.jpg')">
+            <figcaption class="carousel-caption">
+              <h3 class="carousel-caption_title">
+                Elituis vestibulum elit vel neque.
+              </h3>
+              <p class="carousel-caption_text">
                 Duis vestibulum vel neque pharetra vulputate. Quisque scelerisque nisi.
-              </figcaption>
-            </figure>
-          </li>
-
-          <li class="scroll-item">
-            <figure class="scroll-item__figure"
-              style="background-image: url('/src/assets/images/homepage/travel-suitcase-4.jpg')">
-              <figcaption class="scroll-item__caption">
-                Vel vestibulum elit tuvel equen.<br />
+              </p>
+            </figcaption>
+          </figure>
+        </li>
+        <li class="carousel-item">
+          <figure class="carousel-figure"
+            style="background-image: url('/src/assets/images/homepage/travel-suitcase-4.jpg')">
+            <figcaption class="carousel-caption">
+              <h3 class="carousel-caption_title">
+                Vel vestibulum elit vel euqen.
+              </h3>
+              <p class="carousel-caption_text">
                 Duis vestibulum vel neque pharetra vulputate. Quisque scelerisque nisi.
-              </figcaption>
-            </figure>
-          </li>
-        </ul>
+              </p>
+            </figcaption>
+          </figure>
+        </li>
+      </ul>
 
-        <div class="scroll-controls">
-          <div class="progress-wrapper">
-            <div class="scroll-progress">
-              <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
-            </div>
-          </div>
-          <div class="scroll-buttons">
-            <button class="scroll-button" id="scroll-left" aria-label="Previous"><img
-                src="/src/assets/images/homepage/meteor-icons_arrow-left.svg" alt="" /></button>
-            <button class="scroll-button" id="scroll-right" aria-label="Next"><img
-                src="/src/assets/images/homepage/meteor-icons_arrow-right.svg" alt="" /></button>
-          </div>
-        </div>
+      <button class="carousel-prev" aria-label="Previous slide">
+        <img src="/src/assets/images/homepage/meteor-icons_arrow-left.svg" alt="" />
+      </button>
+      <button class="carousel-next" aria-label="Next slide">
+        <img src="/src/assets/images/homepage/meteor-icons_arrow-right.svg" alt="" />
+      </button>
+    </section>
+
+    <!-- Selected Products -->
+    <section class="products container" aria-label="Selected Products">
+      <!-- <div class=""> -->
+      <header class="products__header">
+        <h2 class="products__header_title">Selected Products</h2>
+        <p class="products__header_subtitle">Duis vestibulum elit vel neque pharetra.</p>
+      </header>
+      <ul id="selected-products-list" class="products__list" role="list" aria-live="polite"></ul>
+      <!-- </div> -->
+    </section>
+
+    <section class="offer container" aria-label="Offer Of The Month">
+      <article class="offer__inner ">
+        <div class="offer__discount">
+          <h2 class="offer__percent">50%</h2>
+          <p class="offer__promo">
+            Curabitur vulputate arcu odio, ac facilisis diam.
+          </p>
+      </article>
+
+      <article class="offer__info">
+        <h3 class="offer__title">Offer Of The Month</h3>
+        <p class="offer__subtitle">
+          Curabitur vulputate arcu odio, ac facilisis diam accumsan ut.
+          Ut imperdiet et leo in vulputate.
+        </p>
+        <a href="#" class="offer__btn btn btn_pink btn_big">
+          Get Offer Today
+        </a>
+      </article>
       </div>
     </section>
 
+    <!-- New Products Arrival -->
+    <section class="products container" aria-label="New Products Arrival">
+      <!-- <div class="container"> -->
+      <header class="products__header">
+        <h2 class="products__header_title">New Products Arrival</h2>
+        <p class="products__header_subtitle">Duis vestibulum elit vel neque pharetra.</p>
+      </header>
+      <ul id="new-products-list" class="products__list" role="list" aria-live="polite"></ul>
+      <!-- </div> -->
+    </section>
 
+    <!-- Testimonials -->
+    <section class="testimonials container">
+      <header class="testimonials-header">
+        <h2 class="testimonials-header_title">Our Grateful Customers</h2>
+        <p class="testimonials-header_subtitle">Duis vestibulum elit vel neque pharetra</p>
+      </header>
 
+      <section class="testionials-reviews">
+        <article class="testimonials-review">
+          <img src="/src/assets/images/homepage/testimonials-1.jpg" alt="" class="testimonials-img">
+          <p>
+            Curabitur vulputate arcu odio, ac facilisis diam accumsan ut. Ut mperdiet et leo in vulputate.
+          </p>
+          <h3>Ethan Wade, New York</h3>
+        </article>
+        <article class="testimonials-review">
+          <img src="/src/assets/images/homepage/testimonials-2.jpg" alt="" class="testimonials-img">
+          <p>
+            Curabitur vulputate arcu odio, ac facilisis diam accumsan ut. Ut mperdiet et leo in vulputate.
+          </p>
+          <h3>Jane Reyes, California</h3>
+        </article>
+        <article class="testimonials-review">
+          <img src="/src/assets/images/homepage/testimonials-3.jpg" alt="" class="testimonials-img">
+          <p>
+            Curabitur vulputate arcu odio, ac facilisis diam accumsan ut. Ut mperdiet et leo in vulputate.
+          </p>
+          <h3>Erica Banks, Miami</h3>
+        </article>
+      </section>
+    </section>
   </main>
 
   <footer id="footer" class="footer"></footer>
-  <script src="js/main.js" defer></script>
-  <script src="js/homepage.js" defer></script>
+
+  <script type="module" src="js/main.js" defer></script>
+
+  <script type="module" src="/src/js/homepage.js" defer></script>
+  <!-- <script type="module" src="/src/js/modal.js" defer></script> -->
+
 </body>
 
 </html>

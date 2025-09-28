@@ -1,0 +1,88 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+.products__list,
+.product-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+
+  @include mixins.respond(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include mixins.respond(desktop) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.product-card {
+  position: relative;
+  background: vars.$white;
+  overflow: hidden;
+  box-shadow: 0px 20px 80px rgba(193, 199, 212, 0.702);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border-radius: 8px;
+
+  &__badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    @include mixins.fonts(vars.$mont-font, 12px, 12px, 700, vars.$white);
+    background: vars.$pink;
+    padding: 6px 8px;
+    z-index: 2;
+    border-radius: 4px;
+  }
+
+  &__link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__img {
+    width: 100%;
+    height: 296px;
+    object-fit: cover;
+    display: block;
+    background: vars.$light-color;
+  }
+
+  &__body {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+    align-items: center;
+  }
+
+  &__name {
+    @include mixins.fonts(vars.$mont-font, 17px, 19px, 600, vars.$black);
+    color: vars.$black;
+    max-width: 220px;
+    text-decoration: none;
+  }
+
+  &__price {
+    @include mixins.fonts(vars.$mont-font, 15px, 17px, 700, vars.$dark-grey);
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  &--compact {
+    &__img {
+      height: 160px;
+    }
+  }
+}
