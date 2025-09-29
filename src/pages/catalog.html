@@ -54,13 +54,9 @@
                     </ul>
                 </fieldset>
 
-                <fieldset class="filter-item" data-filter="salesStatus">
-                    <legend class="filter-label">On sale <span class="filter-selected">Any</span></legend>
-                    <ul class="filter-list" role="listbox" tabindex="-1" aria-label="Sale options">
-                        <li role="option" data-value="">Any</li>
-                        <li role="option" data-value="true">On sale</li>
-                        <li role="option" data-value="false">Not on sale</li>
-                    </ul>
+                <fieldset class="filter-item filter-item_checkbox" data-filter="salesStatus">
+                    <input type="checkbox" id="sales-checkbox" name="salesStatus" value="true">
+                    <label for="sales-checkbox">On sale</label>
                 </fieldset>
 
                 <fieldset class="filter-item search" data-filter="search">
@@ -68,21 +64,49 @@
                     <input id="catalog-search" class="filter-input" name="q" type="search"
                         placeholder="Search products by name or id" aria-label="Search products" />
                 </fieldset>
-
-                <nav class="filter-actions" role="toolbar" aria-label="Filter actions">
-                    <button type="button" id="filter-clear" class="btn btn_outline">CLEAR FILTERS</button>
-                    <button type="button" id="filter-toggle-compact" class="btn" aria-pressed="false">HIDE
-                        FILTERS</button>
-                </nav>
             </form>
+            <nav class="filter-actions" role="toolbar" aria-label="Filter actions">
+                <button type="button" id="filter-clear" class="btn btn_outline">CLEAR FILTERS</button>
+                <button type="button" id="filter-toggle-compact" class="btn" aria-pressed="false">HIDE
+                    FILTERS</button>
+            </nav>
+        </section>
+
+        <section class="catalog-controls">
+            <select id="sort-select" class="sort-select" aria-label="Sort products by">
+                <option value="default">Default Sorting</option>
+                <option value="price-asc">Sort by price: lowest to highest</option>
+                <option value="price-desc">Sort by price: highest to lowest</option>
+                <option value="popularity">Sort by popularity</option>
+                <option value="rating">Sort by rating</option>
+            </select>
         </section>
 
         <ul id="catalog-list" class="products__list" role="list"></ul>
+
+        </ul>
+        <footer class="catalog-footer">
+            <p class="catalog-results" id="catalog-results"></p>
+            <nav class="pagination" id="pagination-controls" aria-label="Pagination"></nav>
+        </footer>
+
+        <aside class="catalog-sidebar">
+            <header class="search-widget">
+                <input type="search" id="catalog-search" placeholder="Search products...">
+                <button type="button" aria-label="Search">🔍</button>
+            </header>
+            <section class="top-sets-widget" id="top-sets-container">
+                <h3 class="widget-title">Top Best Sets</h3>
+                <ul class="widget-list">
+                </ul>
+            </section>
+        </aside>
+
     </main>
     <footer id="footer" class="footer"></footer>
     <script type="module" src="/src/js/main.js"></script>
-
-    <script type="module">
+    <script type="module" src="../js/catalog.js"></script>
+    <!-- <script type="module">
         import { loadProducts } from '../js/products-data.js';
         import { renderBlock } from '../js/product-renderer.js';
         import { attachCartDelegation } from '../js/cart.js';
@@ -100,7 +124,7 @@
 
         attachCartDelegation();
         initCartCountAuto();
-    </script>
+    </script> -->
 </body>
 
 </html>

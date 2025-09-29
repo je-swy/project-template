@@ -5,7 +5,7 @@
 import { getCartItems, setCartItems } from './cart-ui.js';
 import { loadProducts } from './products-data.js';
 
-export function attachCartDelegation() {
+export function attachCartDelegation () {
   document.body.addEventListener('click', async (e) => {
     const btn = e.target.closest('[data-action="add-to-cart"]');
     if (!btn) return;
@@ -29,7 +29,7 @@ export function attachCartDelegation() {
   });
 }
 
-function addToCart(product) {
+function addToCart (product) {
   const items = getCartItems(); // array of items in cart { ...product, qty }
   // Use unique key for cart item: product id (prefer id, fallback to _rendererId)
   const key = String(product.id ?? product._rendererId ?? product.sku ?? '');

@@ -8,14 +8,16 @@ const CART_COUNT_SELECTOR = '.cart-count';
 /**
  * Compute total quantity across items.
  */
-export function computeCartTotal(items = []) {
+
+export function computeCartTotal (items = []) {
   return items.reduce((sum, it) => sum + (Number(it.qty) || 0), 0);
 }
 
 /**
  * Update the DOM counter: data-count, textContent, aria-hidden, is-visible class.
  */
-export function updateCartCountUI() {
+
+export function updateCartCountUI () {
   const el = document.querySelector(CART_COUNT_SELECTOR);
   if (!el) return;
   const items = getCartItems();
@@ -32,7 +34,7 @@ export function updateCartCountUI() {
  * Initialize counter UI and subscribe to storage events to stay in sync across tabs.
  * Call this after DOM is ready.
  */
-export function initCartCountAuto() {
+export function initCartCountAuto () {
   updateCartCountUI();
 
   // Listen to storage events (other tabs/windows)

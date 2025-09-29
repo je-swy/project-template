@@ -1,7 +1,7 @@
 // src/js/renderer.js
 
 // Safe escape for HTML attributes/text
-export function esc(s = '') {
+export function esc (s = '') {
   return String(s).replace(/[&<>"']/g, c => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   }[c]));
@@ -15,7 +15,7 @@ export function esc(s = '') {
  * - assets/... → додаємо /src/
  * - тільки ім'я файлу → додаємо /src/assets/images/suitcases/
  */
-export function resolveAssetPath(path = '') {
+export function resolveAssetPath (path = '') {
   const p = String(path).trim();
   if (!p || p === 'false') return '';
 
@@ -32,6 +32,7 @@ export function resolveAssetPath(path = '') {
   if (p.startsWith('assets/')) return '/src/' + p;
 
   // Якщо лише ім’я файлу → підставляємо suitcases/
+  // eslint-disable-next-line no-useless-escape
   if (/^[^\/]+\.(jpg|jpeg|png|webp|gif|svg)$/i.test(p)) {
     return `/src/assets/images/suitcases/${p}`;
   }
@@ -42,7 +43,7 @@ export function resolveAssetPath(path = '') {
 /**
  * Render list of products inside containerSelector.
  */
-export function renderBlock({ products = [], containerSelector, limit = 4, variant = 'grid' } = {}) {
+export function renderBlock ({ products = [], containerSelector, limit = 4, variant = 'grid' } = {}) {
   const container = document.querySelector(containerSelector);
   if (!container) {
     console.warn('renderBlock: container not found', containerSelector);
@@ -55,21 +56,21 @@ export function renderBlock({ products = [], containerSelector, limit = 4, varia
 /**
  * Create HTML for single product card
  */
-export function productToHtml(p = {}, { variant = 'grid' } = {}) {
+export function productToHtml (p = {}, { variant = 'grid' } = {}) {
   const id = esc(p.id ?? p.sku ?? '');
   const title = esc(p.name ?? p.title ?? 'Unnamed product');
 
-  let rawThumb = p.thumbnail
-    ?? (Array.isArray(p.images) && p.images[0])
-    ?? p.imageUrl
-    ?? p.image
-    ?? p.src
-    ?? '';
+  let rawThumb = p.thumbnail ??
+   (Array.isArray(p.images) && p.images[0]) ??
+   p.imageUrl ??
+   p.image ??
+   p.src ?? '';
 
   if (rawThumb === 'false') rawThumb = '';
 
   const finalSrc = resolveAssetPath(rawThumb);
 
+  // eslint-disable-next-line quotes
   const badge = p.salesStatus ? `<span class="product-card__badge">SALE</span>` : '';
   const nameLink = `/src/pages/product-details-template.html?id=${encodeURIComponent(id)}`;
   const compactClass = variant === 'compact' ? ' product-card--compact' : '';

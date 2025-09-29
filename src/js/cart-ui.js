@@ -7,7 +7,7 @@ const CART_KEY = 'cart_v1';
  * Return cart items array from localStorage.
  * Always returns an array.
  */
-export function getCartItems() {
+export function getCartItems () {
   try {
     return JSON.parse(localStorage.getItem(CART_KEY) || '[]');
   } catch (e) {
@@ -20,7 +20,7 @@ export function getCartItems() {
  * Persist cart items array to localStorage.
  * Returns the items for convenience.
  */
-export function setCartItems(items = []) {
+export function setCartItems (items = []) {
   try {
     localStorage.setItem(CART_KEY, JSON.stringify(items));
     // Update storage event manually for other windows is automatic;
@@ -34,7 +34,7 @@ export function setCartItems(items = []) {
 /**
  * Clear cart.
  */
-export function clearCart() {
+export function clearCart () {
   try {
     localStorage.removeItem(CART_KEY);
     window.dispatchEvent(new CustomEvent('cart-updated', { detail: { items: [] } }));

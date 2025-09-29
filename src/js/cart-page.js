@@ -9,7 +9,7 @@ function renderCart() {
   if (!list || !totalEl) return;
 
   if (!items.length) {
-    list.innerHTML = '<li class="cart__empty">Кошик порожній</li>';
+    list.innerHTML = '<li class="cart__empty">Cart is empty</li>';
     totalEl.textContent = '$0';
     return;
   }

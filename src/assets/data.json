@@ -14,10 +14,10 @@
       "blocks": ["New Products Arrival", "Selected Products"]
     },
     {
-      "id": "SU0021",
+      "id": "SU021",
       "name": "Global Explorer Max Comfort Suitcase Pro",
       "price": 250,
-      "imageUrl": "src/src/assets/images/suitcases/image1.jpg",
+      "imageUrl": "src/assets/images/suitcases/image1.jpg",
       "category": "suitcases",
       "color": "red",
       "size": "M",

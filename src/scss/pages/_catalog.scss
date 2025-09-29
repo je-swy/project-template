@@ -23,7 +23,6 @@
       align-items: center;
       gap: 8px;
       padding: 8px 12px;
-      border-radius: 8px;
       background: vars.$white;
       border: 1px solid rgba(0, 0, 0, 0.06);
       cursor: pointer;
@@ -114,4 +113,155 @@
       min-width: 320px;
     }
   }
+}
+
+.filter-item_checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: vars.$white;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+
+  label {
+    font-weight: 600;
+    cursor: pointer;
+    // Prevent text selection on click
+    user-select: none;
+  }
+
+  input[type="checkbox"] {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+// src/scss/pages/_catalog.scss
+
+// ... твої існуючі стилі ...
+
+.catalog-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  padding: 20px 0;
+  border-top: 1px solid #eee;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center; // <-- Додай цей рядок
+  flex-grow: 1; // Дозволяє блоку зайняти вільне місце для центрування
+  gap: 8px;
+
+  .btn {
+    // Використовуємо існуючий клас .btn
+    padding: 8px 16px;
+    font-size: 14px;
+
+    &[disabled] {
+      background-color: #ccc;
+      cursor: not-allowed;
+      border-color: #ccc;
+    }
+  }
+}
+
+.catalog {
+  .products__list {
+    @include mixins.respond(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include mixins.respond(desktop) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+.catalog-controls {
+  display: flex;
+  justify-content: flex-end; // Розміщуємо справа
+  margin-bottom: 20px;
+}
+
+.sort-select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  min-width: 220px;
+  background-color: #fff;
+  font-weight: 600;
+}
+
+.catalog {
+  @include mixins.grid(1fr, auto, 30px); // 1 колонка для мобільних
+  margin-top: 30px;
+
+  @include mixins.respond(tablet) {
+    grid-template-columns: 3fr 1fr; // 2 колонки для планшетів і вище
+  }
+
+  // Специфічне правило для сітки товарів на цій сторінці
+  .products__list {
+    @include mixins.respond(desktop) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+// Стилі для сайдбару
+.catalog-sidebar {
+  @include mixins.flex-column(flex-start, stretch, 30px);
+}
+
+.search-widget {
+  display: flex; // Flex тут краще підходить для двох елементів в ряд
+  input {
+    width: 100%;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px 0 0 4px;
+  }
+  button {
+    border: 1px solid #ddd;
+    border-left: none;
+    background: #f5f5f5;
+    padding: 0 12px;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+  }
+}
+
+.widget-title {
+  @include mixins.fonts(vars.$mont-font, 18px, 18px, 700, vars.$black);
+  margin-bottom: 15px;
+}
+
+.widget-list {
+  @include mixins.flex-column(flex-start, stretch, 15px);
+  li {
+    @include mixins.flex-row(flex-start, center, 10px);
+    font-size: 14px;
+  }
+  img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+  }
+}
+
+// Допоміжний клас для прихованих заголовків
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
