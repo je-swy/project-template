@@ -2,9 +2,8 @@
 import { loadProducts } from './products-data.js';
 import { resolveAssetPath, esc, productToHtml } from './product-renderer.js';
 import { attachCartDelegation } from './cart.js';
-import { initCartCountAuto } from './cart-count.js';
 
-async function initProductDetails() {
+export async function initProductDetails() {
   const params = new URLSearchParams(window.location.search);
   const productId = params.get('id');
 
@@ -54,9 +53,4 @@ async function initProductDetails() {
   }
 
   attachCartDelegation();
-  // initCartCountAuto();
 }
-
-
-
-document.addEventListener('DOMContentLoaded', initProductDetails);

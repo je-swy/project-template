@@ -1,14 +1,12 @@
 // src/js/homepage.js
 // Bootstraps homepage: loads components, data, renders blocks and attaches cart delegation.
 
-import { includeComponents } from './components-loader.js';
-import { loadProducts } from './products-data.js';
 import { renderBlock } from './product-renderer.js';
+import { loadProducts } from './products-data.js';
 import { attachCartDelegation } from './cart.js';
 import { initCarousel } from './carousel.js';
-import { initCartCountAuto, updateCartCountUI } from './cart-count.js';
 
-async function init() {
+export async function initHomepage() {
   const products = await loadProducts();
 
   // Selected Products
@@ -38,8 +36,3 @@ async function init() {
   // init carousel
   if (typeof initCarousel === 'function') initCarousel();
 }
-
-document.addEventListener('DOMContentLoaded', async () => {
-  await includeComponents(); // load header/footer first
-  await init();              // then render homepage content
-});

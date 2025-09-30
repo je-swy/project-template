@@ -130,7 +130,7 @@ function handleStateChange() {
   updateProductList();
 }
 
-async function initCatalog() {
+export async function initCatalog() {
   allProducts = await loadProducts('../assets/data.json');
   updateProductList();
   renderTopSets();
@@ -195,5 +195,3 @@ async function initCatalog() {
     hideFiltersBtn.textContent = filtersContainer.classList.contains('compact') ? 'SHOW FILTERS' : 'HIDE FILTERS';
   });
 }
-
-initCatalog();

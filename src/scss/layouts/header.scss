@@ -411,3 +411,21 @@
     opacity: 1;
   }
 }
+
+.form-options {
+  @include mixins.flex-row(space-between, center);
+  font-size: 13px;
+}
+
+.form-group-checkbox {
+  @include mixins.flex-row(flex-start, center, 8px);
+}
+
+.forgot-password {
+  color: vars.$pink;
+  font-weight: bold;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
