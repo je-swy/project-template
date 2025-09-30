@@ -297,7 +297,6 @@
     z-index: 2;
     position: relative;
     background: vars.$white;
-    border-radius: 8px;
     padding: 30px 35px;
     width: 100%;
     max-width: 450px;
@@ -349,7 +348,6 @@
     input {
       padding: 12px 15px;
       border: 1px solid vars.$light-grey;
-      border-radius: 5px;
       font-size: 14px;
       outline: none;
       transition: border-color 0.2s;

@@ -12,7 +12,6 @@
     max-width: 960px;
     gap: 2rem;
     background: vars.$white;
-    border-radius: 8px;
     box-shadow: 0px 20px 80px rgba(193, 199, 212, 0.3);
     padding: 2rem;
   }
@@ -23,7 +22,6 @@
 
   &__img {
     width: 100%;
-    border-radius: 8px;
     object-fit: cover;
   }
 
@@ -79,5 +77,91 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 1rem;
+  }
+}
+
+// src/scss/pages/_product-details.scss
+
+.product-details {
+  padding-top: 40px;
+}
+
+.product-details__card {
+  @include mixins.grid(1fr, auto, 30px);
+  @include mixins.respond(tablet) {
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+  }
+}
+
+.thumbnail-gallery {
+  @include mixins.flex-row(flex-start, center, 10px);
+  margin-top: 15px;
+  img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    &.active {
+      border-color: vars.$pink;
+    }
+  }
+}
+
+.product-details__info {
+  @include mixins.flex-column(flex-start, flex-start, 15px);
+  select {
+    width: 100%;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    cursor: not-allowed;
+  }
+}
+
+.product-details__rating {
+  color: vars.$gold;
+  font-size: 18px;
+}
+
+// Стилі для вкладок
+.product-tabs-container {
+  margin-top: 60px;
+  border-top: 1px solid #eee;
+  padding-top: 40px;
+}
+
+.product-tabs__nav {
+  @include mixins.flex-row(center, center, 20px);
+  margin-bottom: 30px;
+}
+
+.product-tabs__btn {
+  @include mixins.fonts(vars.$mont-font, 16px, 18px, 600, vars.$dark-grey);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 10px;
+  cursor: pointer;
+  &.active {
+    color: vars.$pink;
+    border-bottom-color: vars.$pink;
+  }
+}
+
+.product-tabs__pane {
+  display: none;
+  &.active {
+    display: block;
+  }
+}
+
+// Стилі для форми відгуків
+#review-form {
+  max-width: 600px;
+  .form-message {
+    margin-top: 15px;
+    font-weight: bold;
   }
 }

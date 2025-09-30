@@ -101,7 +101,9 @@ function updateProductList() {
   if (searchQuery) productsToRender = productsToRender.filter(p => p.name.toLowerCase().includes(searchQuery) || p.id.toLowerCase().includes(searchQuery));
   if (activeFilters.category) productsToRender = productsToRender.filter(p => p.category === activeFilters.category);
   if (activeFilters.color) productsToRender = productsToRender.filter(p => p.color === activeFilters.color);
-  if (activeFilters.size) productsToRender = productsToRender.filter(p => p.size === activeFilters.size);
+  if (activeFilters.size) {
+    productsToRender = productsToRender.filter(p => activeFilters.size.includes(p.size));
+  }
   if (activeFilters.salesStatus === 'true') productsToRender = productsToRender.filter(p => p.salesStatus === true);
   const sortBy = activeFilters.sortBy;
   if (sortBy === 'price-asc') productsToRender.sort((a, b) => a.price - b.price);
@@ -121,7 +123,7 @@ function updateProductList() {
   renderPagination(totalPages);
   updateResultsCount(totalFilteredProducts, paginatedProducts);
   if (totalFilteredProducts === 0) {
-    productListContainer.innerHTML = '<p>На жаль, за вашим запитом нічого не знайдено.</p>';
+    productListContainer.innerHTML = '<p>Product not found.</p>';
   }
 }
 

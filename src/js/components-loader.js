@@ -2,7 +2,6 @@
 
 import { initCartCountAuto } from './cart-count.js';
 
-// --- Допоміжна функція для виправлення шляхів ---
 function fixComponentLinks(basePath, componentElement) {
   componentElement.querySelectorAll('a[href]').forEach(link => {
     const href = link.getAttribute('href');
@@ -18,9 +17,7 @@ function fixComponentLinks(basePath, componentElement) {
   });
 }
 
-// --- Функція для ініціалізації ВСІХ компонентів хедера ---
 function initHeaderComponents() {
-  // 1. Логіка для модального вікна
   const openModalBtn = document.querySelector('.icon-btn[aria-label="User account"]');
   const modal = document.getElementById('loginModal');
   
@@ -33,10 +30,12 @@ function initHeaderComponents() {
 
     const openModal = () => {
       modal.hidden = false;
+      document.body.style.overflow = 'hidden';
     };
 
     const closeModal = () => {
       modal.hidden = true;
+      document.body.style.overflow = '';
       if (form) {
           form.reset();
           emailInput.nextElementSibling.textContent = '';
@@ -57,7 +56,6 @@ function initHeaderComponents() {
     if (form) {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
-            // ... (тут вся логіка валідації)
             let isValid = true;
             const emailValue = emailInput.value.trim();
             const emailErrorMsg = emailInput.nextElementSibling;
@@ -84,46 +82,42 @@ function initHeaderComponents() {
     }
   }
 
-  // 2. Логіка для бургер-меню
   const burger = document.querySelector('.burger');
   const nav = document.querySelector('.nav');
   if (burger && nav) {
     burger.addEventListener('click', () => {
       burger.classList.toggle('active');
       nav.classList.toggle('active');
+      document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
     });
   }
 
-  // 3. Ініціалізація лічильника кошика
   initCartCountAuto();
 }
 
-
-// --- ГОЛОВНА ФУНКЦІЯ ЗАВАНТАЖЕННЯ ---
 export async function includeComponents() {
   const isInPages = window.location.pathname.includes('/pages/');
   const base = isInPages ? '../' : './';
   const headerPath = `${base}components/header.html`;
   const footerPath = `${base}components/footer.html`;
 
-  // Завантажуємо хедер
   try {
     const response = await fetch(headerPath);
+    if (!response.ok) throw new Error('Header not found');
     const html = await response.text();
     const headerEl = document.getElementById('header');
     if (headerEl) {
       headerEl.innerHTML = html;
       fixComponentLinks(base, headerEl);
-      // Ініціалізуємо скрипти ТІЛЬКИ ПІСЛЯ вставки HTML
       initHeaderComponents();
     }
   } catch (error) {
     console.error('Failed to load header:', error);
   }
   
-  // Завантажуємо футер
   try {
     const response = await fetch(footerPath);
+    if (!response.ok) throw new Error('Footer not found');
     const html = await response.text();
     const footerEl = document.getElementById('footer');
     if (footerEl) {
