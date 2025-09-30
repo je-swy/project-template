@@ -2,6 +2,7 @@
 
 import { initCartCountAuto } from './cart-count.js';
 
+// --- Допоміжна функція для виправлення шляхів ---
 function fixComponentLinks(basePath, componentElement) {
   componentElement.querySelectorAll('a[href]').forEach(link => {
     const href = link.getAttribute('href');
@@ -17,124 +18,119 @@ function fixComponentLinks(basePath, componentElement) {
   });
 }
 
+// --- Функція для ініціалізації ВСІХ компонентів хедера ---
+function initHeaderComponents() {
+  // 1. Логіка для модального вікна
+  const openModalBtn = document.querySelector('.icon-btn[aria-label="User account"]');
+  const modal = document.getElementById('loginModal');
+  
+  if (openModalBtn && modal) {
+    const form = modal.querySelector('#loginForm');
+    const emailInput = modal.querySelector('#email');
+    const passwordInput = modal.querySelector('#password');
+    const togglePasswordBtn = modal.querySelector('.toggle-password');
+    const closeModalBtns = modal.querySelectorAll('[data-close]');
+
+    const openModal = () => {
+      modal.hidden = false;
+    };
+
+    const closeModal = () => {
+      modal.hidden = true;
+      if (form) {
+          form.reset();
+          emailInput.nextElementSibling.textContent = '';
+          passwordInput.closest('.password-wrapper').nextElementSibling.textContent = '';
+      }
+    };
+
+    openModalBtn.addEventListener('click', openModal);
+    closeModalBtns.forEach(btn => btn.addEventListener('click', closeModal));
+
+    if (togglePasswordBtn) {
+        togglePasswordBtn.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+        });
+    }
+
+    if (form) {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            // ... (тут вся логіка валідації)
+            let isValid = true;
+            const emailValue = emailInput.value.trim();
+            const emailErrorMsg = emailInput.nextElementSibling;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailValue)) {
+                emailErrorMsg.textContent = 'Please enter a valid email.';
+                isValid = false;
+            } else {
+                emailErrorMsg.textContent = '';
+            }
+            const passwordValue = passwordInput.value.trim();
+            const passwordErrorMsg = passwordInput.closest('.password-wrapper').nextElementSibling;
+            if (passwordValue === '') {
+                passwordErrorMsg.textContent = 'Password is required.';
+                isValid = false;
+            } else {
+                passwordErrorMsg.textContent = '';
+            }
+            if (isValid) {
+                alert('Login successful!');
+                closeModal();
+            }
+        });
+    }
+  }
+
+  // 2. Логіка для бургер-меню
+  const burger = document.querySelector('.burger');
+  const nav = document.querySelector('.nav');
+  if (burger && nav) {
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('active');
+      nav.classList.toggle('active');
+    });
+  }
+
+  // 3. Ініціалізація лічильника кошика
+  initCartCountAuto();
+}
+
+
+// --- ГОЛОВНА ФУНКЦІЯ ЗАВАНТАЖЕННЯ ---
 export async function includeComponents() {
   const isInPages = window.location.pathname.includes('/pages/');
   const base = isInPages ? '../' : './';
   const headerPath = `${base}components/header.html`;
   const footerPath = `${base}components/footer.html`;
 
+  // Завантажуємо хедер
   try {
-    const headerRes = await fetch(headerPath);
-    if (!headerRes.ok) throw new Error('Header not found');
-    const headerHtml = await headerRes.text();
+    const response = await fetch(headerPath);
+    const html = await response.text();
     const headerEl = document.getElementById('header');
     if (headerEl) {
-      headerEl.innerHTML = headerHtml;
+      headerEl.innerHTML = html;
       fixComponentLinks(base, headerEl);
+      // Ініціалізуємо скрипти ТІЛЬКИ ПІСЛЯ вставки HTML
       initHeaderComponents();
     }
-  } catch (err) {
-    console.error('Failed to load header:', err);
+  } catch (error) {
+    console.error('Failed to load header:', error);
   }
-
-  try {
-    const footerRes = await fetch(footerPath);
-    if (footerRes.ok) {
-      const footerHtml = await footerRes.text();
-      const footerEl = document.getElementById('footer');
-      if (footerEl) {
-        footerEl.innerHTML = footerHtml;
-        fixComponentLinks(base, footerEl);
-      }
-    }
-  } catch (err) {
-    console.warn('Footer not found');
-  }
-}
-
-function initHeaderComponents() {
-  // --- Логіка для модального вікна ---
-  const openModalBtn = document.querySelector('.icon-btn[aria-label="User account"]');
-  const modal = document.getElementById('loginModal');
   
-  if (openModalBtn && modal) {
-    const closeModalBtns = modal.querySelectorAll('[data-close]');
-    const form = modal.querySelector('#loginForm');
-    const emailInput = modal.querySelector('#email');
-    const passwordInput = modal.querySelector('#password');
-    const togglePasswordBtn = modal.querySelector('.toggle-password');
-
-    const openModal = () => {
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    };
-
-    const closeModal = () => {
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
-      form.reset(); // Очищуємо форму при закритті
-      // Скидаємо повідомлення про помилки
-      emailInput.nextElementSibling.textContent = '';
-      passwordInput.closest('.password-wrapper').nextElementSibling.textContent = '';
-    };
-
-    // 1. Відкриваємо вікно
-    openModalBtn.addEventListener('click', openModal);
-
-    // 2. Закриваємо вікно
-    closeModalBtns.forEach(btn => {
-      btn.addEventListener('click', closeModal);
-    });
-
-    // --- НОВА ЛОГІКА: Перемикач видимості пароля ---
-    togglePasswordBtn.addEventListener('click', () => {
-      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordInput.setAttribute('type', type);
-    });
-
-    // --- НОВА ЛОГІКА: Валідація форми при відправці ---
-    form.addEventListener('submit', (event) => {
-      event.preventDefault(); // Забороняємо перезавантаження сторінки
-      let isValid = true;
-
-      // Перевірка Email
-      const emailValue = emailInput.value.trim();
-      const emailErrorMsg = emailInput.nextElementSibling;
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-      if (!emailRegex.test(emailValue)) {
-        emailErrorMsg.textContent = 'Please enter a valid email.';
-        isValid = false;
-      } else {
-        emailErrorMsg.textContent = '';
-      }
-
-      // Перевірка пароля
-      const passwordValue = passwordInput.value.trim();
-      const passwordErrorMsg = passwordInput.closest('.password-wrapper').nextElementSibling;
-
-      if (passwordValue === '') {
-        passwordErrorMsg.textContent = 'Password is required.';
-        isValid = false;
-      } else {
-        passwordErrorMsg.textContent = '';
-      }
-
-      // Якщо всі поля валідні
-      if (isValid) {
-        alert('Login successful!'); // Повідомлення про успішний вхід
-        closeModal(); // Закриваємо вікно
-      }
-    });
+  // Завантажуємо футер
+  try {
+    const response = await fetch(footerPath);
+    const html = await response.text();
+    const footerEl = document.getElementById('footer');
+    if (footerEl) {
+      footerEl.innerHTML = html;
+      fixComponentLinks(base, footerEl);
+    }
+  } catch (error) {
+    console.error('Failed to load footer:', error);
   }
-
-  // --- Логіка для бургер-меню ---
-  const burger = document.querySelector('.burger');
-  const nav = document.querySelector('.nav');
-  if (burger && nav) {
-    // ... (код для бургер-меню без змін)
-  }
-
-  // --- Ініціалізація лічильника кошика ---
-  initCartCountAuto();
 }
