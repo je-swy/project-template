@@ -135,7 +135,7 @@ async function initCatalog() {
   updateProductList();
   renderTopSets();
   attachCartDelegation();
-  initCartCountAuto();
+  // initCartCountAuto();
 
   function redirectToProduct() {
     const query = searchInput.value.trim().toLowerCase();

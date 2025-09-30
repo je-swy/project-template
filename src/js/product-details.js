@@ -54,7 +54,7 @@ async function initProductDetails() {
   }
 
   attachCartDelegation();
-  initCartCountAuto();
+  // initCartCountAuto();
 }
 
 

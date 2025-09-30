@@ -1,13 +1,30 @@
 // src/js/components-loader.js
-// Loads header/footer HTML components and initializes related logic.
 
-import { initModal } from './modal.js';
+import { initCartCountAuto } from './cart-count.js';
+
+// --- Допоміжна функція для виправлення шляхів ---
+function fixComponentLinks(basePath, componentElement) {
+  // Виправлення посилань
+  componentElement.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('/')) {
+      link.setAttribute('href', `${basePath}${href}`);
+    }
+  });
+  // Виправлення шляхів до зображень
+  componentElement.querySelectorAll('img[src]').forEach(img => {
+    const src = img.getAttribute('src');
+    if (src && !src.startsWith('http') && !src.startsWith('#') && !src.startsWith('/')) {
+      img.setAttribute('src', `${basePath}${src}`);
+    }
+  });
+}
 
 export async function includeComponents() {
   const isInPages = window.location.pathname.includes('/pages/');
-  const base = isInPages ? '../' : './';
-  const headerPath = base + 'components/header.html';
-  const footerPath = base + 'components/footer.html';
+  const base = isInPages ? '../' : ''; 
+  const headerPath = `${base}components/header.html`;
+  const footerPath = `${base}components/footer.html`;
 
   // === HEADER ===
   try {
@@ -17,10 +34,10 @@ export async function includeComponents() {
     const headerEl = document.getElementById('header');
     if (headerEl) {
       headerEl.innerHTML = headerHtml;
-      fixLinks(base);
-      highlightActiveLink();
-      initBurgerMenu();
-      initModal(); // Initialize modal logic if any modals are in the header
+      fixComponentLinks(base, headerEl);
+      
+      // Ініціалізуємо всі компоненти хедера ПІСЛЯ його завантаження
+      initHeaderComponents();
     }
   } catch (err) {
     console.error(err);
@@ -32,35 +49,42 @@ export async function includeComponents() {
     if (footerRes.ok) {
       const footerHtml = await footerRes.text();
       const footerEl = document.getElementById('footer');
-      if (footerEl) footerEl.innerHTML = footerHtml;
+      if (footerEl) {
+        footerEl.innerHTML = footerHtml;
+        fixComponentLinks(base, footerEl);
+      }
     }
   } catch (err) {
     console.warn('Footer not found');
   }
 }
 
-// === Helpers ===
-function fixLinks(base) {
-  document.querySelectorAll('#header a, #footer a').forEach(link => {
-    const href = link.getAttribute('href');
-    if (!href) return;
-    if (!href.startsWith('http') && !href.startsWith(base) && !href.startsWith('/')) {
-      link.setAttribute('href', base + href);
-    }
-  });
-}
+// --- Нова централізована функція для ініціалізації хедера ---
+function initHeaderComponents() {
+  // 1. Логіка для модального вікна
+  const modal = document.getElementById("loginModal");
+  const openBtn = document.querySelector('.icon-btn[aria-label="User account"]');
+  if (modal && openBtn) {
+    const closeBtns = modal.querySelectorAll("[data-close]");
+    
+    const openModal = () => {
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+    };
 
-function highlightActiveLink() {
-  const currentPage = window.location.pathname.split('/').pop();
-  document.querySelectorAll('#header .nav__list a').forEach(link => {
-    const linkPage = (link.getAttribute('href') || '').split('/').pop();
-    if (linkPage === currentPage) {
-      link.classList.add('active');
-    }
-  });
-}
+    const closeModal = () => {
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+    };
 
-function initBurgerMenu() {
+    openBtn.addEventListener("click", openModal);
+    closeBtns.forEach(btn => btn.addEventListener("click", closeModal));
+    modal.addEventListener("click", e => {
+      if (e.target.hasAttribute("data-close")) closeModal();
+    });
+  }
+  
+  // 2. Логіка для бургер-меню
   const burger = document.querySelector('.burger');
   const nav = document.querySelector('.nav');
   if (burger && nav) {
@@ -69,12 +93,8 @@ function initBurgerMenu() {
       nav.classList.toggle('active');
       document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
     });
-    nav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        burger.classList.remove('active');
-        nav.classList.remove('active');
-        document.body.style.overflow = '';
-      });
-    });
   }
+
+  // 3. Ініціалізація лічильника кошика
+  initCartCountAuto();
 }

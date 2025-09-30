@@ -32,7 +32,7 @@ async function init() {
   if (typeof attachCartDelegation === 'function') attachCartDelegation();
 
   // init cart counter
-  if (typeof initCartCountAuto === 'function') initCartCountAuto();
+  // if (typeof initCartCountAuto === 'function') initCartCountAuto();
   if (typeof updateCartCountUI === 'function') updateCartCountUI();
 
   // init carousel
