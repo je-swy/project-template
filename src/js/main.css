@@ -219,6 +219,11 @@ button {
   height: 160px;
 }
 
+.widget-list .rating-stars {
+  color: #f5b423;
+  font-size: 16px;
+}
+
 .header {
   padding-top: 24px;
   font-family: "Montserrat", sans-serif;

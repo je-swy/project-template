@@ -14,87 +14,91 @@
 
     <main class="container catalog">
         <!-- catalog filters -->
-        <section class="catalog-filters" id="catalog-filters" aria-label="Catalog filters">
-            <form class="filter-group" id="catalog-filters-form" role="search" aria-controls="catalog-list">
-                <fieldset class="filter-item" data-filter="category">
-                    <legend class="filter-label">Category <span class="filter-selected">All</span></legend>
-                    <ul class="filter-list" role="listbox" tabindex="-1" aria-label="Category options">
-                        <li role="option" data-value="">All</li>
-                        <li role="option" data-value="carry-ons">carry-ons</li>
-                        <li role="option" data-value="suitcases">suitcases</li>
-                        <li role="option" data-value="luggage sets">luggage sets</li>
-                        <li role="option" data-value="kids' luggage">kids' luggage</li>
-                    </ul>
-                </fieldset>
 
-                <fieldset class="filter-item" data-filter="color">
-                    <legend class="filter-label">Color <span class="filter-selected">Any</span></legend>
-                    <ul class="filter-list" role="listbox" tabindex="-1" aria-label="Color options">
-                        <li role="option" data-value="">Any</li>
-                        <li role="option" data-value="red">red</li>
-                        <li role="option" data-value="blue">blue</li>
-                        <li role="option" data-value="green">green</li>
-                        <li role="option" data-value="black">black</li>
-                        <li role="option" data-value="grey">grey</li>
-                        <li role="option" data-value="yellow">yellow</li>
-                        <li role="option" data-value="pink">pink</li>
-                    </ul>
-                </fieldset>
+        <section class="catalog-main">
+            <section class="catalog-filters" id="catalog-filters" aria-label="Catalog filters">
+                <form class="filter-group" id="catalog-filters-form" role="search" aria-controls="catalog-list">
+                    <fieldset class="filter-item" data-filter="category">
+                        <legend class="filter-label">Category <span class="filter-selected">All</span></legend>
+                        <ul class="filter-list" role="listbox" tabindex="-1" aria-label="Category options">
+                            <li role="option" data-value="">All</li>
+                            <li role="option" data-value="carry-ons">carry-ons</li>
+                            <li role="option" data-value="suitcases">suitcases</li>
+                            <li role="option" data-value="luggage sets">luggage sets</li>
+                            <li role="option" data-value="kids' luggage">kids' luggage</li>
+                        </ul>
+                    </fieldset>
 
-                <fieldset class="filter-item" data-filter="size">
-                    <legend class="filter-label">Size <span class="filter-selected">Any</span></legend>
-                    <ul class="filter-list" role="listbox" tabindex="-1" aria-label="Size options">
-                        <li role="option" data-value="">Any</li>
-                        <li role="option" data-value="S">S</li>
-                        <li role="option" data-value="M">M</li>
-                        <li role="option" data-value="L">L</li>
-                        <li role="option" data-value="XL">XL</li>
-                        <li role="option" data-value="S-L">S-L</li>
-                        <li role="option" data-value="S, M, XL">S, M, XL</li>
-                    </ul>
-                </fieldset>
+                    <fieldset class="filter-item" data-filter="color">
+                        <legend class="filter-label">Color <span class="filter-selected">Any</span></legend>
+                        <ul class="filter-list" role="listbox" tabindex="-1" aria-label="Color options">
+                            <li role="option" data-value="">Any</li>
+                            <li role="option" data-value="red">red</li>
+                            <li role="option" data-value="blue">blue</li>
+                            <li role="option" data-value="green">green</li>
+                            <li role="option" data-value="black">black</li>
+                            <li role="option" data-value="grey">grey</li>
+                            <li role="option" data-value="yellow">yellow</li>
+                            <li role="option" data-value="pink">pink</li>
+                        </ul>
+                    </fieldset>
 
-                <fieldset class="filter-item filter-item_checkbox" data-filter="salesStatus">
-                    <input type="checkbox" id="sales-checkbox" name="salesStatus" value="true">
-                    <label for="sales-checkbox">On sale</label>
-                </fieldset>
+                    <fieldset class="filter-item" data-filter="size">
+                        <legend class="filter-label">Size <span class="filter-selected">Any</span></legend>
+                        <ul class="filter-list" role="listbox" tabindex="-1" aria-label="Size options">
+                            <li role="option" data-value="">Any</li>
+                            <li role="option" data-value="S">S</li>
+                            <li role="option" data-value="M">M</li>
+                            <li role="option" data-value="L">L</li>
+                            <li role="option" data-value="XL">XL</li>
+                            <li role="option" data-value="S-L">S-L</li>
+                            <li role="option" data-value="S, M, XL">S, M, XL</li>
+                        </ul>
+                    </fieldset>
 
-                <fieldset class="filter-item search" data-filter="search">
-                    <legend class="filter-label">Search</legend>
-                    <input id="catalog-search" class="filter-input" name="q" type="search"
-                        placeholder="Search products by name or id" aria-label="Search products" />
-                </fieldset>
-            </form>
-            <nav class="filter-actions" role="toolbar" aria-label="Filter actions">
-                <button type="button" id="filter-clear" class="btn btn_outline">CLEAR FILTERS</button>
-                <button type="button" id="filter-toggle-compact" class="btn" aria-pressed="false">HIDE
-                    FILTERS</button>
-            </nav>
+                    <fieldset class="filter-item filter-item_checkbox" data-filter="salesStatus">
+                        <input type="checkbox" id="sales-checkbox" name="salesStatus" value="true">
+                        <label for="sales-checkbox">On sale</label>
+                    </fieldset>
+
+                    <fieldset class="filter-item search" data-filter="search">
+                        <legend class="filter-label">Search</legend>
+                        <input id="catalog-search" class="filter-input" name="q" type="search"
+                            placeholder="Search products by name or id" aria-label="Search products" />
+                    </fieldset>
+                </form>
+                <nav class="filter-actions" role="toolbar" aria-label="Filter actions">
+                    <button type="button" id="filter-clear" class="btn btn_outline">CLEAR FILTERS</button>
+                    <button type="button" id="filter-toggle-compact" class="btn" aria-pressed="false">HIDE
+                        FILTERS</button>
+                </nav>
+            </section>
+
+            <section class="catalog-controls">
+                <select id="sort-select" class="sort-select" aria-label="Sort products by">
+                    <option value="default">Default Sorting</option>
+                    <option value="price-asc">Sort by price: lowest to highest</option>
+                    <option value="price-desc">Sort by price: highest to lowest</option>
+                    <option value="popularity">Sort by popularity</option>
+                    <option value="rating">Sort by rating</option>
+                </select>
+            </section>
+
+            <ul id="catalog-list" class="products__list" role="list"></ul>
+
+            </ul>
+            <footer class="catalog-footer">
+                <p class="catalog-results" id="catalog-results"></p>
+                <nav class="pagination" id="pagination-controls" aria-label="Pagination"></nav>
+            </footer>
         </section>
-
-        <section class="catalog-controls">
-            <select id="sort-select" class="sort-select" aria-label="Sort products by">
-                <option value="default">Default Sorting</option>
-                <option value="price-asc">Sort by price: lowest to highest</option>
-                <option value="price-desc">Sort by price: highest to lowest</option>
-                <option value="popularity">Sort by popularity</option>
-                <option value="rating">Sort by rating</option>
-            </select>
-        </section>
-
-        <ul id="catalog-list" class="products__list" role="list"></ul>
-
-        </ul>
-        <footer class="catalog-footer">
-            <p class="catalog-results" id="catalog-results"></p>
-            <nav class="pagination" id="pagination-controls" aria-label="Pagination"></nav>
-        </footer>
 
         <aside class="catalog-sidebar">
-            <header class="search-widget">
+            <section class="search-widget">
+                <h3 class="visually-hidden">Search</h3>
                 <input type="search" id="catalog-search" placeholder="Search products...">
                 <button type="button" aria-label="Search">🔍</button>
-            </header>
+            </section>
             <section class="top-sets-widget" id="top-sets-container">
                 <h3 class="widget-title">Top Best Sets</h3>
                 <ul class="widget-list">
