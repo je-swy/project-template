@@ -527,58 +527,7 @@ button {
   -webkit-transform: rotate(45deg);
 }
 
-/* ===================== MODAL ===================== */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-}
-.modal.active {
-  display: flex;
-}
-.modal__overlay {
-  position: absolute;
-  inset: 0;
-}
-.modal__content {
-  position: relative;
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.3s ease;
-}
-.modal__close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #504e4a;
-}
-.modal__close:hover {
-  color: #b92770;
-}
-
-@keyframes fadeIn {
-  from {
-    transform: translateY(-10px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-/* ===================== MODAL LOGIN ===================== */
+/* ===================== MODAL (ЄДИНА ПРАВИЛЬНА ВЕРСІЯ) ===================== */
 .modal {
   display: none;
   position: fixed;
@@ -593,15 +542,19 @@ button {
 }
 .modal.active {
   display: flex;
-  animation: fadeIn 0.25s ease;
+  animation: fadeIn 0.3s ease;
+}
+.modal__overlay {
+  position: absolute;
+  inset: 0;
 }
 .modal__content {
-  background: #ffffff;
-  border-radius: 8px;
-  padding: 30px 25px;
-  width: 100%;
-  max-width: 400px;
   position: relative;
+  background: #ffffff;
+  padding: 30px 25px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   animation: slideUp 0.3s ease;
 }
@@ -612,6 +565,7 @@ button {
   background: none;
   border: none;
   font-size: 24px;
+  line-height: 1;
   cursor: pointer;
   color: #504e4a;
 }
@@ -619,90 +573,6 @@ button {
   color: #b92770;
 }
 
-/* ===================== FORM ===================== */
-.login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-.login-form .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.login-form .form-group label {
-  font-weight: 600;
-  font-size: 14px;
-  color: #504e4a;
-}
-.login-form .form-group input {
-  padding: 10px 12px;
-  border: 1px solid #727174;
-  border-radius: 5px;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.login-form .form-group input:focus {
-  border-color: #b92770;
-}
-.login-form .form-group .error-msg {
-  font-size: 12px;
-  color: red;
-  min-height: 14px;
-}
-.login-form .password-wrapper {
-  position: relative;
-}
-.login-form .password-wrapper input {
-  width: 100%;
-  padding-right: 40px;
-}
-.login-form .password-wrapper .toggle-password {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-.login-form .password-wrapper .toggle-password img {
-  width: 20px;
-  height: 20px;
-}
-.login-form .btn-submit {
-  background: #b92770;
-  color: #ffffff;
-  padding: 12px;
-  border: none;
-  border-radius: 5px;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background 0.3s;
-}
-
-/* ===================== ANIMATIONS ===================== */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
 .footer {
   font-family: "Roboto", sans-serif;
   font-size: clamp(14px, 1.5vw, 14px);

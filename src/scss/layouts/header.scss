@@ -262,21 +262,25 @@
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
+// src/scss/layouts/header.scss
 
-/* ===================== MODAL ===================== */
+/* ===================== MODAL (ЄДИНА ПРАВИЛЬНА ВЕРСІЯ) ===================== */
 .modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  // --- Стан за замовчуванням (прихований) ---
   display: none;
-  align-items: center;
-  justify-content: center;
+  position: fixed;
+  inset: 0; // Це скорочення для top: 0; right: 0; bottom: 0; left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  @include mixins.flex-row(center, center); // Використовуємо твій міксин
   z-index: 2000;
 
+  // --- Активний стан (видимий) ---
   &.active {
     display: flex;
+    animation: fadeIn 0.3s ease;
   }
 
+  // --- Внутрішні елементи модального вікна ---
   &__overlay {
     position: absolute;
     inset: 0;
@@ -285,61 +289,10 @@
   &__content {
     position: relative;
     background: vars.$white;
-    padding: 30px;
-    border-radius: 10px;
+    padding: 30px 25px;
+    border-radius: 8px;
     width: 90%;
     max-width: 400px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.3s ease;
-  }
-
-  &__close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: vars.$dark-grey;
-
-    &:hover {
-      color: vars.$pink;
-    }
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    transform: translateY(-10px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-/* ===================== MODAL LOGIN ===================== */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0; // shorthand для top/right/bottom/left:0
-  background: rgba(0, 0, 0, 0.5);
-  @include mixins.flex-row(center, center);
-  z-index: 2000;
-
-  &.active {
-    display: flex;
-    animation: fadeIn 0.25s ease;
-  }
-
-  &__content {
-    background: vars.$white;
-    border-radius: 8px;
-    padding: 30px 25px;
-    width: 100%;
-    max-width: 400px;
-    position: relative;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     animation: slideUp 0.3s ease;
   }
@@ -351,111 +304,12 @@
     background: none;
     border: none;
     font-size: 24px;
+    line-height: 1;
     cursor: pointer;
     color: vars.$dark-grey;
 
     &:hover {
       color: vars.$pink;
     }
-  }
-}
-
-/* ===================== FORM ===================== */
-.login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-
-    label {
-      font-weight: 600;
-      font-size: 14px;
-      color: vars.$dark-grey;
-    }
-
-    input {
-      padding: 10px 12px;
-      border: 1px solid vars.$light-grey;
-      border-radius: 5px;
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.2s;
-
-      &:focus {
-        border-color: vars.$pink;
-      }
-    }
-
-    .error-msg {
-      font-size: 12px;
-      color: red;
-      min-height: 14px; // щоб не стрибав макет
-    }
-  }
-
-  .password-wrapper {
-    position: relative;
-
-    input {
-      width: 100%;
-      padding-right: 40px;
-    }
-
-    .toggle-password {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-
-      img {
-        width: 20px;
-        height: 20px;
-      }
-    }
-  }
-
-  .btn-submit {
-    background: vars.$pink;
-    color: vars.$white;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s;
-
-    // &:hover {
-    //   background: darken(vars.$pink, 5%);
-    // }
-  }
-}
-
-/* ===================== ANIMATIONS ===================== */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
   }
 }
