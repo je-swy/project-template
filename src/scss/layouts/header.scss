@@ -263,11 +263,9 @@
   -webkit-transform: rotate(45deg);
 }
 
-// src/scss/layouts/header.scss
-
-/* ===================== MODAL (чиста семантична версія) ===================== */
+/*  MODAL */
 .modal {
-  // --- Контейнер модального вікна ---
+  //modal basic styles
   position: fixed;
   inset: 0;
   background: rgba(vars.$black, 0.6);
@@ -275,22 +273,28 @@
   @include mixins.flex-row(center, center);
   padding: 20px;
 
-  // За замовчуванням приховано через HTML атрибут 'hidden'.
-  // Показуємо плавно, коли JS додає клас 'active'.
+  // if attribute [hidden] is present - hide the modal
+  &[hidden] {
+    display: none !important;
+  }
+
+  // if attribute [hidden] is NOT present - show the modal
   &:not([hidden]) {
     display: flex;
     animation: fadeIn 0.3s ease;
   }
 
-  // --- Темний фон ---
+  // background overlay to close modal on click
   &__overlay {
     position: absolute;
     inset: 0;
     cursor: pointer;
+    z-index: 1;
   }
 
-  // --- Контентна частина ---
+  // modal content box
   &__content {
+    z-index: 2;
     position: relative;
     background: vars.$white;
     border-radius: 8px;
@@ -301,24 +305,29 @@
     animation: slideUp 0.3s ease-out;
   }
 
-  // --- Хедер вікна ---
+  // header of the modal
   &__header {
     @include mixins.flex-row(space-between, center, 20px);
     margin-bottom: 25px;
   }
 
+  //  title of the modal
   &__title {
     @include mixins.fonts(vars.$mont-font, 22px, 24px, 600, vars.$black);
   }
 
+  // close button
   &__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 3;
+    cursor: pointer;
     background: none;
     border: none;
     font-size: 28px;
     line-height: 1;
-    cursor: pointer;
     color: vars.$dark-grey;
-    padding: 5px;
 
     &:hover {
       color: vars.$pink;
@@ -326,7 +335,7 @@
   }
 }
 
-/* ===================== ФОРМА ВХОДУ ===================== */
+// login form inside modal
 .login-form {
   @include mixins.flex-column(flex-start, stretch, 18px);
 
@@ -391,7 +400,7 @@
   }
 }
 
-/* ===================== АНІМАЦІЇ ===================== */
+// animations for modal
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -412,6 +421,7 @@
   }
 }
 
+// form options (remember me, forgot password)
 .form-options {
   @include mixins.flex-row(space-between, center);
   font-size: 13px;

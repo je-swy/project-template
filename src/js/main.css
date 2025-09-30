@@ -527,7 +527,7 @@ button {
   -webkit-transform: rotate(45deg);
 }
 
-/* ===================== MODAL (чиста семантична версія) ===================== */
+/*  MODAL */
 .modal {
   position: fixed;
   inset: 0;
@@ -540,6 +540,9 @@ button {
   gap: 0;
   padding: 20px;
 }
+.modal[hidden] {
+  display: none !important;
+}
 .modal:not([hidden]) {
   display: flex;
   animation: fadeIn 0.3s ease;
@@ -548,8 +551,10 @@ button {
   position: absolute;
   inset: 0;
   cursor: pointer;
+  z-index: 1;
 }
 .modal__content {
+  z-index: 2;
   position: relative;
   background: #ffffff;
   border-radius: 8px;
@@ -574,19 +579,21 @@ button {
   color: #000000;
 }
 .modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  cursor: pointer;
   background: none;
   border: none;
   font-size: 28px;
   line-height: 1;
-  cursor: pointer;
   color: #504e4a;
-  padding: 5px;
 }
 .modal__close:hover {
   color: #b92770;
 }
 
-/* ===================== ФОРМА ВХОДУ ===================== */
 .login-form {
   display: flex;
   flex-direction: column;
@@ -652,7 +659,6 @@ button {
   font-size: 16px;
 }
 
-/* ===================== АНІМАЦІЇ ===================== */
 @keyframes fadeIn {
   from {
     opacity: 0;
