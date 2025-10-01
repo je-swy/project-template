@@ -1299,6 +1299,114 @@ button {
   font-weight: bold;
 }
 
+.reviews-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: 40px;
+}
+@media (min-width: 1024px) {
+  .reviews-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+}
+
+.review-item {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.review-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.review-meta {
+  margin-bottom: 5px;
+}
+
+.review-rating {
+  color: #f5b423;
+}
+
+.review-text {
+  color: #504e4a;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.review-form-container .review-form-subtitle {
+  font-size: 14px;
+  color: #727174;
+  margin-bottom: 20px;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 20px;
+}
+.review-form .form-group label,
+.review-form .form-group-checkbox label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #504e4a;
+}
+.review-form input[type=text],
+.review-form input[type=email],
+.review-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.review-form input[type=text]:focus,
+.review-form input[type=email]:focus,
+.review-form textarea:focus {
+  border-color: #b92770;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(185, 39, 112, 0.2);
+}
+.review-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: 20px;
+}
+@media (min-width: 768px) {
+  .review-form .form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+.star-rating input[type=radio] {
+  display: none;
+}
+.star-rating label {
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.star-rating:not(:hover) input[type=radio]:checked ~ label {
+  color: #f5b423;
+}
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #f5b423;
+}
+
 .main {
   display: flex;
   flex-direction: column;

@@ -1,5 +1,4 @@
 // src/js/homepage.js
-// Bootstraps homepage: loads components, data, renders blocks and attaches cart delegation.
 
 import { renderBlock } from './product-renderer.js';
 import { loadProducts } from './products-data.js';
@@ -11,28 +10,31 @@ export async function initHomepage() {
 
   // Selected Products
   const selected = products.filter(p => Array.isArray(p.blocks) && p.blocks.includes('Selected Products'));
-  renderBlock({ products: selected, containerSelector: '#selected-products-list', limit: 4, variant: 'grid' });
+  renderBlock({ 
+    products: selected, 
+    containerSelector: '#selected-products-list', 
+    limit: 4, 
+    variant: 'grid' 
+  });
 
   // New Products Arrival
   const news = products.filter(p => Array.isArray(p.blocks) && p.blocks.includes('New Products Arrival'));
-  renderBlock({ products: news, containerSelector: '#new-products-list', limit: 4, variant: 'grid' });
+  renderBlock({ 
+    products: news, 
+    containerSelector: '#new-products-list', 
+    limit: 4, 
+    variant: 'grid' 
+  });
 
-  // Recommendations (random 4)
-  const shuffled = products.slice();
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  // Логіку для "Recommendations" звідси прибрано, оскільки на цій сторінці немає для неї контейнера.
+
+  // Прив'язуємо логіку додавання в кошик
+  if (typeof attachCartDelegation === 'function') {
+    attachCartDelegation();
   }
-  const recs = shuffled.slice(0, 4);
-  renderBlock({ products: recs, containerSelector: '#recommendations-list', limit: 4, variant: 'compact' });
 
-  // attach cart after render
-  if (typeof attachCartDelegation === 'function') attachCartDelegation();
-
-  // init cart counter
-  // if (typeof initCartCountAuto === 'function') initCartCountAuto();
-  if (typeof updateCartCountUI === 'function') updateCartCountUI();
-
-  // init carousel
-  if (typeof initCarousel === 'function') initCarousel();
+  // Ініціалізуємо карусель
+  if (typeof initCarousel === 'function') {
+    initCarousel();
+  }
 }

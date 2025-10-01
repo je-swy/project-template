@@ -11,6 +11,7 @@ function renderRatingStars(rating) {
   return `<div class="product-details__rating" aria-label="Rating: ${rating} out of 5 stars">${starsHTML}</div>`;
 }
 
+// --- НОВА ФУНКЦІЯ для керування вкладками ---
 function handleTabs() {
   const tabContainer = document.querySelector('.product-tabs-container');
   if (!tabContainer) return;
@@ -20,11 +21,11 @@ function handleTabs() {
 
   tabButtons.forEach(button => {
     button.addEventListener('click', () => {
-      // Деактивуємо всі кнопки та панелі
+      // 1. Деактивуємо всі кнопки та панелі
       tabButtons.forEach(btn => btn.classList.remove('active'));
       tabPanes.forEach(pane => pane.classList.remove('active'));
 
-      // Активуємо натиснуту кнопку та відповідну панель
+      // 2. Активуємо натиснуту кнопку та відповідну панель
       const tabId = button.dataset.tab;
       const activePane = document.getElementById(`tab-${tabId}`);
       
@@ -36,29 +37,52 @@ function handleTabs() {
   });
 }
 
+// --- НОВА ФУНКЦІЯ для обробки форми відгуків ---
 function handleReviewForm() {
-    const form = document.getElementById('review-form');
-    if (!form) return;
+  const form = document.getElementById('review-form');
+  if (!form) return;
 
-    const messageEl = document.getElementById('review-form-message');
+  const messageEl = document.getElementById('review-form-message');
 
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        
-        const nameInput = document.getElementById('review-name');
-        const textInput = document.getElementById('review-text');
+  form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      
+      const rating = form.querySelector('input[name="rating"]:checked');
+      const reviewText = document.getElementById('review-text');
+      const nameInput = document.getElementById('review-name');
+      const emailInput = document.getElementById('review-email');
 
-        // Проста валідація
-        if (nameInput.value.trim() === '' || textInput.value.trim() === '') {
-            messageEl.textContent = 'Error: Please fill in all fields.';
-            messageEl.style.color = 'red';
-            return;
-        }
+      // Оновлена валідація
+      if (!rating || reviewText.value.trim() === '' || nameInput.value.trim() === '' || emailInput.value.trim() === '') {
+          messageEl.textContent = 'Error: Please fill in all required fields (*) and select a rating.';
+          messageEl.style.color = 'red';
+          return;
+      }
 
-        // Імітація успішної відправки
-        messageEl.textContent = 'Success! Thank you for your review.';
-        messageEl.style.color = 'green';
-        form.reset();
+      // Імітація успішної відправки
+      messageEl.textContent = 'Success! Thank you for your review.';
+      messageEl.style.color = 'green';
+      form.reset();
+      
+      setTimeout(() => {
+          messageEl.textContent = '';
+      }, 4000);
+  });
+}
+
+// --- НОВА ФУНКЦІЯ для ініціалізації галереї ---
+function initThumbnailGallery() {
+    const mainImage = document.querySelector('.product-details__img');
+    const thumbnails = document.querySelectorAll('#thumbnail-gallery img');
+
+    if (!mainImage || thumbnails.length === 0) return;
+
+    thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', () => {
+            mainImage.src = thumb.src; // Змінюємо головне зображення
+            thumbnails.forEach(t => t.classList.remove('active')); // Оновлюємо активний стан
+            thumb.classList.add('active');
+        });
     });
 }
 
@@ -71,7 +95,6 @@ export async function initProductDetails() {
 
   if (product) {
     const ratingHtml = product.rating ? renderRatingStars(product.rating) : '';
-    
     productDetailsContainer.innerHTML = `
       <section class="product-details__card">
         <figure class="product-details__media">
@@ -83,13 +106,11 @@ export async function initProductDetails() {
             <img src="${esc(resolveAssetPath(product.imageUrl))}" alt="thumbnail">
           </div>
         </figure>
-        
         <article class="product-details__info">
           <h1 class="product-details__title">${esc(product.name)}</h1>
           ${ratingHtml}
           <p class="product-details__price">$${product.price.toFixed(2)}</p>
           <p class="product-details__description">${esc(product.description || 'No description available.')}</p>
-          
           <div class="form-group">
               <label>Size</label>
               <select disabled><option>${esc(product.size)}</option></select>
@@ -98,21 +119,21 @@ export async function initProductDetails() {
               <label>Color</label>
               <select disabled><option>${esc(product.color)}</option></select>
           </div>
-          
           <div class="product-details__qty">
             <button class="qty-btn" type="button" data-action="dec">-</button>
             <input type="number" id="quantity-input" value="1" min="1" readonly />
             <button class="qty-btn" type="button" data-action="inc">+</button>
           </div>
-          
           <button class="btn btn_pink" id="add-to-cart-btn">Add to Cart</button>
         </article>
       </section>
     `;
 
-    document.getElementById('details-content').textContent = product.description || '';
+    const detailsContentEl = document.getElementById('details-content');
+    if (detailsContentEl) {
+        detailsContentEl.textContent = product.description || '';
+    }
 
-    // Ініціалізуємо логіку селектора, табів та форми
     const qtyInput = document.getElementById('quantity-input');
     document.querySelector('[data-action="dec"]').addEventListener('click', () => {
       let val = parseInt(qtyInput.value);
@@ -138,7 +159,7 @@ export async function initProductDetails() {
     renderBlock({ products: relatedProducts, containerSelector: '#related-products' });
   }
 
-  // Ініціалізуємо вкладки та форму відгуків
   handleTabs();
   handleReviewForm();
+  initThumbnailGallery(); // <-- Викликаємо нову функцію
 }

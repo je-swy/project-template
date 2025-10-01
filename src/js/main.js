@@ -5,7 +5,7 @@ import { initHomepage } from './homepage.js';
 import { initCatalog } from './catalog.js';
 import { initProductDetails } from './product-details.js';
 
-// Єдина точка входу в додаток
+// Єдина точка входу, яка запускає все в правильному порядку
 document.addEventListener('DOMContentLoaded', async () => {
   // 1. Завжди завантажуємо хедер і футер ПЕРШИМ
   await includeComponents();
