@@ -3,31 +3,32 @@
 import { getCartItems, setCartItems } from './cart-ui.js';
 import { loadProducts } from './products-data.js';
 
+// Функція для створення унікального ключа для товару в кошику
+function getCartItemKey(product) {
+  const size = product.size || 'default';
+  const color = product.color || 'default';
+  return `${product.id}-${size}-${color}`;
+}
+
+// ЦЯ ФУНКЦІЯ ПОВИННА БУТИ ЕКСПОРТОВАНА
 export function addToCart(product, quantity = 1) {
   const items = getCartItems();
-  const key = String(product.id ?? '');
+  const itemKey = getCartItemKey(product);
 
-  if (!key) {
-    console.error('Product has no ID.');
-    return;
-  }
-
-  const existingIndex = items.findIndex(it => String(it.id ?? '') === key);
+  const existingIndex = items.findIndex(item => item.cartKey === itemKey);
 
   if (existingIndex > -1) {
-    // ОСЬ ТУТ БУЛА ПОМИЛКА (existing-index -> existingIndex)
-    items[existingIndex].qty = (Number(items[existingIndex].qty) || 0) + quantity;
+    items[existingIndex].qty += quantity;
   } else {
-    const cartItem = { ...product, qty: quantity };
+    const cartItem = { ...product, qty: quantity, cartKey: itemKey };
     items.push(cartItem);
   }
 
   setCartItems(items);
-
   window.dispatchEvent(new CustomEvent('cart-updated'));
-  console.log(`✅ Added ${quantity} of ${product.name} to cart.`);
 }
 
+// І ЦЯ ФУНКЦІЯ ТАКОЖ ПОВИННА БУТИ ЕКСПОРТОВАНА
 export function attachCartDelegation() {
   document.body.addEventListener('click', async (e) => {
     const btn = e.target.closest('[data-action="add-to-cart"]');
@@ -41,7 +42,8 @@ export function attachCartDelegation() {
     if (!id) return;
 
     if (!window.PRODUCTS || window.PRODUCTS.length === 0) {
-      await loadProducts();
+      // Використовуємо абсолютний шлях для надійності
+      await loadProducts('/src/assets/data.json');
     }
 
     const product = window.PRODUCT_INDEX?.get(id) || window.PRODUCTS?.find(p => String(p.id) === String(id));

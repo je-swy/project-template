@@ -1,0 +1,139 @@
+// src/scss/pages/_cart.scss
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+// src/scss/pages/_cart.scss
+.cart-page {
+  padding-top: 40px;
+  padding-bottom: 60px;
+  h1 {
+    margin-bottom: 30px;
+    font-size: 36px;
+    font-weight: 700;
+  }
+}
+
+.cart-layout {
+  @include mixins.grid(1fr, auto, 40px);
+  @include mixins.respond(tablet) {
+    grid-template-columns: 2.5fr 1fr;
+    align-items: flex-start;
+    gap: 60px;
+  }
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    background-color: vars.$dark-grey;
+  }
+
+  thead th {
+    @include mixins.fonts(vars.$mont-font, 14px, 14px, 600, vars.$white);
+    text-align: left;
+    padding: 15px 10px;
+    text-transform: uppercase;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid vars.$pink;
+  }
+
+  tbody td {
+    padding: 20px 10px 20px 0;
+    vertical-align: middle;
+  }
+}
+
+.cart-item-img {
+  width: 80px;
+  height: auto;
+}
+.cart-item-name {
+  font-weight: 600;
+}
+.cart-item-qty {
+  @include mixins.flex-row(center, center, 15px);
+  input {
+    width: 30px;
+    text-align: center;
+    border: none;
+    background: none;
+    font-weight: bold;
+  }
+  .qty-btn {
+    font-size: 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: vars.$dark-grey;
+  }
+}
+.cart-item-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: vars.$pink;
+  }
+}
+
+.cart-actions {
+  @include mixins.flex-row(flex-start, center, 15px);
+  margin-top: 30px;
+}
+
+// Summary Block
+.cart-summary {
+  background: vars.$dark-grey;
+  color: vars.$white;
+  padding: 30px;
+
+  h4 {
+    @include mixins.fonts(vars.$mont-font, 20px, 20px, 600, vars.$white);
+    margin-bottom: 20px;
+  }
+  .btn_pink {
+    width: 100%;
+    margin-top: 30px;
+  }
+}
+
+.summary-table {
+  width: 100%;
+  tr {
+    td {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(vars.$white, 0.2);
+    }
+    td:last-child {
+      text-align: right;
+      font-weight: 600;
+    }
+  }
+  .summary-discount-row[hidden] {
+    display: none;
+  }
+  .summary-discount-row td:last-child {
+    color: vars.$pink;
+  }
+  .summary-total-row {
+    font-size: 18px;
+    font-weight: bold;
+    td {
+      border-bottom: none;
+    }
+  }
+}
+
+// Empty Cart Message
+.cart-empty-message {
+  text-align: center;
+  padding: 60px 0;
+  h2 {
+    margin-bottom: 20px;
+  }
+}

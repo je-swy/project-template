@@ -11,20 +11,66 @@
 <body>
   <header id="header" class="header container"></header>
 
-  <main class="cart container">
-    <h1>Cart</h1>
-    <ul id="cart-items" class="cart__list"></ul>
-    <div class="cart__summary">
-      <span>Всього: </span>
-      <span id="cart-total">$0</span>
+  <main class="cart-page container">
+    <h1>My Cart</h1>
+
+    <div class="cart-layout">
+      <section class="cart-table-container">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th scope="col" class="col-image">Image</th>
+              <th scope="col" class="col-product">Product Name</th>
+              <th scope="col" class="col-price">Price</th>
+              <th scope="col" class="col-quantity">Quantity</th>
+              <th scope="col" class="col-total">Total</th>
+              <th scope="col" class="col-delete">Delete</th>
+            </tr>
+          </thead>
+          <tbody id="cart-items-body">
+          </tbody>
+        </table>
+        <footer class="cart-actions">
+          <a href="/src/pages/catalog.html" class="btn btn_pink">Continue Shopping</a>
+          <button type="button" id="clear-cart-btn" class="btn btn_outline">Clear Shopping Cart</button>
+        </footer>
+      </section>
+
+      <aside class="cart-summary">
+        <h4>Cart Totals</h4>
+        <table class="summary-table">
+          <tbody>
+            <tr>
+              <td>Sub Total</td>
+              <td id="summary-subtotal">$0.00</td>
+            </tr>
+            <tr>
+              <td>Shipping</td>
+              <td id="summary-shipping">$0.00</td>
+            </tr>
+            <tr class="summary-discount-row" hidden>
+              <td>Discount (10%)</td>
+              <td id="summary-discount">-$0.00</td>
+            </tr>
+            <tr class="summary-total-row">
+              <td>Total</td>
+              <td id="summary-total">$0.00</td>
+            </tr>
+          </tbody>
+        </table>
+        <button id="checkout-btn" class="btn btn_pink">Checkout</button>
+      </aside>
     </div>
-    <button id="checkout-btn" class="btn btn_pink">Make an order</button>
+    <div class="cart-empty-message" hidden>
+      <h2>Your cart is empty.</h2>
+      <a href="/src/pages/catalog.html" class="btn btn_pink">Go to Catalog</a>
+    </div>
   </main>
 
   <footer id="footer" class="footer"></footer>
 
-
-  <script src="/src/js/main.js"></script>
+  <script type="module" src="/src/js/main.js"></script>
+  <script type="module" src="/src/js/cart-page.js"></script>
 </body>
 
 </html>

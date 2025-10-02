@@ -15,8 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initHomepage();
   } else if (document.querySelector('.catalog')) {
     initCatalog();
-  } else if (document.querySelector('.product-details')) {
+  } else if (document.querySelector('.product-details-page')) {
     initProductDetails();
   }
-  // Тут можна буде додати else if для інших сторінок (cart, about і т.д.)
 });
