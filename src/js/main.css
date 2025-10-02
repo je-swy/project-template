@@ -876,6 +876,99 @@ button {
   color: #504e4a;
 }
 
+.page-hero {
+  height: 550px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  color: #ffffff;
+}
+.page-hero__title {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(40px, 1.5vw, 50px);
+  font-weight: 700;
+  color: #ffffff;
+}
+.page-hero__subtitle {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(15px, 1.5vw, 17px);
+  font-weight: 400;
+  color: #ffffff;
+  text-align: center;
+  max-width: 450px;
+}
+
+.benefits-section {
+  padding: 60px 0;
+  display: grid;
+  gap: 100px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  text-align: center;
+}
+.benefits-section img {
+  margin-bottom: 15px;
+}
+.benefits-section h4 {
+  margin-bottom: 10px;
+}
+
+.info-section {
+  padding: 60px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: 40px;
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .info-section {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.info-section__text h2 {
+  margin-bottom: 20px;
+}
+.info-section__text p {
+  margin-bottom: 30px;
+}
+.info-section__image img {
+  width: 100%;
+  height: auto;
+}
+
+.team-section {
+  padding: 60px 0;
+  text-align: center;
+}
+.team-section h2 {
+  margin-bottom: 40px;
+}
+
+.team-grid {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.team-member img {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.team-member h3 {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(16px, 1.5vw, 16px);
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 5px;
+}
+.team-member p {
+  color: #727174;
+}
+
 .cart-page {
   padding-top: 40px;
   padding-bottom: 60px;

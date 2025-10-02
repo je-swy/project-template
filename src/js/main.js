@@ -4,6 +4,7 @@ import { includeComponents } from './components-loader.js';
 import { initHomepage } from './homepage.js';
 import { initCatalog } from './catalog.js';
 import { initProductDetails } from './product-details.js';
+import { initContactForm } from './contact.js';
 
 // Єдина точка входу, яка запускає все в правильному порядку
 document.addEventListener('DOMContentLoaded', async () => {
@@ -17,5 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initCatalog();
   } else if (document.querySelector('.product-details-page')) {
     initProductDetails();
+  } else if (document.querySelector('.contact-page')) { 
+    initContactForm();
   }
 });

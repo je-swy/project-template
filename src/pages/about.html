@@ -4,19 +4,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
+    <title>About Us</title>
     <link rel="stylesheet" href="/src/js/main.css">
 </head>
 
 <body>
     <header id="header" class="header container"></header>
 
+    <main>
+        <section class="page-hero" style="background-image: url('/src/assets/images/hero-about-us.jpg');">
+            <h1 class="page-hero__title">About Us</h1>
+            <p class="page-hero__subtitle">Duis vestibulum elit vel neque pharetra vulputate. Duis rutrum non risus in
+                imperdiet. </p>
+        </section>
 
+        <section class="benefits-section container">
+            <article class="benefit-item">
+                <img src="/src/assets/images/icon-accuracy.svg" alt="">
+                <h4>Superior Accuracy</h4>
+                <p>Quisque vestibulum elit vel neque pharetra vulputate. Quisque scelerisque.</p>
+            </article>
+            <article class="benefit-item">
+                <img src="/src/assets/images/icon-awards.svg" alt="">
+                <h4>Awards</h4>
+                <p>Duis vestibulum elit vel neque pharetra vulputate. Quisque scelerisque.</p>
+            </article>
+            <article class="benefit-item">
+                <img src="/src/assets/images/icon-ecological.svg" alt="">
+                <h4>Ecological</h4>
+                <p>Elit vel neque pharetra vulputate. Quisque scelerisque nisi urna.</p>
+            </article>
+            <article class="benefit-item">
+                <img src="/src/assets/images/icon-shipping.svg" alt="">
+                <h4>Shipping Worldwide</h4>
+                <p>Vestibulum elit vel neque pharetra vulputate. Quisque scelerisque.</p>
+            </article>
+        </section>
+
+        <section class="info-section container">
+            <article class="info-section__text">
+                <h2>New Arrivals Every Week</h2>
+                <p>Duis vestibulum elit vel neque pharetra vulputate. Quisque scelerisque nisi urna. Duis rutrum non
+                    risus in imperdiet. Proin molestie accumsan nulla sit amet vestibulum. Curabitur placerat est, sit
+                    amet sodales risus. Pellentesque viverra.</p>
+                <a href="catalog.html" class="btn btn_pink">See All Models</a>
+            </article>
+            <figure class="info-section__image">
+                <img src="/src/assets/images/about-new-arrivals.jpg" alt="Woman with a vintage suitcase">
+            </figure>
+        </section>
+
+        <section class="team-section container">
+            <h2>Our Incredible Team</h2>
+            <div class="team-grid">
+                <article class="team-member">
+                    <img src="/src/assets/images/team-natalia.jpg" alt="Natalia Foster">
+                    <h3>NATALIA FOSTER</h3>
+                    <p>Product Manager</p>
+                </article>
+                <article class="team-member">
+                    <img src="/src/assets/images/team-alexandra.jpg" alt="Alexandra Thompson">
+                    <h3>ALEXANDRA THOMPSON</h3>
+                    <p>Graphic Designer</p>
+                </article>
+                <article class="team-member">
+                    <img src="/src/assets/images/team-iryna.jpg" alt="Iryna Brooks">
+                    <h3>IRYNA BROOKS</h3>
+                    <p>Head of Marketing</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="offer container" aria-label="Offer Of The Month">
+            <article class="offer__inner ">
+                <div class="offer__discount">
+                    <h2 class="offer__percent">50%</h2>
+                    <p class="offer__promo">
+                        Curabitur vulputate arcu odio, ac facilisis diam.
+                    </p>
+            </article>
+
+            <article class="offer__info">
+                <h3 class="offer__title">Offer Of The Month</h3>
+                <p class="offer__subtitle">
+                    Curabitur vulputate arcu odio, ac facilisis diam accumsan ut.
+                    Ut imperdiet et leo in vulputate.
+                </p>
+                <a href="#" class="offer__btn btn btn_pink btn_big">
+                    Get Offer Today
+                </a>
+            </article>
+            </div>
+        </section>
+    </main>
 
     <footer id="footer" class="footer"></footer>
 
     <script type="module" src="/src/js/main.js"></script>
-    <script type="module" src="/src/js/cart-page.js"></script>
 </body>
 
 </html>
