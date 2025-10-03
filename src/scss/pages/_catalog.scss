@@ -1,6 +1,7 @@
 /* catalog filters styles (no div elements) */
 @use "../abstracts/variables" as vars;
 @use "../abstracts/mixins" as mixins;
+
 .catalog-filters {
   .filter-group {
     display: flex;

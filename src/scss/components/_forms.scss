@@ -1,0 +1,74 @@
+// src/scss/components/_forms.scss
+
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
+// --- Загальний контейнер для будь-якої форми ---
+// Ми можемо додати цей клас до тегів <form> для однакових відступів
+.form-layout {
+  @include mixins.flex-column(flex-start, stretch, 20px);
+}
+
+// --- Універсальна група "лейбл + поле вводу" ---
+.form-group {
+  @include mixins.flex-column(flex-start, stretch, 8px);
+
+  label {
+    @include mixins.fonts(vars.$mont-font, 14px, 14px, 600, vars.$dark-grey);
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus {
+      border-color: vars.$pink;
+      box-shadow: 0 0 0 2px rgba(vars.$pink, 0.2);
+    }
+  }
+
+  textarea {
+    resize: vertical; // Дозволяємо змінювати розмір тільки по висоті
+  }
+}
+
+// --- Допоміжний клас для полів в один ряд ---
+.form-row {
+  @include mixins.grid(1fr, auto, 20px);
+  @include mixins.respond(mobile) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// --- Стилі для повідомлень ---
+.error-msg {
+  font-size: 12px;
+  color: red;
+  min-height: 16px;
+}
+
+.form-message {
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+// --- Стилі для чекбоксів ---
+.form-group-checkbox {
+  @include mixins.flex-row(flex-start, center, 8px);
+  label {
+    font-weight: 400;
+    cursor: pointer;
+    user-select: none;
+  }
+  input[type="checkbox"] {
+    cursor: pointer;
+  }
+}
