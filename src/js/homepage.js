@@ -9,14 +9,16 @@ import { initCarousel } from './carousel.js';
 export async function initHomepage() { 
   const products = await loadProducts();
 
+  console.log(products);
+
   const selected = products.filter(p => p.blocks?.includes('Selected Products'));
+  console.log(selected);
   renderBlock({ products: selected, containerSelector: '#selected-products-list', limit: 4 });
   
   const news = products.filter(p => p.blocks?.includes('New Products Arrival'));
+  console.log(news);
   renderBlock({ products: news, containerSelector: '#new-products-list', limit: 4 });
 
   attachCartDelegation();
   initCarousel();
 }
-
-// ВИДАЛИ ЗВІДСИ ВЕСЬ БЛОК document.addEventListener('DOMContentLoaded', ...), ЯКЩО ВІН Є!
