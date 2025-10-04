@@ -151,9 +151,9 @@ button {
   font-weight: 600;
   color: #504e4a;
 }
-.form-group input[type=text],
-.form-group input[type=email],
-.form-group input[type=password],
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
 .form-group textarea {
   width: 100%;
   padding: 12px 15px;
@@ -161,11 +161,13 @@ button {
   border-radius: 5px;
   font-size: 14px;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
-.form-group input[type=text]:focus,
-.form-group input[type=email]:focus,
-.form-group input[type=password]:focus,
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
 .form-group textarea:focus {
   border-color: #b92770;
   box-shadow: 0 0 0 2px rgba(185, 39, 112, 0.2);
@@ -209,7 +211,7 @@ button {
   cursor: pointer;
   user-select: none;
 }
-.form-group-checkbox input[type=checkbox] {
+.form-group-checkbox input[type="checkbox"] {
   cursor: pointer;
 }
 
@@ -446,7 +448,10 @@ button {
   opacity: 0;
   transform: scale(0.85);
   pointer-events: none;
-  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease,
+    visibility 0.18s;
   /* Коли є items — показуємо бульбашку */
 }
 .header__icons .icon-btn .cart-count.is-visible {
@@ -467,7 +472,9 @@ button {
 .header__icons .icon-btn .cart-count {
   /* невеликий візуальний хак для читабельності числа */
 }
-.header__icons .icon-btn .cart-count.is-visible[data-count]:not([data-count="0"]) {
+.header__icons
+  .icon-btn
+  .cart-count.is-visible[data-count]:not([data-count="0"]) {
   font-weight: 700;
   font-size: 10px;
   line-height: 16px;
@@ -598,7 +605,8 @@ button {
   padding: 3px;
   margin: 4px 0 4px 4px;
 }
-.arrow:focus, .arrow:hover {
+.arrow:focus,
+.arrow:hover {
   border: solid #b92770;
   border-width: 0 2px 2px 0;
   padding: 3px;
@@ -1248,21 +1256,29 @@ button {
   opacity: 0;
   visibility: hidden;
   transform: translateY(-6px) scale(0.98);
-  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    visibility 0.15s;
   z-index: 40;
 }
-.catalog-filters fieldset.filter-item ul.filter-list li[role=option] {
+.catalog-filters fieldset.filter-item ul.filter-list li[role="option"] {
   padding: 8px 12px;
   cursor: pointer;
   white-space: nowrap;
   font-size: 14px;
   color: #000000;
 }
-.catalog-filters fieldset.filter-item ul.filter-list li[role=option]:hover, .catalog-filters fieldset.filter-item ul.filter-list li[role=option].is-selected {
+.catalog-filters fieldset.filter-item ul.filter-list li[role="option"]:hover,
+.catalog-filters
+  fieldset.filter-item
+  ul.filter-list
+  li[role="option"].is-selected {
   background: linear-gradient(90deg, #b92770 0%, #707070 120%);
   color: #ffffff;
 }
-.catalog-filters fieldset.filter-item:hover ul.filter-list, .catalog-filters fieldset.filter-item:focus-within ul.filter-list {
+.catalog-filters fieldset.filter-item:hover ul.filter-list,
+.catalog-filters fieldset.filter-item:focus-within ul.filter-list {
   opacity: 1;
   visibility: visible;
   transform: translateY(0) scale(1);
@@ -1309,7 +1325,7 @@ button {
   cursor: pointer;
   user-select: none;
 }
-.filter-item_checkbox input[type=checkbox] {
+.filter-item_checkbox input[type="checkbox"] {
   cursor: pointer;
   width: 16px;
   height: 16px;
@@ -1683,16 +1699,16 @@ button {
   font-weight: 600;
   color: #504e4a;
 }
-.review-form input[type=text],
-.review-form input[type=email],
+.review-form input[type="text"],
+.review-form input[type="email"],
 .review-form textarea {
   width: 100%;
   padding: 12px 15px;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
-.review-form input[type=text]:focus,
-.review-form input[type=email]:focus,
+.review-form input[type="text"]:focus,
+.review-form input[type="email"]:focus,
 .review-form textarea:focus {
   border-color: #b92770;
   outline: none;
@@ -1715,7 +1731,7 @@ button {
   flex-direction: row-reverse;
   justify-content: flex-end;
 }
-.star-rating input[type=radio] {
+.star-rating input[type="radio"] {
   display: none;
 }
 .star-rating label {
@@ -1724,7 +1740,7 @@ button {
   cursor: pointer;
   transition: color 0.2s;
 }
-.star-rating:not(:hover) input[type=radio]:checked ~ label {
+.star-rating:not(:hover) input[type="radio"]:checked ~ label {
   color: #f5b423;
 }
 .star-rating label:hover,
@@ -1767,16 +1783,17 @@ button {
 .homepage_promo .promo_intro {
   width: 100%;
   background: #e7e8e9;
-  z-index: -1;
 }
 @media (min-width: 1024px) {
   .homepage_promo .promo_heading {
-    background: url("/src/assets/images/homepage/content-hero-bag.png") center right/contain no-repeat;
+    background: url("/src/assets/images/homepage/content-hero-bag.png") center
+      right/contain no-repeat;
   }
 }
 @media (min-width: 1440px) {
   .homepage_promo .promo_heading {
-    background: url("/src/assets/images/homepage/content-hero-bag.png") center right/contain no-repeat;
+    background: url("/src/assets/images/homepage/content-hero-bag.png") center
+      right/contain no-repeat;
   }
 }
 .homepage_promo .promo_text {
@@ -1842,7 +1859,8 @@ button {
     align-items: stretch;
   }
 }
-.homepage_promo .promo_profile, .homepage_promo .promo_discount {
+.homepage_promo .promo_profile,
+.homepage_promo .promo_discount {
   flex: 1 1 0;
   min-width: 0;
   box-sizing: border-box;
@@ -1991,6 +2009,14 @@ button {
   flex: 0 0 296px;
   scroll-snap-align: start;
   box-sizing: border-box;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+.carousel-item:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
 }
 .carousel-figure {
   position: relative;
@@ -1998,12 +2024,17 @@ button {
   padding-top: 202.7027027027%;
   background-size: cover;
   background-position: center;
+  transition: transform 0.3s ease;
 }
 .carousel-figure::before {
   content: "";
   position: absolute;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.4);
+  transition: background-color 0.3s ease;
+}
+.carousel-figure:hover::before {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 .carousel-caption {
   position: absolute;
@@ -2047,13 +2078,16 @@ button {
   align-items: center;
   gap: 0;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.1s;
+  transition:
+    background-color 0.3s,
+    transform 0.1s;
 }
 .carousel .carousel-prev img,
 .carousel-next img {
   filter: brightness(0) invert(1);
 }
-.carousel .carousel-prev:hover, .carousel .carousel-prev:active,
+.carousel .carousel-prev:hover,
+.carousel .carousel-prev:active,
 .carousel-next:hover,
 .carousel-next:active {
   background: linear-gradient(274.43deg, #707070 -3.28%, #b92770 132.5%);
@@ -2101,6 +2135,16 @@ button {
     flex-wrap: wrap;
   }
 }
+@media (min-width: 1440px) {
+  .testimonials .testionials-reviews {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+  }
+}
 .testimonials-review {
   box-shadow: 0px 20px 80px rgba(193, 199, 212, 0.702);
   display: flex;
@@ -2130,7 +2174,8 @@ button {
 }
 
 .offer {
-  background: url("/src/assets/images/homepage/banner.jpg") center/cover no-repeat;
+  background: url("/src/assets/images/homepage/banner.jpg") center/cover
+    no-repeat;
   background-size: 600%;
 }
 @media (min-width: 1024px) {
@@ -2176,7 +2221,7 @@ button {
 }
 .offer__discount .offer__percent {
   font-family: "Montserrat", sans-serif;
-  font-size: clamp(100px, 1.5vw, 236px);
+  font-size: clamp(150px, 1.5vw, 236px);
   font-weight: 900;
   color: #ffffff;
   margin: 0;

@@ -1,54 +1,68 @@
 // src/js/product-renderer.js
 
-// Utility to render product listings into a container element
-export function esc(s = '') {
-  
-  return String(s).replace(/[&<>"']/g, c => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-  }[c]));
-}
+import { esc, resolveAssetPath } from './utils.js'; // Ми винесемо утиліти в окремий файл
 
-export function resolveAssetPath(path = '') {
-  const p = String(path).trim();
-  if (!p || p === 'false') return '';
+let cardTemplate = null; // Змінна для кешування нашого HTML-шаблону
 
-  if (p.startsWith('/')) {
-    return p;
+// Асинхронна функція для завантаження шаблону (робить це тільки один раз)
+async function getCardTemplate () {
+  if (cardTemplate) {
+    return cardTemplate;
   }
-  return `/${p}`;
+
+  // Визначаємо правильний шлях до компонента
+  const path = '/src/components/product-card.html';
+  try {
+    const response = await fetch(path);
+    if (!response.ok) throw new Error('Product card template not found');
+    cardTemplate = await response.text();
+    return cardTemplate;
+  } catch (error) {
+    console.error(error);
+    return '<p>Error loading product card.</p>';
+  }
 }
 
-export function renderBlock({ products = [], containerSelector, limit }) {
+/**
+ * Render list of products inside containerSelector.
+ */
+export async function renderBlock ({ products = [], containerSelector, limit, variant = 'grid' }) {
   const container = document.querySelector(containerSelector);
   if (!container) {
     console.warn('renderBlock: container not found', containerSelector);
     return;
   }
+
   const items = limit ? (products || []).slice(0, limit) : (products || []);
-  container.innerHTML = items.map(p => productToHtml(p)).join('');
+
+  // Оскільки productToHtml тепер асинхронна, чекаємо на виконання всіх промісів
+  const htmlItems = await Promise.all(items.map(p => productToHtml(p, { variant })));
+
+  container.innerHTML = htmlItems.join('');
 }
 
-export function productToHtml(p = {}) {
-  const id = esc(p.id ?? p.sku ?? '');
-  const title = esc(p.name ?? p.title ?? 'Unnamed product');
-  const rawThumb = p.imageUrl ?? p.image ?? '';
-  const finalSrc = resolveAssetPath(rawThumb);
+/**
+ * Створює HTML для картки, заповнюючи шаблон даними.
+ */
+export async function productToHtml (p = {}, { variant = 'grid' } = {}) {
+  const template = await getCardTemplate();
 
+  const id = esc(p.id ?? '');
+  const name = esc(p.name ?? 'Unnamed product');
+  const price = Number(p.price || 0).toFixed(0);
+  const imageUrl = esc(resolveAssetPath(p.imageUrl));
+  const link = `/src/pages/product-details-template.html?id=${encodeURIComponent(id)}`;
+  // eslint-disable-next-line quotes
   const badge = p.salesStatus ? `<span class="product-card__badge">SALE</span>` : '';
-  const nameLink = `/src/pages/product-details-template.html?id=${encodeURIComponent(id)}`;
+  const compactClass = variant === 'compact' ? 'product-card--compact' : '';
 
-  return `
-<li class="product-card" data-id="${esc(id)}" role="listitem">
-  ${badge}
-  <a class="product-card__link" href="${nameLink}" aria-label="${title}">
-    <img class="product-card__img" src="${finalSrc}" alt="${title}" loading="lazy" />
-  </a>
-  <section class="product-card__body">
-    <a class="product-card__name" href="${nameLink}">${title}</a>
-    <p class="product-card__price">$${Number(p.price || 0).toFixed(0)}</p>
-    <footer class="product-card__actions">
-      <button class="btn btn_pink product-card__add" data-action="add-to-cart" data-id="${esc(id)}">Add To Cart</button>
-    </footer>
-  </section>
-</li>`.trim();
+  // Замінюємо "заглушки" на реальні дані
+  return template
+    .replace(/{{id}}/g, id)
+    .replace(/{{name}}/g, name)
+    .replace('{{price}}', price)
+    .replace('{{imageUrl}}', imageUrl)
+    .replace(/{{link}}/g, link)
+    .replace('{{badge}}', badge)
+    .replace('{{compactClass}}', compactClass);
 }

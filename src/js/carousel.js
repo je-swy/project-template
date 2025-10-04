@@ -1,7 +1,5 @@
-
 // Simple carousel functionality
 export function initCarousel () {
-
   // Get carousel elements
   const list = document.getElementById('carousel-list');
   const prevBtn = document.querySelector('.carousel-prev');

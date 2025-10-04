@@ -1,17 +1,21 @@
-// src/js/cart.js
+// In this file is implementing the logic for adding products to the cart,
+// and setting up event delegation for "Add to Cart" buttons.
+// It interacts with cart storage functions and product data loading.
 
 import { getCartItems, setCartItems } from './cart-ui.js';
 import { loadProducts } from './products-data.js';
 
-// Функція для створення унікального ключа для товару в кошику
-function getCartItemKey(product) {
+// Generate a unique key for a cart item based on product ID and its options (size, color)
+function getCartItemKey (product) {
   const size = product.size || 'default';
   const color = product.color || 'default';
   return `${product.id}-${size}-${color}`;
 }
 
-// ЦЯ ФУНКЦІЯ ПОВИННА БУТИ ЕКСПОРТОВАНА
-export function addToCart(product, quantity = 1) {
+// this function add a product to the cart
+// and if the product already exists in the cart, it increases its quantity
+// and it dispatches a 'cart-updated' event to notify other parts of the app
+export function addToCart (product, quantity = 1) {
   const items = getCartItems();
   const itemKey = getCartItemKey(product);
 
@@ -28,8 +32,12 @@ export function addToCart(product, quantity = 1) {
   window.dispatchEvent(new CustomEvent('cart-updated'));
 }
 
-// І ЦЯ ФУНКЦІЯ ТАКОЖ ПОВИННА БУТИ ЕКСПОРТОВАНА
-export function attachCartDelegation() {
+// this function sets up event delegation for "Add to Cart" buttons
+// it listens for click events on the document body
+// when an "Add to Cart" button is clicked, it retrieves the product ID from the button's data attributes
+// if the product data is not already loaded, it loads it from a JSON file
+// then it finds the product by ID and calls addToCart to add it to the cart
+export function attachCartDelegation () {
   document.body.addEventListener('click', async (e) => {
     const btn = e.target.closest('[data-action="add-to-cart"]');
     if (!btn) return;
@@ -42,7 +50,6 @@ export function attachCartDelegation() {
     if (!id) return;
 
     if (!window.PRODUCTS || window.PRODUCTS.length === 0) {
-      // Використовуємо абсолютний шлях для надійності
       await loadProducts('/src/assets/data.json');
     }
 

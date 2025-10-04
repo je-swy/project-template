@@ -8,11 +8,14 @@ It includes a setup for **Sass** compilation and project structure.
 ## 🚀 Getting Started
 
 ### 1. Prerequisites
+
 Make sure you have installed:
+
 - [Node.js](https://nodejs.org/) (v16+ recommended)
 - npm (comes with Node.js)
 
 ### 2. Installation
+
 Clone the repository and install dependencies:
 
 ```bash
@@ -25,7 +28,7 @@ npm install
 
 To start watching and compiling your SCSS files into CSS, run:
 
-```bash 
+```bash
 npm run sass
 ```
 
@@ -39,14 +42,14 @@ Sass will watch for changes until you stop it (Ctrl + C).
 project-template/
 │
 ├── src/
-│   ├── scss/           # SCSS styles
-│   │   ├── abstracts/  # variables, mixins
-│   │   ├── base/       # reset, fonts
-│   │   ├── components/ # buttons, forms
-│   │   ├── pages/      # page-specific styles
-│   │   └── main.scss   # main entry point
-│   │
-│   └── main.css        # compiled CSS (generated)
+│ ├── scss/ # SCSS styles
+│ │ ├── abstracts/ # variables, mixins
+│ │ ├── base/ # reset, fonts
+│ │ ├── components/ # buttons, forms
+│ │ ├── pages/ # page-specific styles
+│ │ └── main.scss # main entry point
+│ │
+│ └── main.css # compiled CSS (generated)
 │
 ├── package.json
 └── README.md

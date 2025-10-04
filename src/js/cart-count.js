@@ -26,7 +26,7 @@ export function updateCartCountUI () {
 // This handles updates from other tabs (storage event) and in-window updates (custom event)
 export function initCartCountAuto () {
   updateCartCountUI();
-  
+
   // Listen to storage events (other tabs/windows)
   window.addEventListener('storage', (e) => {
     if (e.key === 'cart_v1') updateCartCountUI();

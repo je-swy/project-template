@@ -1,83 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Us</title>
-    <link rel="stylesheet" href="/src/js/main.css">
-</head>
+    <link rel="stylesheet" href="/src/js/main.css" />
+  </head>
 
-<body class="contact-page">
+  <body class="contact-page">
     <header id="header" class="header container"></header>
 
     <main>
-        <section class="page-hero" style="background-image: url('/src/assets/images/hero-contact.jpg');">
-            <h1 class="page-hero__title">Contact Us</h1>
-        </section>
+      <section
+        class="page-hero"
+        style="
+          background-image: url(&quot;/src/assets/images/hero-contact.jpg&quot;);
+        "
+      >
+        <h1 class="page-hero__title">Contact Us</h1>
+      </section>
 
-        <section class="benefits-section container">
-            <article class="benefit-item">
-                <img src="/src/assets/images/icon-contact.svg" alt="">
-                <h4>Our Location</h4>
-                <p>Q1234 NW Bobcat Lane, St.</p>
-                <p>Robert, MO 65584-5678</p>
-            </article>
-            <article class="benefit-item">
-                <img src="/src/assets/images/icon-clock.svg" alt="">
-                <h4>Operating Time</h4>
-                <p>Monday - Friday: 9am - 6 pm</p>
-                <p>Weekends: 10:30 am - 6pm</p>
-            </article>
-            <article class="benefit-item">
-                <img src="/src/assets/images/icon-email.svg" alt="">
-                <h4>Ecological</h4>
-                <p>best@shop.com</p>
-                <p>info@bestshop.com</p>
-            </article>
-            <article class="benefit-item">
-                <img src="/src/assets/images/icon-call.svg" alt="">
-                <h4>Shipping Worldwide</h4>
-                <p>(268)142-8413</p>
-                <p>(760)265-2917</p>
-            </article>
-        </section>
+      <section class="benefits-section container">
+        <article class="benefit-item">
+          <img src="/src/assets/images/icon-contact.svg" alt="" />
+          <h4>Our Location</h4>
+          <p>Q1234 NW Bobcat Lane, St.</p>
+          <p>Robert, MO 65584-5678</p>
+        </article>
+        <article class="benefit-item">
+          <img src="/src/assets/images/icon-clock.svg" alt="" />
+          <h4>Operating Time</h4>
+          <p>Monday - Friday: 9am - 6 pm</p>
+          <p>Weekends: 10:30 am - 6pm</p>
+        </article>
+        <article class="benefit-item">
+          <img src="/src/assets/images/icon-email.svg" alt="" />
+          <h4>Ecological</h4>
+          <p>best@shop.com</p>
+          <p>info@bestshop.com</p>
+        </article>
+        <article class="benefit-item">
+          <img src="/src/assets/images/icon-call.svg" alt="" />
+          <h4>Shipping Worldwide</h4>
+          <p>(268)142-8413</p>
+          <p>(760)265-2917</p>
+        </article>
+      </section>
 
-        <section class="info-section container">
-            <figure class="info-section__image">
-                <img src="/src/assets/images/contact-form-image.jpg" alt="Travel essentials">
-            </figure>
-            <article class="info-section__text">
-                <h2>Your Feedback is Much Appreciated!</h2>
-                <p>We will contact you when you complete the following form.</p>
+      <section class="info-section container">
+        <figure class="info-section__image">
+          <img
+            src="/src/assets/images/contact-form-image.jpg"
+            alt="Travel essentials"
+          />
+        </figure>
+        <article class="info-section__text">
+          <h2>Your Feedback is Much Appreciated!</h2>
+          <p>We will contact you when you complete the following form.</p>
 
-                <form id="contact-form" novalidate>
-                    <div class="form-group">
-                        <label for="contact-name">Your Name*</label>
-                        <input type="text" id="contact-name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact-email">Your Email Address*</label>
-                        <input type="email" id="contact-email" required>
-                        <small class="error-msg"></small>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact-topic">Topic*</label>
-                        <input type="text" id="contact-topic" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact-message">Your Message*</label>
-                        <textarea id="contact-message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn_pink">Send</button>
-                    <p id="contact-form-message" class="form-message"></p>
-                </form>
-
-            </article>
-        </section>
+          <form id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="contact-name">Your Name*</label>
+              <input type="text" id="contact-name" required />
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Your Email Address*</label>
+              <input type="email" id="contact-email" required />
+              <small class="error-msg"></small>
+            </div>
+            <div class="form-group">
+              <label for="contact-topic">Topic*</label>
+              <input type="text" id="contact-topic" required />
+            </div>
+            <div class="form-group">
+              <label for="contact-message">Your Message*</label>
+              <textarea id="contact-message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn_pink">Send</button>
+            <p id="contact-form-message" class="form-message"></p>
+          </form>
+        </article>
+      </section>
     </main>
 
     <footer id="footer" class="footer"></footer>
 
     <script type="module" src="/src/js/main.js"></script>
-</body>
+  </body>
+</html>

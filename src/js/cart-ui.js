@@ -1,12 +1,9 @@
-// src/js/cart-ui.js
 // Storage helpers for cart. No DOM logic here.
 
 const CART_KEY = 'cart_v1';
 
-/**
- * Return cart items array from localStorage.
- * Always returns an array.
- */
+// Retrieve cart items array from localStorage
+// Returns empty array if none or on parse error.
 export function getCartItems () {
   try {
     return JSON.parse(localStorage.getItem(CART_KEY) || '[]');
@@ -16,10 +13,8 @@ export function getCartItems () {
   }
 }
 
-/**
- * Persist cart items array to localStorage.
- * Returns the items for convenience.
- */
+// Save cart items array to localStorage
+// Always returns the items array.
 export function setCartItems (items = []) {
   try {
     localStorage.setItem(CART_KEY, JSON.stringify(items));
@@ -31,9 +26,7 @@ export function setCartItems (items = []) {
   return items;
 }
 
-/**
- * Clear cart.
- */
+// Clear cart completely
 export function clearCart () {
   try {
     localStorage.removeItem(CART_KEY);

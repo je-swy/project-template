@@ -88,9 +88,8 @@
 }
 
 .widget-list {
-  // ...
   .rating-stars {
-    color: vars.$gold; // Використовуємо твою змінну
+    color: vars.$gold;
     font-size: 16px;
   }
 }

@@ -1,16 +1,16 @@
-// src/js/main.js
+// main file to initialize the app
 
 import { includeComponents } from './components-loader.js';
 import { initHomepage } from './homepage.js';
 import { initCatalog } from './catalog.js';
 import { initProductDetails } from './product-details.js';
 
-// Єдина точка входу, яка запускає все в правильному порядку
+// On DOMContentLoaded, load header and footer, then initialize page-specific scripts
 document.addEventListener('DOMContentLoaded', async () => {
-  // 1. Завжди завантажуємо хедер і футер ПЕРШИМ
+  // Always include header and footer components
   await includeComponents();
 
-  // 2. Визначаємо, на якій ми сторінці, і запускаємо ТІЛЬКИ її унікальний скрипт
+  // Initialize page-specific scripts based on the presence of certain elements
   if (document.querySelector('.homepage_promo')) {
     initHomepage();
   } else if (document.querySelector('.catalog')) {

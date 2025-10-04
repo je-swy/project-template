@@ -1,4 +1,3 @@
-/* catalog filters styles (no div elements) */
 @use "../abstracts/variables" as vars;
 @use "../abstracts/mixins" as mixins;
 
@@ -52,7 +51,10 @@
       opacity: 0;
       visibility: hidden;
       transform: translateY(-6px) scale(0.98);
-      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+      transition:
+        opacity 0.15s ease,
+        transform 0.15s ease,
+        visibility 0.15s;
       z-index: 40;
 
       li[role="option"] {

@@ -26,7 +26,7 @@
     &_intro {
       width: 100%;
       background: vars.$light-color;
-      z-index: -1;
+      // z-index: -1;
     }
 
     &_heading {
@@ -240,6 +240,15 @@
     scroll-snap-align: start;
     // Ensure the box model includes padding and border in the element's total width and height
     box-sizing: border-box;
+    overflow: hidden;
+    scroll-snap-align: start;
+  }
+
+  &-item:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    box-shadow: 0 15px 30px rgba(vars.$black, 0.5);
   }
 
   &-figure {
@@ -248,14 +257,20 @@
     padding-top: calc(600 / 296 * 100%); // maintains the height ratio
     background-size: cover;
     background-position: center;
+    transition: transform 0.3s ease;
 
     &::before {
       content: "";
       position: absolute;
       inset: 0; // Sets the position of the pseudo-element to cover the entire parent element
       background-color: rgba(vars.$black, 0.4);
+      transition: background-color 0.3s ease;
+    }
+    &:hover::before {
+      background-color: rgba(vars.$black, 0.2); // Робимо оверлей світлішим
     }
   }
+
   &-caption {
     position: absolute;
     top: 378px;
@@ -291,7 +306,9 @@
   border-radius: 50%;
   @include mixins.flex-row(center, center, 0);
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.1s;
+  transition:
+    background-color 0.3s,
+    transform 0.1s;
 
   img {
     filter: brightness(0) invert(1);
@@ -336,6 +353,10 @@
     @include mixins.respond(tablet) {
       @include mixins.flex-row(center, center, 20px);
       flex-wrap: wrap;
+    }
+    @include mixins.respond(desktop) {
+      @include mixins.flex-row(space-between, center, 20px);
+      flex-wrap: nowrap;
     }
   }
 
@@ -391,7 +412,7 @@
     text-align: center;
 
     .offer__percent {
-      @include mixins.fonts(vars.$mont-font, 100px, 236px, 900, vars.$white);
+      @include mixins.fonts(vars.$mont-font, 150px, 236px, 900, vars.$white);
       margin: 0;
     }
 

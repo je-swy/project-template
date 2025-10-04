@@ -1,145 +1,207 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product Details</title>
-    <link rel="stylesheet" href="/src/js/main.css">
-</head>
+    <link rel="stylesheet" href="/src/js/main.css" />
+  </head>
 
-<body>
+  <body>
     <header id="header" class="header container"></header>
 
     <main class="product-details-page">
-        <section id="product-details" class="product-details container"></section>
+      <section id="product-details" class="product-details container"></section>
 
-        <section class="product-tabs-container container">
-            <nav class="product-tabs__nav">
-                <button type="button" class="product-tabs__btn active" data-tab="details">Details</button>
-                <button type="button" class="product-tabs__btn" data-tab="reviews">Reviews</button>
-                <button type="button" class="product-tabs__btn" data-tab="shipping">Shipping Policy</button>
-            </nav>
-            <div class="product-tabs__content">
-                <article id="tab-details" class="product-tabs__pane active">
-                    <p id="details-content">Loading details...</p>
-                </article>
-                <article id="tab-reviews" class="product-tabs__pane">
-                    <div class="reviews-layout">
-                        <section class="reviews-list">
-                            <h3 class="reviews-count">1 review for Global Explorer Max Comfort Suitcase Pro</h3>
+      <section class="product-tabs-container container">
+        <nav class="product-tabs__nav">
+          <button
+            type="button"
+            class="product-tabs__btn active"
+            data-tab="details"
+          >
+            Details
+          </button>
+          <button type="button" class="product-tabs__btn" data-tab="reviews">
+            Reviews
+          </button>
+          <button type="button" class="product-tabs__btn" data-tab="shipping">
+            Shipping Policy
+          </button>
+        </nav>
+        <div class="product-tabs__content">
+          <article id="tab-details" class="product-tabs__pane active">
+            <p id="details-content">Loading details...</p>
+          </article>
+          <article id="tab-reviews" class="product-tabs__pane">
+            <div class="reviews-layout">
+              <section class="reviews-list">
+                <h3 class="reviews-count">
+                  1 review for Global Explorer Max Comfort Suitcase Pro
+                </h3>
 
-                            <article class="review-item">
-                                <img src="/src/assets/images/homepage/testimonials-3.jpg" alt="Ella Harper"
-                                    class="review-avatar">
-                                <div class="review-content">
-                                    <div class="review-meta">
-                                        <strong class="review-author">Ella Harper</strong>
-                                        <time class="review-date" datetime="2025-06-11">/ June 11, 2025</time>
-                                    </div>
-                                    <div class="review-rating">★★★★☆</div>
-                                    <p class="review-text">Proin iaculis nibh vitae lectus mollis bibendum. Quisque
-                                        varius eget urna sit amet luctus. Suspendisse potenti curabitur ac placerat est,
-                                        sit amet sodales risus.</p>
-                                </div>
-                            </article>
-                        </section>
-
-                        <section class="review-form-container">
-                            <h3 class="review-form-title">Add Review</h3>
-                            <p class="review-form-subtitle">Your email address won't be shared with anybody. Required
-                                fields have the symbol *</p>
-
-                            <form id="review-form" class="review-form" novalidate>
-                                <div class="form-group rating-group">
-                                    <label>Rate Product *</label>
-                                    <div class="star-rating">
-                                        <input type="radio" id="star5" name="rating" value="5" required /><label
-                                            for="star5" title="5 stars">★</label>
-                                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
-                                            title="4 stars">★</label>
-                                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
-                                            title="3 stars">★</label>
-                                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
-                                            title="2 stars">★</label>
-                                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
-                                            title="1 star">★</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="review-text">Your Review *</label>
-                                    <textarea id="review-text" rows="5" required></textarea>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="review-name">Your Name *</label>
-                                        <input type="text" id="review-name" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="review-email">Your Email *</label>
-                                        <input type="email" id="review-email" required>
-                                    </div>
-                                </div>
-
-                                <div class="form-group-checkbox">
-                                    <input type="checkbox" id="save-review-info">
-                                    <label for="save-review-info">Save my name, email, and website in this browser for
-                                        when I leave another comment.</label>
-                                </div>
-
-                                <button type="submit" class="btn btn_pink">Submit</button>
-                                <p id="review-form-message" class="form-message"></p>
-                            </form>
-                        </section>
+                <article class="review-item">
+                  <img
+                    src="/src/assets/images/homepage/testimonials-3.jpg"
+                    alt="Ella Harper"
+                    class="review-avatar"
+                  />
+                  <div class="review-content">
+                    <div class="review-meta">
+                      <strong class="review-author">Ella Harper</strong>
+                      <time class="review-date" datetime="2025-06-11"
+                        >/ June 11, 2025</time
+                      >
                     </div>
+                    <div class="review-rating">★★★★☆</div>
+                    <p class="review-text">
+                      Proin iaculis nibh vitae lectus mollis bibendum. Quisque
+                      varius eget urna sit amet luctus. Suspendisse potenti
+                      curabitur ac placerat est, sit amet sodales risus.
+                    </p>
+                  </div>
                 </article>
+              </section>
 
-                <article id="tab-shipping" class="product-tabs__pane">
-                    <h4>Our Shipping Policy</h4>
+              <section class="review-form-container">
+                <h3 class="review-form-title">Add Review</h3>
+                <p class="review-form-subtitle">
+                  Your email address won't be shared with anybody. Required
+                  fields have the symbol *
+                </p>
 
-                    <p>We are committed to delivering your new travel gear promptly and securely. Please review our
-                        shipping policy below for details on processing times, costs, and delivery options.</p>
+                <form id="review-form" class="review-form" novalidate>
+                  <div class="form-group rating-group">
+                    <label>Rate Product *</label>
+                    <div class="star-rating">
+                      <input
+                        type="radio"
+                        id="star5"
+                        name="rating"
+                        value="5"
+                        required
+                      /><label for="star5" title="5 stars">★</label>
+                      <input
+                        type="radio"
+                        id="star4"
+                        name="rating"
+                        value="4"
+                      /><label for="star4" title="4 stars">★</label>
+                      <input
+                        type="radio"
+                        id="star3"
+                        name="rating"
+                        value="3"
+                      /><label for="star3" title="3 stars">★</label>
+                      <input
+                        type="radio"
+                        id="star2"
+                        name="rating"
+                        value="2"
+                      /><label for="star2" title="2 stars">★</label>
+                      <input
+                        type="radio"
+                        id="star1"
+                        name="rating"
+                        value="1"
+                      /><label for="star1" title="1 star">★</label>
+                    </div>
+                  </div>
 
-                    <h5>Order Processing Time</h5>
-                    <p>All orders are processed within <strong>1-2 business days</strong> (excluding weekends and
-                        holidays) after you receive your order confirmation email. You will receive another notification
-                        when your order has shipped.</p>
+                  <div class="form-group">
+                    <label for="review-text">Your Review *</label>
+                    <textarea id="review-text" rows="5" required></textarea>
+                  </div>
 
-                    <h5>Shipping Methods & Delivery Times</h5>
-                    <ul>
-                        <li><strong>Standard Shipping:</strong> 5-7 business days. Free for all orders over $50. For
-                            orders under $50, a flat rate of $5.99 will be applied.</li>
-                        <li><strong>Expedited Shipping:</strong> 2-3 business days. Available for a flat rate of $15.99.
-                        </li>
-                        <li><strong>International Shipping:</strong> We ship to most countries worldwide. Shipping costs
-                            and delivery times will be calculated at checkout based on your destination. Please be aware
-                            that international orders may be subject to import duties and taxes, which are the
-                            responsibility of the customer.</li>
-                    </ul>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="review-name">Your Name *</label>
+                      <input type="text" id="review-name" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="review-email">Your Email *</label>
+                      <input type="email" id="review-email" required />
+                    </div>
+                  </div>
 
-                    <h5>Order Tracking</h5>
-                    <p>Once your order has shipped, you will receive an email from us which will include a tracking
-                        number you can use to check its status. Please allow 48 hours for the tracking information to
-                        become available.</p>
+                  <div class="form-group-checkbox">
+                    <input type="checkbox" id="save-review-info" />
+                    <label for="save-review-info"
+                      >Save my name, email, and website in this browser for when
+                      I leave another comment.</label
+                    >
+                  </div>
 
-                    <h5>Returns & Exchanges</h5>
-                    <p>We accept returns up to 30 days after delivery, if the item is unused and in its original
-                        condition. For more details, please visit our Returns Policy page.</p>
-                </article>
+                  <button type="submit" class="btn btn_pink">Submit</button>
+                  <p id="review-form-message" class="form-message"></p>
+                </form>
+              </section>
             </div>
-        </section>
+          </article>
 
-        <section class="related container">
-            <h2>You May Also Like</h2>
-            <ul id="related-products" class="products__list" role="list"></ul>
-        </section>
+          <article id="tab-shipping" class="product-tabs__pane">
+            <h4>Our Shipping Policy</h4>
+
+            <p>
+              We are committed to delivering your new travel gear promptly and
+              securely. Please review our shipping policy below for details on
+              processing times, costs, and delivery options.
+            </p>
+
+            <h5>Order Processing Time</h5>
+            <p>
+              All orders are processed within
+              <strong>1-2 business days</strong> (excluding weekends and
+              holidays) after you receive your order confirmation email. You
+              will receive another notification when your order has shipped.
+            </p>
+
+            <h5>Shipping Methods & Delivery Times</h5>
+            <ul>
+              <li>
+                <strong>Standard Shipping:</strong> 5-7 business days. Free for
+                all orders over $50. For orders under $50, a flat rate of $5.99
+                will be applied.
+              </li>
+              <li>
+                <strong>Expedited Shipping:</strong> 2-3 business days.
+                Available for a flat rate of $15.99.
+              </li>
+              <li>
+                <strong>International Shipping:</strong> We ship to most
+                countries worldwide. Shipping costs and delivery times will be
+                calculated at checkout based on your destination. Please be
+                aware that international orders may be subject to import duties
+                and taxes, which are the responsibility of the customer.
+              </li>
+            </ul>
+
+            <h5>Order Tracking</h5>
+            <p>
+              Once your order has shipped, you will receive an email from us
+              which will include a tracking number you can use to check its
+              status. Please allow 48 hours for the tracking information to
+              become available.
+            </p>
+
+            <h5>Returns & Exchanges</h5>
+            <p>
+              We accept returns up to 30 days after delivery, if the item is
+              unused and in its original condition. For more details, please
+              visit our Returns Policy page.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="related container">
+        <h2>You May Also Like</h2>
+        <ul id="related-products" class="products__list" role="list"></ul>
+      </section>
     </main>
 
     <footer id="footer" class="footer"></footer>
 
     <script type="module" src="/src/js/main.js"></script>
-</body>
-
+  </body>
 </html>
