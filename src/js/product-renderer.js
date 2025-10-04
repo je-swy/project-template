@@ -1,68 +1,76 @@
-// src/js/product-renderer.js
+// Description:
+// in this file we define utility functions to render product listings into a container element
+// including escaping HTML, resolving asset paths, and converting product data to HTML structure.
 
-import { esc, resolveAssetPath } from './utils.js'; // Ми винесемо утиліти в окремий файл
-
-let cardTemplate = null; // Змінна для кешування нашого HTML-шаблону
-
-// Асинхронна функція для завантаження шаблону (робить це тільки один раз)
-async function getCardTemplate () {
-  if (cardTemplate) {
-    return cardTemplate;
-  }
-
-  // Визначаємо правильний шлях до компонента
-  const path = '/src/components/product-card.html';
-  try {
-    const response = await fetch(path);
-    if (!response.ok) throw new Error('Product card template not found');
-    cardTemplate = await response.text();
-    return cardTemplate;
-  } catch (error) {
-    console.error(error);
-    return '<p>Error loading product card.</p>';
-  }
+// Escape HTML special characters to prevent XSS
+// Used when inserting dynamic content into HTML
+// s: input string to escape
+// returns: escaped string
+// Default to empty string if input is falsy
+// Example: esc('<script>') => '&lt;script&gt;'
+export function esc (s = '') {
+  return String(s).replace(
+    /[&<>'']/g,
+    (c) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[c]
+  );
 }
 
-/**
- * Render list of products inside containerSelector.
- */
-export async function renderBlock ({ products = [], containerSelector, limit, variant = 'grid' }) {
+// Resolve asset path for images or other resources
+export function resolveAssetPath (path = '') {
+  const p = String(path).trim();
+  if (!p || p === 'false') return '';
+
+  if (p.startsWith('/')) {
+    return p;
+  }
+  return `/${p}`;
+}
+
+// Render a block of products into a specified container
+export function renderBlock ({ products = [], containerSelector, limit }) {
   const container = document.querySelector(containerSelector);
   if (!container) {
     console.warn('renderBlock: container not found', containerSelector);
     return;
   }
-
-  const items = limit ? (products || []).slice(0, limit) : (products || []);
-
-  // Оскільки productToHtml тепер асинхронна, чекаємо на виконання всіх промісів
-  const htmlItems = await Promise.all(items.map(p => productToHtml(p, { variant })));
-
-  container.innerHTML = htmlItems.join('');
+  const items = limit ? (products || []).slice(0, limit) : products || [];
+  container.innerHTML = items.map((p) => productToHtml(p)).join('');
 }
 
-/**
- * Створює HTML для картки, заповнюючи шаблон даними.
- */
-export async function productToHtml (p = {}, { variant = 'grid' } = {}) {
-  const template = await getCardTemplate();
+// Convert a single product object to its HTML representation
+// p: product object with properties like id, name, price, imageUrl, salesStatus
+// returns: HTML string for the product card
+export function productToHtml (p = {}) {
+  const id = esc(p.id ?? p.sku ?? '');
+  const title = esc(p.name ?? p.title ?? 'Unnamed product');
+  const rawThumb = p.imageUrl ?? p.image ?? '';
+  const finalSrc = resolveAssetPath(rawThumb);
 
-  const id = esc(p.id ?? '');
-  const name = esc(p.name ?? 'Unnamed product');
-  const price = Number(p.price || 0).toFixed(0);
-  const imageUrl = esc(resolveAssetPath(p.imageUrl));
-  const link = `/src/pages/product-details-template.html?id=${encodeURIComponent(id)}`;
-  // eslint-disable-next-line quotes
-  const badge = p.salesStatus ? `<span class="product-card__badge">SALE</span>` : '';
-  const compactClass = variant === 'compact' ? 'product-card--compact' : '';
+  const badge = p.salesStatus
+    // eslint-disable-next-line quotes
+    ? `<span class='product-card__badge'>SALE</span>`
+    : '';
+  const nameLink = `/src/pages/product-details-template.html?id=${encodeURIComponent(id)}`;
 
-  // Замінюємо "заглушки" на реальні дані
-  return template
-    .replace(/{{id}}/g, id)
-    .replace(/{{name}}/g, name)
-    .replace('{{price}}', price)
-    .replace('{{imageUrl}}', imageUrl)
-    .replace(/{{link}}/g, link)
-    .replace('{{badge}}', badge)
-    .replace('{{compactClass}}', compactClass);
+  return `
+<li class='product-card' data-id='${esc(id)}' role='listitem'>
+  ${badge}
+  <a class='product-card__link' href='${nameLink}' aria-label='${title}'>
+    <img class='product-card__img' src='${finalSrc}' alt='${title}' loading='lazy' />
+  </a>
+  <section class='product-card__body'>
+    <a class='product-card__name' href='${nameLink}'>${title}</a>
+    <p class='product-card__price'>$${Number(p.price || 0).toFixed(0)}</p>
+    <footer class='product-card__actions'>
+      <button class='btn btn_pink product-card__add' data-action='add-to-cart' data-id='${esc(id)}'>Add To Cart</button>
+    </footer>
+  </section>
+</li>`.trim();
 }
