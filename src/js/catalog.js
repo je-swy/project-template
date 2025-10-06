@@ -204,10 +204,11 @@ function setupFilterListeners () {
     const currentFilterItem = dropdownButton.closest('.filter-item');
     const wasOpen = currentFilterItem.classList.contains('is-open');
 
-    filtersForm.querySelectorAll('.filter-item.is-open').forEach(openItem => {
+    const openItems = filtersForm.querySelectorAll('.filter-item.is-open');
+    for (const openItem of openItems) {
       openItem.classList.remove('is-open');
       openItem.querySelector('.filter-label').setAttribute('aria-expanded', 'false');
-    });
+    }
 
     if (!wasOpen) {
       currentFilterItem.classList.add('is-open');
@@ -218,10 +219,11 @@ function setupFilterListeners () {
   // Close dropdowns if user clicks outside the form
   document.addEventListener('click', (event) => {
     if (!filtersForm.contains(event.target)) {
-      filtersForm.querySelectorAll('.filter-item.is-open').forEach(item => {
+      const openItems = filtersForm.querySelectorAll('.filter-item.is-open');
+      for (const item of openItems) {
         item.classList.remove('is-open');
         item.querySelector('.filter-label').setAttribute('aria-expanded', 'false');
-      });
+      };
     }
   });
 
@@ -283,13 +285,15 @@ function setupFilterListeners () {
     }
     activeFilters.sortBy = 'default';
 
-    filtersForm.querySelectorAll('.filter-selected').forEach(label => {
+    const selectedLabels = filtersForm.querySelectorAll('.filter-selected');
+    for (const label of selectedLabels) {
       const filterItem = label.closest('.filter-item');
       const firstOption = filterItem.querySelector('ul li:first-child label');
+
       if (firstOption) {
         label.textContent = firstOption.textContent;
       }
-    });
+    }
 
     handleStateChange();
   });
