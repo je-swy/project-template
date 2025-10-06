@@ -214,7 +214,7 @@ export async function initProductDetails () {
   if (relatedContainer) {
     const relatedProducts = allProducts
       .filter((p) => p.id !== productId)
-      .sort(() => 0.5 - Math.random())
+      .sort(() => 0.5 - Math.random()) // Math.random() is safe here because cryptographic security is not required.
       .slice(0, 4);
     renderBlock({
       products: relatedProducts,

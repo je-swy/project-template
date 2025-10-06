@@ -37,7 +37,7 @@ function unique (arr) {
  * @param {string} [url='/src/assets/data.json'] - The base URL for the data file
  * @returns {Promise<Array>} A promise that resolves with the products array
  */
-export async function loadProducts(url = '/src/assets/data.json') {
+export async function loadProducts (url = '/src/assets/data.json') {
   const candidates = buildCandidates(url);
   const json = await fetchFirstAvailable(candidates);
 
@@ -58,7 +58,7 @@ export async function loadProducts(url = '/src/assets/data.json') {
 }
 
 /** Return array of possible data file locations */
-function buildCandidates(url) {
+function buildCandidates (url) {
   return unique([
     url,
     '/src/assets/data.json',
@@ -71,7 +71,7 @@ function buildCandidates(url) {
 }
 
 /** Try fetching from candidate URLs until one succeeds */
-async function fetchFirstAvailable(candidates) {
+async function fetchFirstAvailable (candidates) {
   for (const u of candidates) {
     const json = await tryFetch(u);
     if (json) return json;
@@ -86,20 +86,20 @@ function resetData () {
 }
 
 /** Handle failure to fetch any JSON */
-function handleFetchFailure(candidates) {
+function handleFetchFailure (candidates) {
   console.error('loadProducts: failed to fetch data.json from any candidate location', candidates);
   exposeGlobals();
 }
 
 /** Normalize and ensure each product has an id */
-function normalizeProducts(json) {
+function normalizeProducts (json) {
   const arr = Array.isArray(json.data)
     ? json.data
     : Array.isArray(json.products)
-    ? json.products
-    : Array.isArray(json)
-    ? json
-    : [];
+      ? json.products
+      : Array.isArray(json)
+        ? json
+        : [];
 
   return arr.map((p, i) => {
     const o = Object.assign({}, p || {});
@@ -109,7 +109,7 @@ function normalizeProducts(json) {
 }
 
 /** Build index and handle duplicate ids */
-function buildIndex(normalized) {
+function buildIndex (normalized) {
   const idx = new Map();
   const counts = new Map();
 
@@ -130,7 +130,7 @@ function buildIndex(normalized) {
 }
 
 /** Push products and populate index map */
-function updateExports(normalized, idx) {
+function updateExports (normalized, idx) {
   PRODUCTS.push(...normalized);
   for (const [key, product] of idx.entries()) {
     PRODUCT_INDEX.set(key, product);
@@ -138,7 +138,7 @@ function updateExports(normalized, idx) {
 }
 
 /** Expose globals for debugging/cross-environment access */
-function exposeGlobals() {
+function exposeGlobals () {
   try {
     globalThis.PRODUCTS = PRODUCTS;
     globalThis.PRODUCT_INDEX = PRODUCT_INDEX;

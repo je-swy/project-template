@@ -2263,7 +2263,6 @@ button {
 }
 .carousel-item {
   flex: 0 0 296px;
-  scroll-snap-align: start;
   box-sizing: border-box;
   overflow: hidden;
 }

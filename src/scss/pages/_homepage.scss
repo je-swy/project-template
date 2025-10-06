@@ -228,7 +228,6 @@
     // Set the flex property to allow the item to grow and shrink with a base width of 296px
     flex: 0 0 296px;
     // Align the item to the start of the scroll container
-    scroll-snap-align: start;
     // Ensure the box model includes padding and border in the element's total width and height
     box-sizing: border-box;
     overflow: hidden;
