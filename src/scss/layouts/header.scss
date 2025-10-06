@@ -408,10 +408,6 @@
   font-size: 13px;
 }
 
-.form-group-checkbox {
-  @include mixins.flex-row(flex-start, center, 8px);
-}
-
 .forgot-password {
   color: vars.$pink;
   font-weight: bold;

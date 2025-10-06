@@ -112,7 +112,8 @@ function normalizeProducts (json) {
   const arr = extractProductArray(json);
 
   return arr.map((p, i) => {
-    const o = Object.assign({}, p || {});
+    const o = { ...p };
+
     if (o.id == null) {
       o.id = `auto-${i}`;
     }
