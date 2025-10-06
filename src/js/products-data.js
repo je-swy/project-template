@@ -1,8 +1,8 @@
 // Module to load and manage product data from a JSON file
 // It tries multiple paths to locate the file and builds an index for quick access.
 
-export let PRODUCTS = [];
-export let PRODUCT_INDEX = new Map();
+export const PRODUCTS = [];
+export const PRODUCT_INDEX = new Map();
 
 // Try fetching JSON from a URL, return null on failure
 async function tryFetch (url) {
