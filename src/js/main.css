@@ -1396,13 +1396,11 @@ button {
   border-bottom: 2px solid #b92770;
   padding: 22px 0 35px 0;
 }
-.catalog-filters .filter-item-data {
-  width: auto;
-}
-@media (min-width: 1024px) {
-  .catalog-filters .filter-item-data {
-    width: 200px;
-  }
+.catalog-filters fieldset.filter-item {
+  border: 0;
+  padding: 0;
+  position: relative;
+  min-width: 140px;
 }
 .catalog-filters .filter-item-title {
   font-family: "Montserrat", sans-serif;
@@ -1411,12 +1409,17 @@ button {
   color: #504e4a;
   margin-bottom: 12px;
 }
-.catalog-filters fieldset.filter-item {
-  border: 0;
+.catalog-filters .filter-item-data {
   position: relative;
-  min-width: 140px;
+  width: auto;
 }
-.catalog-filters fieldset.filter-item legend.filter-label {
+@media (min-width: 1024px) {
+  .catalog-filters .filter-item-data {
+    width: 200px;
+  }
+}
+.catalog-filters button.filter-label {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -1426,20 +1429,26 @@ button {
   background: #ffffff;
   border: 2px solid #e9e9ed;
   cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s ease;
 }
-.catalog-filters fieldset.filter-item .filter-selected {
+.catalog-filters button.filter-label .arrow-down {
+  transition: transform 0.2s ease;
+}
+.catalog-filters .filter-selected {
   font-family: "Montserrat", sans-serif;
   font-size: clamp(13px, 1.5vw, 13px);
   font-weight: 500;
   color: #727174;
 }
-.catalog-filters fieldset.filter-item ul.filter-list {
+.catalog-filters ul.filter-list {
   list-style: none;
-  margin: 8px 0 0 0;
+  margin: 4px 0 0 0;
   padding: 8px 0;
   position: absolute;
-  top: calc(100% + 8px);
+  top: 100%;
   left: 0;
+  width: 100%;
   min-width: 180px;
   max-height: 260px;
   overflow: auto;
@@ -1447,53 +1456,48 @@ button {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-6px) scale(0.98);
-  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+  transform: translateY(-6px);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s 0.15s;
   z-index: 40;
 }
-.catalog-filters fieldset.filter-item ul.filter-list li[role=option] {
+.catalog-filters ul.filter-list li {
+  padding: 0;
+}
+.catalog-filters ul.filter-list label {
+  display: block;
   padding: 8px 12px;
   cursor: pointer;
   white-space: nowrap;
   font-size: 14px;
   color: #000000;
 }
-.catalog-filters fieldset.filter-item ul.filter-list li[role=option]:hover, .catalog-filters fieldset.filter-item ul.filter-list li[role=option].is-selected {
+.catalog-filters ul.filter-list label:hover {
   background: linear-gradient(90deg, #b92770 0%, #707070 120%);
   color: #ffffff;
 }
-.catalog-filters fieldset.filter-item:hover ul.filter-list, .catalog-filters fieldset.filter-item:focus-within ul.filter-list {
+.catalog-filters ul.filter-list input[type=radio]:checked + label {
+  background: linear-gradient(90deg, #b92770 0%, #707070 120%);
+  color: #ffffff;
+  font-weight: bold;
+}
+.catalog-filters ul.filter-list input[type=radio]:focus-visible + label {
+  outline: 2px solid #b92770;
+  outline-offset: -2px;
+}
+.catalog-filters .filter-item.is-open button.filter-label {
+  border-color: #b92770;
+}
+.catalog-filters .filter-item.is-open button.filter-label .arrow-down {
+  transform: rotate(180deg);
+}
+.catalog-filters .filter-item.is-open ul.filter-list {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0) scale(1);
-}
-.catalog-filters .filter-item.search {
-  min-width: 240px;
-}
-.catalog-filters .filter-item.search input.filter-input {
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.35);
-  min-width: 220px;
-  background: #ffffff;
-}
-.catalog-filters nav.filter-actions {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 8px;
+  transform: translateY(0);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s 0s;
 }
 .catalog-filters.compact .filter-group {
   display: none;
-}
-@media (min-width: 1024px) {
-  .catalog-filters fieldset.filter-item ul.filter-list {
-    min-width: 220px;
-  }
-  .catalog-filters .filter-item.search {
-    min-width: 320px;
-  }
 }
 .catalog-header-info {
   margin: 20px 0;

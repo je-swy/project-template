@@ -17,59 +17,96 @@
 
     <section class="catalog-main">
       <section class="catalog-filters" id="catalog-filters" aria-label="Catalog filters">
-        <form class="filter-group" id="catalog-filters-form" role="search" aria-controls="catalog-list">
+        <form class="filter-group" id="catalog-filters-form">
           <fieldset class="filter-item" data-filter="category">
-            <h4 class="filter-item-title">Category</h4>
-            <article class="filter-item-data">
-              <legend class="filter-label"> <span class="filter-selected">Choose option</span> <span class="arrow-down"
-                  aria-hidden="true"><img alt="arrow-down" src="/src/assets/images/arrow-down.svg"></span>
-              </legend>
-              <ul class="filter-list" tabindex="-1" aria-label="Category options">
-                <li role="option" aria-selected="true" data-value="">All</li>
-                <li role="option" aria-selected="false" data-value="carry-ons">carry-ons</li>
-                <li role="option" aria-selected="false" data-value="suitcases">suitcases</li>
-                <li role="option" aria-selected="false" data-value="luggage sets">luggage sets</li>
-                <li role="option" aria-selected="false" data-value="kids' luggage">kids' luggage</li>
+            <legend class="filter-item-title">Category</legend>
+            <div class="filter-item-data">
+              <button type="button" class="filter-label" aria-expanded="false" aria-controls="category-options">
+                <span class="filter-selected">All</span>
+                <span class="arrow-down" aria-hidden="true"><img alt="arrow-down"
+                    src="/src/assets/images/arrow-down.svg"></span>
+              </button>
+              <ul class="filter-list" id="category-options">
+                <li>
+                  <input type="radio" class="visually-hidden" name="category" value="" id="cat-all" checked>
+                  <label for="cat-all">All</label>
+                </li>
+                <li>
+                  <input type="radio" class="visually-hidden" name="category" value="carry-ons" id="cat-carry-ons">
+                  <label for="cat-carry-ons">carry-ons</label>
+                </li>
+                <li>
+                  <input type="radio" class="visually-hidden" name="category" value="suitcases" id="cat-suitcases">
+                  <label for="cat-suitcases">suitcases</label>
+                </li>
+                <li>
+                  <input type="radio" class="visually-hidden" name="category" value="luggage sets" id="cat-sets">
+                  <label for="cat-sets">luggage sets</label>
+                </li>
+                <li>
+                  <input type="radio" class="visually-hidden" name="category" value="kids' luggage" id="cat-kids">
+                  <label for="cat-kids">kids' luggage</label>
+                </li>
               </ul>
-            </article>
+            </div>
           </fieldset>
 
           <fieldset class="filter-item" data-filter="color">
-            <h4 class="filter-item-title">Color</h4>
-            <article class="filter-item-data">
-              <legend class="filter-label"> <span class="filter-selected">Choose option</span> <span class="arrow-down"
-                  aria-hidden="true"><img alt="arrow-down" src="/src/assets/images/arrow-down.svg">
-              </legend>
-              <ul class="filter-list" aria-label="Color options">
-                <li role="option" aria-selected="true" data-value="">Any</li>
-                <li role="option" aria-selected="false" data-value="red">red</li>
-                <li role="option" aria-selected="false" data-value="blue">blue</li>
-                <li role="option" aria-selected="false" data-value="green">green</li>
-                <li role="option" aria-selected="false" data-value="black">black</li>
-                <li role="option" aria-selected="false" data-value="grey">grey</li>
-                <li role="option" aria-selected="false" data-value="yellow">yellow</li>
-                <li role="option" aria-selected="false" data-value="pink">pink</li>
+            <legend class="filter-item-title">Color</legend>
+            <div class="filter-item-data">
+              <button type="button" class="filter-label" aria-expanded="false" aria-controls="color-options">
+                <span class="filter-selected">Any</span>
+                <span class="arrow-down" aria-hidden="true"><img alt="arrow-down"
+                    src="/src/assets/images/arrow-down.svg"></span>
+              </button>
+              <ul class="filter-list" id="color-options">
+                <li><input type="radio" class="visually-hidden" name="color" value="" id="color-any" checked><label
+                    for="color-any">Any</label></li>
+                <li><input type="radio" class="visually-hidden" name="color" value="red" id="color-red"><label
+                    for="color-red">red</label></li>
+                <li><input type="radio" class="visually-hidden" name="color" value="blue" id="color-blue"><label
+                    for="color-blue">blue</label></li>
+                <li><input type="radio" class="visually-hidden" name="color" value="green" id="color-green"><label
+                    for="color-green">green</label></li>
+                <li><input type="radio" class="visually-hidden" name="color" value="black" id="color-black"><label
+                    for="color-black">black</label></li>
+                <li><input type="radio" class="visually-hidden" name="color" value="grey" id="color-grey"><label
+                    for="color-grey">grey</label></li>
+                <li><input type="radio" class="visually-hidden" name="color" value="yellow" id="color-yellow"><label
+                    for="color-yellow">yellow</label></li>
+                <li><input type="radio" class="visually-hidden" name="color" value="pink" id="color-pink"><label
+                    for="color-pink">pink</label></li>
               </ul>
-            </article>
+            </div>
           </fieldset>
 
           <fieldset class="filter-item" data-filter="size">
-            <h4 class="filter-item-title">Size</h4>
-            <article class="filter-item-data">
-              <legend class="filter-label"> <span class="filter-selected">Choose option</span> <span class="arrow-down"
-                  aria-hidden="true"><img alt="arrow-down" src="/src/assets/images/arrow-down.svg">
-              </legend>
-              <ul class="filter-list" aria-label="Size options">
-                <li role="option" aria-selected="true" data-value="">Any</li>
-                <li role="option" aria-selected="false" data-value="S">S</li>
-                <li role="option" aria-selected="false" data-value="M">M</li>
-                <li role="option" aria-selected="false" data-value="L">L</li>
-                <li role="option" aria-selected="false" data-value="XL">XL</li>
-                <li role="option" aria-selected="false" data-value="S-L">S-L</li>
-                <li role="option" aria-selected="false" data-value="S, M, XL">S, M, XL</li>
+            <legend class="filter-item-title">Size</legend>
+            <div class="filter-item-data">
+              <button type="button" class="filter-label" aria-expanded="false" aria-controls="size-options">
+                <span class="filter-selected">Any</span>
+                <span class="arrow-down" aria-hidden="true"><img alt="arrow-down"
+                    src="/src/assets/images/arrow-down.svg"></span>
+              </button>
+              <ul class="filter-list" id="size-options">
+                <li><input type="radio" class="visually-hidden" name="size" value="" id="size-any" checked><label
+                    for="size-any">Any</label></li>
+                <li><input type="radio" class="visually-hidden" name="size" value="S" id="size-s"><label
+                    for="size-s">S</label></li>
+                <li><input type="radio" class="visually-hidden" name="size" value="M" id="size-m"><label
+                    for="size-m">M</label></li>
+                <li><input type="radio" class="visually-hidden" name="size" value="L" id="size-l"><label
+                    for="size-l">L</label></li>
+                <li><input type="radio" class="visually-hidden" name="size" value="XL" id="size-xl"><label
+                    for="size-xl">XL</label></li>
+                <li><input type="radio" class="visually-hidden" name="size" value="S-L" id="size-s-l"><label
+                    for="size-s-l">S-L</label></li>
+                <li><input type="radio" class="visually-hidden" name="size" value="S, M, XL" id="size-s-m-xl"><label
+                    for="size-s-m-xl">S, M, XL</label></li>
               </ul>
-            </article>
+            </div>
           </fieldset>
+
 
           <fieldset class="filter-item filter-item_checkbox" data-filter="salesStatus">
             <label for="sales-checkbox" class="filter-item-title">Sales</label>

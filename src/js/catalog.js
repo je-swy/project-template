@@ -1,12 +1,4 @@
 // Catalog page script: handles product listing, filtering, sorting, pagination, and search functionality.
-// Also initializes the "Top Sets" widget with random luggage sets.
-// Imports necessary modules and functions for product data loading, rendering, and cart functionality.
-// Sets up event listeners for user interactions with filters, search, and pagination controls.
-// Renders products based on current filters and pagination state.
-// Manages the state of active filters and updates the product list accordingly.
-// Handles redirection to product details page on exact search match.
-// Updates the cart count in the UI when products are added to the cart.
-// Uses local storage to persist cart data across sessions.
 
 import { loadProducts } from './products-data.js';
 import { renderBlock, resolveAssetPath, esc } from './product-renderer.js';
@@ -29,7 +21,6 @@ let allProducts = [];
 let currentPage = 1;
 const productsPerPage = 12;
 
-// Active filters state
 const activeFilters = {
   category: '',
   color: '',
@@ -39,67 +30,49 @@ const activeFilters = {
   sortBy: 'default'
 };
 
-// Render pagination controls based on total pages and current page
 function renderPagination (totalPages) {
-  // Clear existing pagination
   paginationContainer.innerHTML = '';
   if (totalPages <= 1) return;
   const prevButton = document.createElement('button');
   prevButton.textContent = '< Previous';
   prevButton.className = 'btn btn_pagination-next-prev';
   prevButton.disabled = currentPage === 1;
-
-  // Add event listener for previous button
-  // Decrement currentPage and update product list if not on first page
-  prevButton.addEventListener('click', () => {
-    if (currentPage > 1) { currentPage--; updateProductList(); }
-  });
-  // Append previous button to pagination container
+  prevButton.addEventListener('click', () => { if (currentPage > 1) { currentPage--; updateProductList(); } });
   paginationContainer.appendChild(prevButton);
+
   const btnContainer = document.createElement('article');
   btnContainer.className = 'btn_container';
   paginationContainer.appendChild(btnContainer);
-  // Create page number buttons
-  // Loop from 1 to totalPages to create buttons for each page
+
   for (let i = 1; i <= totalPages; i++) {
     const pageButton = document.createElement('button');
     pageButton.textContent = i;
     pageButton.className = 'btn btn_pagination';
     if (i === currentPage) pageButton.classList.add('is-active');
-    pageButton.addEventListener('click', () => {
-      currentPage = i; updateProductList();
-    });
+    pageButton.addEventListener('click', () => { currentPage = i; updateProductList(); });
     btnContainer.appendChild(pageButton);
   }
+
   const nextButton = document.createElement('button');
   nextButton.textContent = 'Next >';
   nextButton.className = 'btn btn_pagination-next-prev';
   nextButton.disabled = currentPage === totalPages;
-  nextButton.addEventListener('click', () => {
-    if (currentPage < totalPages) { currentPage++; updateProductList(); }
-  });
+  nextButton.addEventListener('click', () => { if (currentPage < totalPages) { currentPage++; updateProductList(); } });
   paginationContainer.appendChild(nextButton);
 }
 
-// Render star rating HTML for a given rating value
 function renderWidgetRatingStars (rating) {
   const fullStars = Math.floor(rating);
   const emptyStars = 5 - fullStars;
-  // Create star rating HTML using full and empty stars
   const starsHTML = '★'.repeat(fullStars) + '☆'.repeat(emptyStars);
-  // Return HTML string with appropriate ARIA label for accessibility
   return `<span class="rating-stars" aria-label="Rating: ${rating} out of 5 stars">${starsHTML}</span>`;
 }
 
 function shuffleArray (array) {
-  const randomIndex = (max) => {
+  for (let i = array.length - 1; i > 0; i--) {
     const buf = new Uint32Array(1);
     crypto.getRandomValues(buf);
-    return buf[0] % (max + 1);
-  };
-
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = randomIndex(i);
+    const j = buf[0] % (i + 1);
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
@@ -107,19 +80,14 @@ function shuffleArray (array) {
 
 function renderTopSets () {
   const sets = allProducts.filter(p => p.category === 'luggage sets');
-
   const setsCopy = [...sets];
-
   const shuffledSets = shuffleArray(setsCopy);
-
   const randomSets = shuffledSets.slice(0, 4);
-
   const listElement = topSetsContainer.querySelector('.widget-list');
   if (!listElement) {
     console.error('Render Top Sets: list element not found');
     return;
   }
-
   listElement.innerHTML = randomSets.map(product => {
     const ratingHtml = product.rating ? renderWidgetRatingStars(product.rating) : '';
     return `
@@ -138,7 +106,6 @@ function renderTopSets () {
   }).join('');
 }
 
-// Update the results count display based on total filtered products and products on current page
 function updateResultsCount (totalFilteredProducts, productsOnPage) {
   if (totalFilteredProducts === 0) {
     resultsContainer.textContent = '';
@@ -149,17 +116,34 @@ function updateResultsCount (totalFilteredProducts, productsOnPage) {
   resultsContainer.textContent = `Showing ${start}–${end} of ${totalFilteredProducts} results`;
 }
 
-// Main function to update the product list based on active filters and pagination
+/**
+ * NEW: Parses a size filter value (like "S-L" or "S, M, XL") into an array of individual sizes.
+ * @param {string} sizeValue - The value from the filter.
+ * @returns {string[]} An array of simple sizes, e.g., ['S', 'M', 'L'].
+ */
+function parseSizeFilter (sizeValue) {
+  if (!sizeValue) return [];
+  if (!sizeValue.includes(',') && !sizeValue.includes('-')) {
+    return [sizeValue];
+  }
+  if (sizeValue.includes(',')) {
+    return sizeValue.split(',').map(s => s.trim());
+  }
+  if (sizeValue.includes('-')) {
+    if (sizeValue === 'S-L') {
+      return ['S', 'M', 'L'];
+    }
+    // Add other ranges here if needed
+  }
+  return [sizeValue];
+}
+
 function updateProductList () {
-  // Start with all products and apply filters step by step
   let productsToRender = [...allProducts];
-  // Apply search query filter
   const searchQuery = activeFilters.searchQuery.trim().toLowerCase();
-  // Apply category filter
+
   if (searchQuery) {
-    productsToRender = productsToRender
-      .filter(p => p.name.toLowerCase()
-        .includes(searchQuery) || p.id.toLowerCase().includes(searchQuery));
+    productsToRender = productsToRender.filter(p => p.name.toLowerCase().includes(searchQuery) || p.id.toLowerCase().includes(searchQuery));
   }
   if (activeFilters.category) {
     productsToRender = productsToRender.filter(p => p.category === activeFilters.category);
@@ -167,26 +151,29 @@ function updateProductList () {
   if (activeFilters.color) {
     productsToRender = productsToRender.filter(p => p.color === activeFilters.color);
   }
+
   if (activeFilters.size) {
-    productsToRender = productsToRender.filter(p => activeFilters.size.includes(p.size));
+    const targetSizes = parseSizeFilter(activeFilters.size);
+    productsToRender = productsToRender.filter(p => targetSizes.includes(p.size));
   }
+
   if (activeFilters.salesStatus === 'true') {
     productsToRender = productsToRender.filter(p => p.salesStatus === true);
   }
-  // Apply sorting based on selected sort option
+
   const sortBy = activeFilters.sortBy;
   if (sortBy === 'price-asc') productsToRender.sort((a, b) => a.price - b.price);
   else if (sortBy === 'price-desc') productsToRender.sort((a, b) => b.price - a.price);
   else if (sortBy === 'popularity') productsToRender.sort((a, b) => b.popularity - a.popularity);
   else if (sortBy === 'rating') productsToRender.sort((a, b) => b.rating - a.rating);
-  // Handle pagination calculations
+
   const totalFilteredProducts = productsToRender.length;
-  // Calculate total pages and adjust current page if out of bounds
   const totalPages = Math.ceil(totalFilteredProducts / productsPerPage);
   if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+
   const startIndex = (currentPage - 1) * productsPerPage;
   const paginatedProducts = productsToRender.slice(startIndex, startIndex + productsPerPage);
-  // Render the products, pagination controls, and update results count
+
   renderBlock({
     products: paginatedProducts,
     containerSelector: '#catalog-list',
@@ -194,95 +181,130 @@ function updateProductList () {
   });
   renderPagination(totalPages);
   updateResultsCount(totalFilteredProducts, paginatedProducts);
+
   if (totalFilteredProducts === 0) {
     productListContainer.innerHTML = '<p>Product not found.</p>';
   }
 }
 
-// Handle changes in filter state by resetting to first page and updating product list
 function handleStateChange () {
   currentPage = 1;
   updateProductList();
 }
 
-// Initialize the catalog page: load products,
-// set up event listeners, and render initial UI
+/**
+ * Sets up all event listeners for the filtering system.
+ */
+function setupFilterListeners () {
+  // 1. Logic for custom dropdowns (opening/closing)
+  filtersForm.addEventListener('click', (event) => {
+    const dropdownButton = event.target.closest('.filter-label');
+    if (!dropdownButton) return;
+
+    const currentFilterItem = dropdownButton.closest('.filter-item');
+    const wasOpen = currentFilterItem.classList.contains('is-open');
+
+    filtersForm.querySelectorAll('.filter-item.is-open').forEach(openItem => {
+      openItem.classList.remove('is-open');
+      openItem.querySelector('.filter-label').setAttribute('aria-expanded', 'false');
+    });
+
+    if (!wasOpen) {
+      currentFilterItem.classList.add('is-open');
+      dropdownButton.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  // Close dropdowns if user clicks outside the form
+  document.addEventListener('click', (event) => {
+    if (!filtersForm.contains(event.target)) {
+      filtersForm.querySelectorAll('.filter-item.is-open').forEach(item => {
+        item.classList.remove('is-open');
+        item.querySelector('.filter-label').setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
+  // 2. Logic for handling filter selection (when a radio button is changed)
+  filtersForm.addEventListener('change', (event) => {
+    const input = event.target;
+    if (input.name === 'category' || input.name === 'color' || input.name === 'size') {
+      const filterItem = input.closest('.filter-item');
+      const filterName = filterItem.dataset.filter;
+      const selectedText = filterItem.querySelector(`label[for="${input.id}"]`).textContent;
+      const selectedDisplay = filterItem.querySelector('.filter-selected');
+
+      activeFilters[filterName] = input.value;
+      if (selectedDisplay) {
+        selectedDisplay.textContent = selectedText;
+      }
+      filterItem.classList.remove('is-open');
+      filterItem.querySelector('.filter-label').setAttribute('aria-expanded', 'false');
+
+      handleStateChange();
+    }
+  });
+
+  // --- Other listeners ---
+  searchInput.addEventListener('input', () => {
+    activeFilters.searchQuery = searchInput.value;
+    handleStateChange();
+  });
+
+  const searchButton = document.querySelector('.search-widget button');
+  if (searchButton) {
+    searchButton.addEventListener('click', () => {
+      const query = searchInput.value.trim().toLowerCase();
+      if (!query) return;
+      const exactMatch = allProducts.find(p => p.id.toLowerCase() === query);
+      if (exactMatch) {
+        globalThis.location.href = `/src/pages/product-details-template.html?id=${exactMatch.id}`;
+      }
+    });
+  }
+
+  salesCheckbox.addEventListener('change', () => {
+    activeFilters.salesStatus = salesCheckbox.checked ? 'true' : '';
+    handleStateChange();
+  });
+
+  sortSelect.addEventListener('change', () => {
+    activeFilters.sortBy = sortSelect.value;
+    handleStateChange();
+  });
+
+  clearFiltersBtn.addEventListener('click', () => {
+    filtersForm.reset();
+    salesCheckbox.checked = false;
+    sortSelect.value = 'default';
+
+    for (const key of Object.keys(activeFilters)) {
+      activeFilters[key] = '';
+    }
+    activeFilters.sortBy = 'default';
+
+    filtersForm.querySelectorAll('.filter-selected').forEach(label => {
+      const filterItem = label.closest('.filter-item');
+      const firstOption = filterItem.querySelector('ul li:first-child label');
+      if (firstOption) {
+        label.textContent = firstOption.textContent;
+      }
+    });
+
+    handleStateChange();
+  });
+
+  hideFiltersBtn.addEventListener('click', () => {
+    filtersContainer.classList.toggle('compact');
+    hideFiltersBtn.textContent = filtersContainer.classList.contains('compact') ? 'SHOW FILTERS' : 'HIDE FILTERS';
+  });
+}
+
+// Main initialization function for the catalog page
 export async function initCatalog () {
   allProducts = await loadProducts('../assets/data.json');
   updateProductList();
   renderTopSets();
   attachCartDelegation();
-
-  // Redirect to product details if search input matches a product ID exactly
-  function redirectToProduct () {
-    const query = searchInput.value.trim().toLowerCase();
-    if (!query) return;
-    const exactMatch = allProducts.find(p => p.id.toLowerCase() === query);
-    if (exactMatch) {
-      globalThis.location.href = `/src/pages/product-details-template.html?id=${exactMatch.id}`;
-    }
-  }
-  // Set up event listeners for search input, filter options, sales checkbox, sort select, and buttons
-  searchInput.addEventListener('input', () => {
-    activeFilters.searchQuery = searchInput.value;
-    handleStateChange();
-  });
-  // Handle Enter key press in search input to trigger redirection
-  searchInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      redirectToProduct();
-    }
-  });
-  // Handle click on search button to trigger redirection
-  const searchButton = document.querySelector('.search-widget button');
-  if (searchButton) {
-    searchButton.addEventListener('click', redirectToProduct);
-  }
-  // Event delegation for filter options
-  filtersForm.addEventListener('click', (event) => {
-    const option = event.target.closest('li[role="option"]');
-    if (!option) return;
-    const filterGroup = option.closest('.filter-item');
-    if (!filterGroup) return;
-    activeFilters[filterGroup.dataset.filter] = option.dataset.value;
-    const selectedLabel = filterGroup.querySelector('.filter-selected');
-    if (selectedLabel) selectedLabel.textContent = option.textContent;
-    handleStateChange();
-  });
-  // Handle changes to sales checkbox
-  salesCheckbox.addEventListener('change', () => {
-    activeFilters.salesStatus = salesCheckbox.checked ? 'true' : '';
-    handleStateChange();
-  });
-  // Handle changes to sort select dropdown
-  sortSelect.addEventListener('change', () => {
-    activeFilters.sortBy = sortSelect.value;
-    handleStateChange();
-  });
-  // Handle clear filters button click to reset all filters and UI elements
-  clearFiltersBtn.addEventListener('click', () => {
-    filtersForm.reset();
-    salesCheckbox.checked = false;
-    sortSelect.value = 'default';
-    // Reset activeFilters state
-    // eslint-disable-next-line no-return-assign
-    for (const key of Object.keys(activeFilters)) {
-      activeFilters[key] = '';
-    }
-    activeFilters.sortBy = 'default';
-    // Reset selected labels in the UI
-    const selectedLabels = filtersForm.querySelectorAll('.filter-selected');
-
-    for (const label of selectedLabels) {
-      const filterItem = label.closest('.filter-item');
-      label.textContent = (filterItem && filterItem.dataset.filter === 'category') ? 'All' : 'Any';
-    }
-    handleStateChange();
-  });
-  // Handle hide/show filters button click to toggle compact mode
-  hideFiltersBtn.addEventListener('click', () => {
-    filtersContainer.classList.toggle('compact');
-    hideFiltersBtn.textContent = filtersContainer.classList.contains('compact') ? 'SHOW FILTERS' : 'HIDE FILTERS';
-  });
+  setupFilterListeners();
 }

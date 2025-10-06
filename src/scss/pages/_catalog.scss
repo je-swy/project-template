@@ -29,6 +29,7 @@
 
   &-filters {
     @include mixins.flex-column(flex-start, start, 20px);
+
     .filter-group {
       width: 100%;
       @include mixins.flex-row(flex-start, start, 12px);
@@ -38,124 +39,129 @@
       padding: 22px 0 35px 0;
     }
 
-    .filter-item {
-      &-data {
-        width: auto;
-        @include mixins.respond(tablet) {
-          width: 200px;
-        }
-      }
-      &-title {
-        @include mixins.fonts(
-          vars.$mont-font,
-          17px,
-          17px,
-          bold,
-          vars.$dark-grey
-        );
-        margin-bottom: 12px;
+    fieldset.filter-item {
+      border: 0;
+      padding: 0;
+      position: relative;
+      min-width: 140px;
+    }
+
+    .filter-item-title {
+      // Це тепер тег <legend>
+      @include mixins.fonts(vars.$mont-font, 17px, 17px, bold, vars.$dark-grey);
+      margin-bottom: 12px;
+    }
+
+    .filter-item-data {
+      position: relative; // Контейнер для кнопки і списку
+      width: auto;
+      @include mixins.respond(tablet) {
+        width: 200px;
       }
     }
 
-    fieldset.filter-item {
-      border: 0;
-      position: relative;
-      min-width: 140px;
+    // Кнопка, що відкриває випадаючий список
+    button.filter-label {
+      width: 100%;
+      @include mixins.flex-row(space-between, center, 8px);
+      padding: 8px 12px;
+      background: vars.$white;
+      border: 2px solid vars.$border-grey;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s ease;
 
-      legend.filter-label {
-        @include mixins.flex-row(space-between, center, 8px);
+      .arrow-down {
+        transition: transform 0.2s ease;
+      }
+    }
+
+    .filter-selected {
+      @include mixins.fonts(vars.$mont-font, 13px, 13px, 500, vars.$light-grey);
+    }
+
+    ul.filter-list {
+      list-style: none;
+      margin: 4px 0 0 0;
+      padding: 8px 0;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      min-width: 180px;
+      max-height: 260px;
+      overflow: auto;
+      background: vars.$white;
+      box-shadow: 0 8px 24px vars.$copyright-color;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition:
+        opacity 0.15s ease,
+        transform 0.15s ease,
+        visibility 0s 0.15s;
+      z-index: 40;
+
+      li {
+        padding: 0; // li тепер тільки контейнер
+      }
+
+      label {
+        display: block;
         padding: 8px 12px;
-        background: vars.$white;
-        border: 2px solid vars.$border-grey;
         cursor: pointer;
+        white-space: nowrap;
+        font-size: 14px;
+        color: vars.$black;
+
+        &:hover {
+          background: linear-gradient(
+            90deg,
+            vars.$pink 0%,
+            vars.$medium-grey 120%
+          );
+          color: vars.$white;
+        }
       }
 
-      .filter-selected {
-        @include mixins.fonts(
-          vars.$mont-font,
-          13px,
-          13px,
-          500,
-          vars.$light-grey
+      input[type="radio"]:checked + label {
+        background: linear-gradient(
+          90deg,
+          vars.$pink 0%,
+          vars.$medium-grey 120%
         );
+        color: vars.$white;
+        font-weight: bold;
       }
 
+      input[type="radio"]:focus-visible + label {
+        outline: 2px solid vars.$pink;
+        outline-offset: -2px;
+      }
+    }
+
+    // JS-керований стан для відкритого списку
+    .filter-item.is-open {
+      button.filter-label {
+        border-color: vars.$pink;
+        .arrow-down {
+          transform: rotate(180deg);
+        }
+      }
       ul.filter-list {
-        list-style: none;
-        margin: 8px 0 0 0;
-        padding: 8px 0;
-        position: absolute;
-        top: calc(100% + 8px);
-        left: 0;
-        min-width: 180px;
-        max-height: 260px;
-        overflow: auto;
-        background: vars.$white;
-        box-shadow: 0 8px 24px vars.$copyright-color;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-6px) scale(0.98);
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
         transition:
           opacity 0.15s ease,
           transform 0.15s ease,
-          visibility 0.15s;
-        z-index: 40;
-
-        li[role="option"] {
-          padding: 8px 12px;
-          cursor: pointer;
-          white-space: nowrap;
-          font-size: 14px;
-          color: vars.$black;
-
-          &:hover,
-          &.is-selected {
-            background: linear-gradient(
-              90deg,
-              vars.$pink 0%,
-              vars.$medium-grey 120%
-            );
-            color: vars.$white;
-          }
-        }
+          visibility 0s 0s;
       }
-
-      &:hover ul.filter-list,
-      &:focus-within ul.filter-list {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    .filter-item.search {
-      min-width: 240px;
-
-      input.filter-input {
-        padding: 8px 10px;
-        border-radius: 8px;
-        border: 1px solid vars.$copyright-color;
-        min-width: 220px;
-        background: vars.$white;
-      }
-    }
-
-    nav.filter-actions {
-      @include mixins.flex-row(flex-start, center, 8px);
     }
 
     &.compact {
       .filter-group {
         display: none;
-      }
-    }
-
-    @include mixins.respond(tablet) {
-      fieldset.filter-item ul.filter-list {
-        min-width: 220px;
-      }
-      .filter-item.search {
-        min-width: 320px;
       }
     }
   }
@@ -185,6 +191,7 @@
   }
 }
 
+// Залишаю цей блок, можливо він використовується для інших чекбоксів
 .filter-item_checkbox {
   @include mixins.flex-column(flex-start, center, 8px);
   background: vars.$white;

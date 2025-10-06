@@ -34,7 +34,7 @@ Before you begin, ensure you have the following installed on your system:
 
 1.  **Clone the repository:**
     ```bash
-    git clone <your-repository-url>
+    git clone https://autocode.git.epam.com/katylin482/project-template-ua.git
     ```
 2.  **Navigate to the project directory:**
     ```bash
