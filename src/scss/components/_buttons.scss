@@ -11,7 +11,7 @@
   transition: background-color 0.1s ease;
 
   // base font
-  @include mixins.fonts(vars.$mont-font, 18px, 18px, bold, vars.$white);
+  @include mixins.fonts(vars.$mont-font, 15px, 18px, bold, vars.$white);
   padding: 12px 28px;
 
   // pink background variant
@@ -89,6 +89,21 @@
       vars.$black
     );
     background-color: vars.$white;
+    border-radius: 4px;
+    padding: 10px 8px;
+    margin: 0 4px;
+  }
+
+  &_pagination-next-prev {
+    @include mixins.fonts(
+      vars.$add-to-cart-sf-font,
+      15px,
+      15px,
+      bold,
+      vars.$black
+    );
+    background-color: vars.$white;
+    border: 2px solid vars.$pink;
     border-radius: 4px;
     padding: 10px 8px;
     margin: 0 4px;

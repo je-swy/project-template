@@ -46,8 +46,9 @@ function renderPagination (totalPages) {
   if (totalPages <= 1) return;
   const prevButton = document.createElement('button');
   prevButton.textContent = '< Previous';
-  prevButton.className = 'btn btn_pagination';
+  prevButton.className = 'btn btn_pagination-next-prev';
   prevButton.disabled = currentPage === 1;
+
   // Add event listener for previous button
   // Decrement currentPage and update product list if not on first page
   prevButton.addEventListener('click', () => {
@@ -55,6 +56,9 @@ function renderPagination (totalPages) {
   });
   // Append previous button to pagination container
   paginationContainer.appendChild(prevButton);
+  const btnContainer = document.createElement('article');
+  btnContainer.className = 'btn_container';
+  paginationContainer.appendChild(btnContainer);
   // Create page number buttons
   // Loop from 1 to totalPages to create buttons for each page
   for (let i = 1; i <= totalPages; i++) {
@@ -65,11 +69,11 @@ function renderPagination (totalPages) {
     pageButton.addEventListener('click', () => {
       currentPage = i; updateProductList();
     });
-    paginationContainer.appendChild(pageButton);
+    btnContainer.appendChild(pageButton);
   }
   const nextButton = document.createElement('button');
   nextButton.textContent = 'Next >';
-  nextButton.className = 'btn btn_pagination';
+  nextButton.className = 'btn btn_pagination-next-prev';
   nextButton.disabled = currentPage === totalPages;
   nextButton.addEventListener('click', () => {
     if (currentPage < totalPages) { currentPage++; updateProductList(); }
@@ -106,6 +110,7 @@ function renderTopSets () {
       </a>
       <article>
         <a href="/src/pages/product-details-template.html?id=${esc(product.id)}">${esc(product.name)}</a>
+        <br>
         ${ratingHtml}
         <p>$${product.price.toFixed(2)}</p>
       </article>

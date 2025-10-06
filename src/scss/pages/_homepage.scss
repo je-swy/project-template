@@ -6,14 +6,31 @@
   margin-top: 50px;
   margin-bottom: 50px;
 
-  h2 {
-    @include mixins.fonts(vars.$mont-font, 40px, 40px, 900, vars.$black);
-  }
-
   @include mixins.respond(tablet) {
     margin-top: 95px;
     margin-bottom: 120px;
-    gap: 50px;
+    gap: 100px;
+  }
+}
+
+.section {
+  &-header {
+    text-align: center;
+    margin-bottom: clamp(24px, 5vw, 48px);
+  }
+  &-title {
+    @include mixins.fonts(vars.$mont-font, 30px, 40px, 900, vars.$black);
+    @include mixins.respond(tablet) {
+      font-size: 40px;
+    }
+  }
+
+  &-subtitle {
+    @include mixins.fonts(vars.$mont-font, 16px, 19px, 400, vars.$dark-grey);
+    margin: clamp(8px, 1.5vw, 12px) 0 0;
+    @include mixins.respond(tablet) {
+      font-size: 19px;
+    }
   }
 }
 
@@ -26,7 +43,6 @@
     &_intro {
       width: 100%;
       background: vars.$light-color;
-      // z-index: -1;
     }
 
     &_heading {
@@ -88,12 +104,6 @@
       }
     }
     &_box {
-      // @include mixins.respond(tablet) {
-      //   position: relative;
-      //   top: -175px;
-      //   z-index: 100;
-      // }
-
       @include mixins.flex-column(center, stretch, 0);
       box-shadow: 0px 20px 80px rgba(193, 199, 212, 0.702);
 
@@ -105,8 +115,8 @@
 
     &_profile,
     &_discount {
-      flex: 1 1 0; // 1 — grow; 1 — shrink; 0 — базовий розмір
-      min-width: 0; // дозволяємо стискатися менше за ширину контенту
+      flex: 1 1 0;
+      min-width: 0;
       box-sizing: border-box;
     }
 
@@ -144,7 +154,6 @@
       @include mixins.flex-column(space-between, flex-start, 30px);
 
       p {
-        @include mixins.fonts(vars.$mont-font, 17px, 17px, 400, vars.$black);
         line-height: 1.6;
       }
     }
@@ -183,12 +192,9 @@
         max-width: 600px;
         text-align: center;
 
-        h2 {
-          @include mixins.fonts(vars.$mont-font, 36px, 40px, 900, vars.$white);
-        }
-
+        h2,
         p {
-          @include mixins.fonts(vars.$mont-font, 16px, 18px, 400, vars.$white);
+          color: vars.$white;
         }
 
         .btn {
@@ -204,20 +210,6 @@
   position: relative;
   overflow: hidden;
 
-  &-header {
-    text-align: center;
-    margin-bottom: clamp(24px, 5vw, 48px);
-
-    &_title {
-      @include mixins.fonts(vars.$mont-font, 19px, 19px, 700, vars.$black);
-    }
-
-    &_subtitle {
-      @include mixins.fonts(vars.$mont-font, 19px, 19px, 400, vars.$dark-grey);
-      margin: clamp(8px, 1.5vw, 12px) 0 0;
-    }
-  }
-
   /* 2. slide list */
   &-list {
     @include mixins.flex-row(flex-start, flex-start, 30px);
@@ -227,12 +219,11 @@
     scrollbar-width: none; // Hides the scrollbar for Firefox
 
     &::-webkit-scrollbar {
-      display: none; // Hides the scrollbar for WebKit browsers (Chrome, Safari)
+      display: none; // Hides the scrollbar for WebKit browsers
     }
   }
 
   /* 3. Slide as backgroud + overlay + text*/
-
   &-item {
     // Set the flex property to allow the item to grow and shrink with a base width of 296px
     flex: 0 0 296px;
@@ -267,7 +258,10 @@
       transition: background-color 0.3s ease;
     }
     &:hover::before {
-      background-color: rgba(vars.$black, 0.2); // Робимо оверлей світлішим
+      background-color: rgba(
+        vars.$black,
+        0.2
+      ); // making overlay lighter on hover
     }
   }
 
@@ -291,63 +285,49 @@
       @include mixins.fonts(vars.$mont-font, 19px, 19px, 400, vars.$white);
     }
   }
-}
 
-/* 4. Navigation buttons */
-.carousel .carousel-prev,
-.carousel-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 32px;
-  height: 32px;
-  background-color: vars.$dark-grey;
-  border: none;
-  border-radius: 50%;
-  @include mixins.flex-row(center, center, 0);
-  cursor: pointer;
-  transition:
-    background-color 0.3s,
-    transform 0.1s;
+  /* 4. Navigation buttons */
+  &-prev,
+  &-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    background-color: vars.$dark-grey;
+    border: none;
+    border-radius: 50%;
+    @include mixins.flex-row(center, center, 0);
+    cursor: pointer;
+    transition:
+      background-color 0.3s,
+      transform 0.1s;
 
-  img {
-    filter: brightness(0) invert(1);
+    img {
+      filter: brightness(0) invert(1);
+    }
+
+    &:hover,
+    &:active {
+      background: linear-gradient(
+        274.43deg,
+        vars.$medium-grey -3.28%,
+        vars.$pink 132.5%
+      );
+    }
   }
 
-  &:hover,
-  &:active {
-    background: linear-gradient(
-      274.43deg,
-      vars.$medium-grey -3.28%,
-      vars.$pink 132.5%
-    );
+  &-prev {
+    left: clamp(10px, 2vw, 20px);
   }
-}
 
-.carousel-prev {
-  left: clamp(10px, 2vw, 20px);
-}
-
-.carousel-next {
-  right: clamp(10px, 2vw, 20px);
+  &-next {
+    right: clamp(10px, 2vw, 20px);
+  }
 }
 
 .testimonials {
-  &-header {
-    text-align: center;
-    margin-bottom: clamp(24px, 5vw, 48px);
-
-    &_title {
-      @include mixins.fonts(vars.$mont-font, 19px, 19px, 700, vars.$black);
-    }
-
-    &_subtitle {
-      @include mixins.fonts(vars.$mont-font, 19px, 19px, 400, vars.$dark-grey);
-      margin: clamp(8px, 1.5vw, 12px) 0 0;
-    }
-  }
-
-  .testionials-reviews {
+  &-reviews {
     @include mixins.flex-column(center, center, 20px);
 
     @include mixins.respond(tablet) {
@@ -384,90 +364,53 @@
 .offer {
   background: url("/src/assets/images/homepage/banner.jpg") center/cover
     no-repeat;
-  background-size: 600%;
-  // inner block with content
+  background-size: 650%;
   @include mixins.respond(tablet) {
-    @include mixins.flex-row(space-between, center, clamp(40px, 8vw, 50px));
-    background-size: 250%;
-  }
-  @include mixins.respond(tablet) {
-    @include mixins.flex-row(space-between, center, clamp(40px, 8vw, 60px));
+    @include mixins.flex-row(space-between, center, 0);
     background-size: 150%;
   }
-  // overlay
 
-  &__inner {
+  // overlay
+  &-inner {
     width: 100%;
     padding: clamp(24px, 5vw, 48px);
-
     @include mixins.flex-column(center, center, clamp(24px, 4vw, 40px));
-
     @include mixins.respond(tablet) {
-      @include mixins.flex-row(space-between, center, clamp(40px, 8vw, 60px));
+      @include mixins.flex-row(flex-start, center, clamp(40px, 8vw, 60px));
     }
   }
 
   // Left block with discount
-  &__discount {
+  &-discount {
+    flex-grow: 1;
     text-align: center;
+  }
 
-    .offer__percent {
+  &-percent {
+    @include mixins.fonts(vars.$mont-font, 100px, 236px, 900, vars.$white);
+    @include mixins.respond(tablet) {
       @include mixins.fonts(vars.$mont-font, 150px, 236px, 900, vars.$white);
-      margin: 0;
-    }
-
-    .offer__promo {
-      @include mixins.fonts(
-        vars.$mont-font,
-        20px,
-        20px,
-        400,
-        vars.$light-color
-      );
-      margin: clamp(8px, 2vw, 16px) 0 0;
     }
   }
 
-  // Right block with information
-  &__info {
-    text-align: center;
+  &-promo {
+    @include mixins.fonts(vars.$mont-font, 20px, 20px, 400, vars.$light-color);
+    margin: clamp(8px, 2vw, 16px) 0 0;
+  }
 
+  // Right block with information
+  &-info {
+    flex-grow: 1;
     @include mixins.flex-column(center, center, clamp(16px, 2.5vw, 24px));
     padding: clamp(24px, 5vw, 40px);
     @include mixins.respond(tablet) {
       text-align: left;
-      justify-content: flex-start;
+      align-items: flex-start;
     }
 
-    .offer__title {
-      @include mixins.fonts(vars.$mont-font, 32px, 40px, 900, vars.$white);
+    h2,
+    p {
+      color: vars.$white;
     }
-
-    .offer__subtitle {
-      @include mixins.fonts(
-        vars.$mont-font,
-        16px,
-        18px,
-        400,
-        vars.$light-color
-      );
-      margin: clamp(12px, 2vw, 20px) 0 0;
-      max-width: 480px;
-    }
-  }
-}
-
-/* Match existing HTML: .products__header, .products__header_title, .products__header_subtitle */
-.products__header {
-  text-align: center;
-  margin-bottom: clamp(24px, 5vw, 48px);
-
-  &__title {
-    @include mixins.fonts(vars.$mont-font, 19px, 19px, 700, vars.$black);
-  }
-
-  &__subtitle {
-    @include mixins.fonts(vars.$mont-font, 19px, 19px, 400, vars.$dark-grey);
-    margin: clamp(8px, 1.5vw, 12px) 0 0;
   }
 }

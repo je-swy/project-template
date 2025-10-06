@@ -1,3 +1,6 @@
+@use "../abstracts/variables" as vars;
+@use "../abstracts/mixins" as mixins;
+
 *,
 *::before,
 *::after {
@@ -25,7 +28,7 @@ body {
   font-family: "Arial", sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  color: #333;
+  color: vars.$black;
 }
 
 a {

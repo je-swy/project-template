@@ -1,3 +1,5 @@
+// in this file we handle the cart page functionality: rendering cart items, updating quantities, removing items, clearing the cart, and handling checkout.
+
 import { getCartItems, setCartItems, clearCart } from './cart-ui.js';
 import { resolveAssetPath, esc } from './product-renderer.js';
 
@@ -26,21 +28,21 @@ function renderCart () {
       <td class="col-image">
         <img src="${esc(resolveAssetPath(item.imageUrl))}" alt="${esc(item.name)}" class="cart-item-img" />
       </td>
-      <td class="col-product">
+      <td class="col-product" data-label="Item">
         <a href="/src/pages/product-details-template.html?id=${esc(item.id)}" class="cart-item-name">${esc(item.name)}</a>
       </td>
-      <td class="col-price">$${item.price.toFixed(2)}</td>
-      <td class="col-quantity">
+      <td class="col-price" data-label="Price">$${item.price.toFixed(2)}</td>
+      <td class="col-quantity" data-label="Amount">
         <div class="cart-item-qty">
           <button type="button" class="qty-btn" data-action="dec">-</button>
-          <input type="number" value="${item.qty}" min="1" readonly />
+          <p class="qty-value">${item.qty}</p>
           <button type="button" class="qty-btn" data-action="inc">+</button>
         </div>
       </td>
-      <td class="col-total">$${(item.price * item.qty).toFixed(2)}</td>
+      <td class="col-total" data-label="Total">$${(item.price * item.qty).toFixed(2)}</td>
       <td class="col-delete">
         <button type="button" class="cart-item-remove" aria-label="Remove item">
-            <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8a2 2 0 002-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path></svg>
+          <img src="${esc(resolveAssetPath('./src/assets/images/trash-can.svg'))}" alt="Remove" class="cart-item-remove-icon" />
         </button>
       </td>
     </tr>

@@ -58,7 +58,7 @@
 
 <section class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle" hidden>
 
-  <div class="modal__overlay" data-close></div>
+  <section class="modal__overlay" data-close></section>
 
   <article class="modal__content">
     <header class="modal__header">
@@ -67,34 +67,33 @@
     </header>
 
     <form class="login-form" id="loginForm" novalidate>
-      <div class="form-group">
-        <label for="email">Email address *</label>
+      <article class="form-group">
+        <label for="email">Email address <span class="highlighted-span">*</span></label>
         <input type="email" id="email" name="email" autocomplete="email" required />
         <small class="error-msg"></small>
-      </div>
+      </article>
 
-      <div class="form-group">
-        <label for="password">Password *</label>
-        <div class="password-wrapper">
+      <article class="form-group">
+        <label for="password">Password <span class="highlighted-span">*</span></label>
+        <section class="password-wrapper">
           <input type="password" id="password" name="password" autocomplete="current-password" required />
           <button type="button" class="toggle-password" aria-label="Show password">
             <img src="/src/assets/images/eye.svg" alt="Toggle password visibility" />
           </button>
-        </div>
+        </section>
         <small class="error-msg"></small>
-      </div>
-      <div class="password-wrapper">
-      </div>
+      </article>
+      <article class="password-wrapper">
+      </article>
       <small class="error-msg"></small>
-      </div>
 
-      <div class="form-options">
-        <div class="form-group-checkbox">
+      <article class="form-options">
+        <section class="form-group-checkbox">
           <input type="checkbox" id="remember-me">
           <label for="remember-me">Remember me</label>
-        </div>
+        </section>
         <a href="#" class="forgot-password">Forgot Your Password?</a>
-      </div>
+      </article>
       <button type="submit" class="btn btn_pink btn-submit">Log In</button>
     </form>
   </article>

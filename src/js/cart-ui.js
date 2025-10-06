@@ -1,4 +1,4 @@
-// Storage helpers for cart. No DOM logic here.
+// Storage helpers for cart
 
 const CART_KEY = 'cart_v1';
 

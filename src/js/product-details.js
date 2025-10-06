@@ -69,7 +69,7 @@ function handleReviewForm () {
       return;
     }
 
-    // Імітація успішної відправки
+    // In a real app, here you would send the review to the server
     messageEl.textContent = 'Success! Thank you for your review.';
     messageEl.style.color = 'green';
     form.reset();
@@ -129,19 +129,41 @@ export async function initProductDetails () {
           <p class='product-details__price'>$${product.price.toFixed(2)}</p>
           <p class='product-details__description'>${esc(product.description || 'No description available.')}</p>
           <div class='form-group'>
-              <label>Size</label>
-              <select disabled><option>${esc(product.size)}</option></select>
+              <label for='size_select'>Size</label>
+              <select id='size_select'>
+                <option>Choose option</option>
+                <option>${esc(product.size)}</option>
+              </select>
           </div>
           <div class='form-group'>
-              <label>Color</label>
-              <select disabled><option>${esc(product.color)}</option></select>
+              <label for='color_select'>Color</label>
+              <select id='color_select'>
+                <option>Choose option</option>
+                <option>${esc(product.color)}</option>
+              </select>
           </div>
-          <div class='product-details__qty'>
-            <button class='qty-btn' type='button' data-action='dec'>-</button>
-            <input type='number' id='quantity-input' value='1' min='1' readonly />
-            <button class='qty-btn' type='button' data-action='inc'>+</button>
+            <div class='form-group'>
+              <label for='category_select'>Category</label>
+              <select id='category_select'>
+                <option>Choose option</option>
+                <option>${esc(product.category)}</option>
+              </select>
           </div>
-          <button class='btn btn_pink' id='add-to-cart-btn'>Add to Cart</button>
+          <div class='product-checkout-container'>
+            <div class='product-details__qty'>
+              <button class='qty-btn' type='button' data-action='dec'>-</button>
+              <input type='number' id='quantity-input' value='1' min='1' readonly />
+              <button class='qty-btn' type='button' data-action='inc'>+</button>
+            </div>
+            <button class='btn btn_pink' id='add-to-cart-btn'>Add to Cart</button>
+          </div>
+          <article class='secure-checkout'>
+            <span>Payment:</span>
+              <img src='${esc(resolveAssetPath('/src/assets/images/visa-pay-logo.svg'))}' alt='Secure Checkout' class='secure-checkout-img' />
+              <img src='${esc(resolveAssetPath('/src/assets/images/american-express-logo.svg'))}' alt='Secure Checkout' class='secure-checkout-img' />
+              <img src='${esc(resolveAssetPath('/src/assets/images/master-card-logo.svg'))}' alt='Secure Checkout' class='secure-checkout-img' />
+              <img src='${esc(resolveAssetPath('/src/assets/images/paypal-logo.svg'))}' alt='Secure Checkout' class='secure-checkout-img' />
+          </article>
         </article>
       </section>
     `;
@@ -169,7 +191,7 @@ export async function initProductDetails () {
     document.getElementById('add-to-cart-btn').addEventListener('click', () => {
       const quantity = parseInt(qtyInput.value);
       addToCart(product, quantity);
-      alert(`${product.name} (x${quantity}) added to cart!`);
+      // alert(`${product.name} (x${quantity}) added to cart!`);
     });
   } else {
     // eslint-disable-next-line quotes

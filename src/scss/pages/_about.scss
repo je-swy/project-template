@@ -3,6 +3,7 @@
 
 .page-hero {
   height: 550px;
+  width: 100%;
   background-size: cover;
   background-position: center;
   @include mixins.flex-column(center, center);
@@ -19,8 +20,11 @@
   }
 }
 
+.about-main {
+  @include mixins.flex-column(center, center, 40px);
+  text-align: center;
+}
 .benefits-section {
-  padding: 60px 0;
   display: grid;
   gap: 100px;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -30,11 +34,14 @@
   }
   h4 {
     margin-bottom: 10px;
+    @include mixins.fonts(vars.$mont-font, 18px, 20px, 700, vars.$black);
+  }
+  p {
+    @include mixins.fonts(vars.$mont-font, 14px, 16px, 400, vars.$black);
   }
 }
 
 .info-section {
-  padding: 60px 0;
   @include mixins.grid(1fr, auto, 40px);
   align-items: center;
   @include mixins.respond(tablet) {
@@ -42,11 +49,9 @@
   }
 
   &__text {
-    h2 {
-      margin-bottom: 20px;
-    }
+    h2,
     p {
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
   }
 
@@ -57,10 +62,17 @@
 }
 
 .team-section {
-  padding: 60px 0;
   text-align: center;
   h2 {
     margin-bottom: 40px;
+  }
+  h2::after {
+    content: "";
+    display: block;
+    width: clamp(250px, 300px, 400px);
+    height: 2px;
+    background-color: vars.$pink;
+    margin: 0 auto;
   }
 }
 
@@ -76,10 +88,20 @@
     margin-bottom: 20px;
   }
   h3 {
-    @include mixins.fonts(vars.$mont-font, 16px, 16px, 700, vars.$black);
+    @include mixins.fonts(vars.$mont-font, 20px, 22px, 700, vars.$black);
     margin-bottom: 5px;
   }
   p {
-    color: vars.$light-grey;
+    @include mixins.fonts(vars.$mont-font, 15px, 17px, 400, vars.$black);
+  }
+}
+
+.feedback {
+  &-title {
+    @include mixins.fonts(vars.$mont-font, 25px, 25px, 700, vars.$black);
+    margin-bottom: 10px;
+  }
+  &-subtitle {
+    @include mixins.fonts(vars.$mont-font, 15px, 17px, 400, vars.$black);
   }
 }

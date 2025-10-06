@@ -11,7 +11,7 @@
 <body>
     <header id="header" class="header container"></header>
 
-    <main>
+    <main class="main about">
         <section class="page-hero" style="background-image: url('/src/assets/images/hero-about-us.jpg');">
             <h1 class="page-hero__title">About Us</h1>
             <p class="page-hero__subtitle">Duis vestibulum elit vel neque pharetra vulputate. Duis rutrum non risus in
@@ -42,21 +42,24 @@
         </section>
 
         <section class="info-section container">
-            <article class="info-section__text">
-                <h2>New Arrivals Every Week</h2>
-                <p>Duis vestibulum elit vel neque pharetra vulputate. Quisque scelerisque nisi urna. Duis rutrum non
-                    risus in imperdiet. Proin molestie accumsan nulla sit amet vestibulum. Curabitur placerat est, sit
-                    amet sodales risus. Pellentesque viverra.</p>
+            <header class="info-section__text">
+                <h2 class="section-title">New Arrivals Every Week</h2>
+                <p class="section-subtitle">Duis vestibulum elit vel neque pharetra vulputate. Quisque scelerisque nisi
+                    urna. Duis rutrum non
+                    risus in imperdiet. Proin molestie accumsan nulla sit. Quisque scelerisque nisi urnauis rutrum.</p>
+                <p class="section-subtitle">Vitrumuis vestibulum elit vel neque pharetra vulputate. Quisque scelerisque
+                    nisi urna. Duis
+                    vestibulum elit vel neque pharetra vulputateuisque scelerisque nisi urna.</p>
                 <a href="catalog.html" class="btn btn_pink">See All Models</a>
-            </article>
+            </header>
             <figure class="info-section__image">
                 <img src="/src/assets/images/about-new-arrivals.jpg" alt="Woman with a vintage suitcase">
             </figure>
         </section>
 
         <section class="team-section container">
-            <h2>Our Incredible Team</h2>
-            <div class="team-grid">
+            <h2 class="section-title">Our Incredible Team</h2>
+            <section class="team-grid">
                 <article class="team-member">
                     <img src="/src/assets/images/team-natalia.jpg" alt="Natalia Foster">
                     <h3>NATALIA FOSTER</h3>
@@ -72,29 +75,29 @@
                     <h3>IRYNA BROOKS</h3>
                     <p>Head of Marketing</p>
                 </article>
-            </div>
+            </section>
         </section>
 
         <section class="offer container" aria-label="Offer Of The Month">
-            <article class="offer__inner ">
-                <div class="offer__discount">
-                    <h2 class="offer__percent">50%</h2>
-                    <p class="offer__promo">
+            <article class="offer-inner ">
+                <section class="offer-discount">
+                    <h2 class="offer-percent">50%</h2>
+                    <p class="offer-promo">
                         Curabitur vulputate arcu odio, ac facilisis diam.
                     </p>
+                </section>
             </article>
 
-            <article class="offer__info">
-                <h3 class="offer__title">Offer Of The Month</h3>
-                <p class="offer__subtitle">
+            <header class="offer-info section-header">
+                <h2 class="section-title">Offer Of The Month</h2>
+                <p class="section-subtitle">
                     Curabitur vulputate arcu odio, ac facilisis diam accumsan ut.
                     Ut imperdiet et leo in vulputate.
                 </p>
-                <a href="#" class="offer__btn btn btn_pink btn_big">
+                <a href="#" class="offer-btn btn btn_pink btn_big">
                     Get Offer Today
                 </a>
-            </article>
-            </div>
+            </header>
         </section>
     </main>
 

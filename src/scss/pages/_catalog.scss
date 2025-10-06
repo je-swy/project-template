@@ -1,137 +1,199 @@
 @use "../abstracts/variables" as vars;
 @use "../abstracts/mixins" as mixins;
 
-.catalog-filters {
-  .filter-group {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    align-items: start;
-    margin: 0;
+.catalog {
+  @include mixins.grid(1fr, auto, 30px); // 1 колонка для мобільних
+  margin-top: 30px;
+  margin-bottom: 50px;
+
+  @include mixins.respond(tablet) {
+    grid-template-columns: 3fr 1fr; // 2 колонки для планшетів і вище
   }
 
-  fieldset.filter-item {
-    border: 0;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    min-width: 140px;
+  &-controls {
+    @include mixins.flex-row(flex-end, center, 0);
+    margin-bottom: 20px;
+  }
 
-    legend.filter-label {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      background: vars.$white;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      cursor: pointer;
-      font-weight: 600;
+  // specific styles for products list
+  .products-list {
+    grid-template-columns: repeat(1, 1fr);
+
+    @include mixins.respond(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include mixins.respond(desktop) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &-filters {
+    @include mixins.flex-column(flex-start, start, 20px);
+    .filter-group {
+      width: 100%;
+      @include mixins.flex-row(flex-start, start, 12px);
+      flex-wrap: wrap;
+      border-top: 2px solid vars.$pink;
+      border-bottom: 2px solid vars.$pink;
+      padding: 22px 0 35px 0;
     }
 
-    .filter-selected {
-      color: vars.$dark-grey;
-      font-weight: 600;
-      margin-left: 8px;
-    }
-
-    ul.filter-list {
-      list-style: none;
-      margin: 8px 0 0 0;
-      padding: 8px 0;
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 0;
-      min-width: 180px;
-      max-height: 260px;
-      overflow: auto;
-      background: vars.$white;
-      border-radius: 8px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-6px) scale(0.98);
-      transition:
-        opacity 0.15s ease,
-        transform 0.15s ease,
-        visibility 0.15s;
-      z-index: 40;
-
-      li[role="option"] {
-        padding: 8px 12px;
-        cursor: pointer;
-        white-space: nowrap;
-        font-size: 14px;
-        color: vars.$black;
-
-        &:hover,
-        &.is-selected {
-          background: linear-gradient(
-            90deg,
-            vars.$pink 0%,
-            vars.$medium-grey 120%
-          );
-          color: vars.$white;
+    .filter-item {
+      &-data {
+        width: auto;
+        @include mixins.respond(tablet) {
+          width: 200px;
         }
+      }
+      &-title {
+        @include mixins.fonts(
+          vars.$mont-font,
+          17px,
+          17px,
+          bold,
+          vars.$dark-grey
+        );
+        margin-bottom: 12px;
       }
     }
 
-    &:hover ul.filter-list,
-    &:focus-within ul.filter-list {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0) scale(1);
+    fieldset.filter-item {
+      border: 0;
+      position: relative;
+      min-width: 140px;
+
+      legend.filter-label {
+        @include mixins.flex-row(space-between, center, 8px);
+        padding: 8px 12px;
+        background: vars.$white;
+        border: 2px solid vars.$border-grey;
+        cursor: pointer;
+      }
+
+      .filter-selected {
+        @include mixins.fonts(
+          vars.$mont-font,
+          13px,
+          13px,
+          500,
+          vars.$light-grey
+        );
+      }
+
+      ul.filter-list {
+        list-style: none;
+        margin: 8px 0 0 0;
+        padding: 8px 0;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        min-width: 180px;
+        max-height: 260px;
+        overflow: auto;
+        background: vars.$white;
+        box-shadow: 0 8px 24px vars.$copyright-color;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-6px) scale(0.98);
+        transition:
+          opacity 0.15s ease,
+          transform 0.15s ease,
+          visibility 0.15s;
+        z-index: 40;
+
+        li[role="option"] {
+          padding: 8px 12px;
+          cursor: pointer;
+          white-space: nowrap;
+          font-size: 14px;
+          color: vars.$black;
+
+          &:hover,
+          &.is-selected {
+            background: linear-gradient(
+              90deg,
+              vars.$pink 0%,
+              vars.$medium-grey 120%
+            );
+            color: vars.$white;
+          }
+        }
+      }
+
+      &:hover ul.filter-list,
+      &:focus-within ul.filter-list {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+      }
     }
-  }
 
-  .filter-item.search {
-    min-width: 240px;
-
-    input.filter-input {
-      padding: 8px 10px;
-      border-radius: 8px;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      min-width: 220px;
-      background: vars.$white;
-    }
-  }
-
-  nav.filter-actions {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-
-  &.compact {
-    .filter-group {
-      display: none;
-    }
-  }
-
-  @include mixins.respond(tablet) {
-    fieldset.filter-item ul.filter-list {
-      min-width: 220px;
-    }
     .filter-item.search {
-      min-width: 320px;
+      min-width: 240px;
+
+      input.filter-input {
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid vars.$copyright-color;
+        min-width: 220px;
+        background: vars.$white;
+      }
     }
+
+    nav.filter-actions {
+      @include mixins.flex-row(flex-start, center, 8px);
+      align-items: center;
+    }
+
+    &.compact {
+      .filter-group {
+        display: none;
+      }
+    }
+
+    @include mixins.respond(tablet) {
+      fieldset.filter-item ul.filter-list {
+        min-width: 220px;
+      }
+      .filter-item.search {
+        min-width: 320px;
+      }
+    }
+  }
+
+  &-header-info {
+    margin: 20px 0;
+    @include mixins.flex-row(space-between, center, 10px);
+    @include mixins.fonts(vars.$mont-font, 13px, 13px, 400, vars.$dark-grey);
+
+    @include mixins.respond(tablet) {
+      font-size: 16px;
+    }
+
+    .sort-select {
+      padding: 8px 12px;
+      border: 2px solid vars.$border-grey;
+      min-width: 80px;
+      background-color: vars.$white;
+      @include mixins.fonts(vars.$mont-font, 14px, 16px, 400, vars.$dark-grey);
+    }
+  }
+
+  &-footer {
+    @include mixins.flex-row(space-between, center, 0);
+    margin-top: 30px;
+    padding: 20px 0;
   }
 }
 
 .filter-item_checkbox {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  border-radius: 8px;
+  @include mixins.flex-column(flex-start, center, 8px);
   background: vars.$white;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 2px solid vars.$border-grey;
   cursor: pointer;
 
   label {
-    font-weight: 600;
     cursor: pointer;
-    // Prevent text selection on click
     user-select: none;
   }
 
@@ -142,95 +204,38 @@
   }
 }
 
-// src/scss/pages/_catalog.scss
-
-// ... твої існуючі стилі ...
-
-.catalog-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 30px;
-  padding: 20px 0;
-  border-top: 1px solid #eee;
-}
-
 .pagination {
-  display: flex;
-  justify-content: center; // <-- Додай цей рядок
-  flex-grow: 1; // Дозволяє блоку зайняти вільне місце для центрування
-  gap: 8px;
+  @include mixins.flex-row(space-between, center, 8px);
+  flex-grow: 1; // allow to grow and fill available space
 
   .btn {
-    // Використовуємо існуючий клас .btn
+    // extend base button styles
     padding: 8px 16px;
     font-size: 14px;
 
     &[disabled] {
-      background-color: #ccc;
+      background-color: vars.$light-color;
       cursor: not-allowed;
-      border-color: #ccc;
+      border-color: vars.$light-color;
     }
   }
 }
 
-.catalog {
-  .products__list {
-    @include mixins.respond(tablet) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    @include mixins.respond(desktop) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-}
-.catalog-controls {
-  display: flex;
-  justify-content: flex-end; // Розміщуємо справа
-  margin-bottom: 20px;
-}
-
-.sort-select {
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  min-width: 220px;
-  background-color: #fff;
-  font-weight: 600;
-}
-
-.catalog {
-  @include mixins.grid(1fr, auto, 30px); // 1 колонка для мобільних
-  margin-top: 30px;
-
-  @include mixins.respond(tablet) {
-    grid-template-columns: 3fr 1fr; // 2 колонки для планшетів і вище
-  }
-
-  // Специфічне правило для сітки товарів на цій сторінці
-  .products__list {
-    @include mixins.respond(desktop) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-}
-
-// Стилі для сайдбару
+// sidebar styles
 .catalog-sidebar {
   @include mixins.flex-column(flex-start, stretch, 30px);
 }
 
 .search-widget {
-  display: flex; // Flex тут краще підходить для двох елементів в ряд
+  display: flex;
   input {
     width: 100%;
-    border: 1px solid #ddd;
+    border: 1px solid vars.$border-grey;
     padding: 10px;
     border-right: none;
   }
   button {
-    border: 1px solid #ddd;
+    border: 1px solid vars.$border-grey;
     border-left: none;
     background: white;
     padding: 0 12px;
@@ -256,7 +261,7 @@
   }
 }
 
-// Допоміжний клас для прихованих заголовків
+// styles to hide elements visually but keep them accessible for screen readers
 .visually-hidden {
   position: absolute;
   width: 1px;

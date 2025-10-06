@@ -2,22 +2,18 @@
 @use "../abstracts/mixins" as mixins;
 
 .product-details {
-  padding: 2rem 1rem;
-  display: flex;
-  justify-content: center;
+  margin-top: 80px;
 
   &__card {
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 960px;
-    gap: 2rem;
     background: vars.$white;
-    box-shadow: 0px 20px 80px rgba(193, 199, 212, 0.3);
-    padding: 2rem;
+    width: 100%;
+    @include mixins.flex-row(space-between, center, 40px);
+    flex-wrap: wrap;
   }
 
   &__media {
     flex: 1 1 400px;
+    min-width: 0;
   }
 
   &__img {
@@ -27,17 +23,25 @@
 
   &__info {
     flex: 1 1 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    @include mixins.flex-column(flex-start, flex-start, 15px);
+    select {
+      width: 100%;
+      padding: 10px;
+      background-color: vars.$white;
+      cursor: pointer;
+    }
   }
 
   &__title {
-    @include mixins.fonts(vars.$mont-font, 24px, 28px, 700, vars.$black);
+    @include mixins.fonts(vars.$mont-font, 24px, 30px, 700, vars.$black);
   }
 
   &__price {
-    @include mixins.fonts(vars.$mont-font, 20px, 24px, 700, vars.$pink);
+    @include mixins.fonts(vars.$mont-font, 20px, 20px, 700, vars.$black);
+  }
+
+  &__description {
+    @include mixins.fonts(vars.$mont-font, 17px, 17px, 500, vars.$dark-grey);
   }
 
   &__meta {
@@ -46,57 +50,66 @@
   }
 
   &__qty {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
+    @include mixins.flex-row(flex-start, center, 0);
+    box-sizing: border-box;
+    border: 2px solid vars.$pink;
+    height: 55px;
+    @include mixins.fonts(vars.$mont-font, 20px, 25px, 600, vars.$medium-grey);
     input {
       width: 50px;
-      text-align: center;
+      margin-left: 30px;
+      @include mixins.fonts(
+        vars.$mont-font,
+        20px,
+        25px,
+        600,
+        vars.$medium-grey
+      );
     }
 
     .qty-btn {
-      background: vars.$light-color;
-      border: none;
+      border-top: 2px solid vars.$pink;
+      border-bottom: 2px solid vars.$pink;
       padding: 0.25rem 0.5rem;
       cursor: pointer;
-      font-size: 1rem;
-      border-radius: 4px;
+      background-color: vars.$white;
+      @include mixins.fonts(
+        vars.$mont-font,
+        20px,
+        25px,
+        600,
+        vars.$medium-grey
+      );
     }
+  }
+
+  button {
+    flex-grow: 2;
+    height: 55px;
+    font-size: 17px;
   }
 }
 
 .related {
-  padding: 2rem 1rem;
-
+  margin-bottom: 123px;
   h2 {
-    margin-bottom: 1rem;
+    margin-bottom: 30px;
   }
 
   .product-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1rem;
+    gap: 20px;
   }
 }
-
-// src/scss/pages/_product-details.scss
 
 .product-details {
   padding-top: 40px;
 }
 
-.product-details__card {
-  @include mixins.grid(1fr, auto, 30px);
-  @include mixins.respond(tablet) {
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-  }
-}
-
 .thumbnail-gallery {
-  @include mixins.flex-row(flex-start, center, 10px);
-  margin-top: 15px;
+  @include mixins.flex-row(space-between, center, 15px);
+  margin-top: 10px;
   img {
     width: 80px;
     height: 80px;
@@ -106,30 +119,33 @@
     &.active {
       border-color: vars.$pink;
     }
+    @include mixins.respond(tablet) {
+      width: 140px;
+      height: 140px;
+    }
   }
 }
 
-.product-details__info {
-  @include mixins.flex-column(flex-start, flex-start, 15px);
-  select {
-    width: 100%;
-    padding: 10px;
-    background-color: #f5f5f5;
-    border: 1px solid #ddd;
-    cursor: not-allowed;
-  }
+.details-content {
+  @include mixins.fonts(vars.$mont-font, 15px, 17px, 400, vars.$dark-grey);
 }
-
 .product-details__rating {
   color: vars.$gold;
   font-size: 18px;
 }
+.product-checkout-container {
+  @include mixins.flex-row(space-between, center, 20px);
+  flex-wrap: wrap;
+  width: 100%;
+  @include mixins.respond(tablet) {
+    flex-wrap: nowrap;
+  }
+}
 
-// Стилі для вкладок
+// styles for product tabs
 .product-tabs-container {
   margin-top: 60px;
-  border-top: 1px solid #eee;
-  padding-top: 40px;
+  @include mixins.flex-column(center, center, 20px);
 }
 
 .product-tabs__nav {
@@ -138,18 +154,22 @@
 }
 
 .product-tabs__btn {
-  @include mixins.fonts(vars.$mont-font, 16px, 18px, 600, vars.$dark-grey);
+  @include mixins.fonts(vars.$mont-font, 15px, 17px, 600, vars.$black);
+  text-transform: uppercase;
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
   padding-bottom: 10px;
   cursor: pointer;
   &.active {
-    color: vars.$pink;
     border-bottom-color: vars.$pink;
   }
 }
 
+.reviews-count,
+.review-form-title {
+  @include mixins.fonts(vars.$mont-font, 15px, 17px, 600, vars.$black);
+}
 .product-tabs__pane {
   display: none;
   &.active {
@@ -157,7 +177,7 @@
   }
 }
 
-// Стилі для форми відгуків
+// styles for review section
 #review-form {
   max-width: 600px;
   .form-message {
@@ -165,10 +185,6 @@
     font-weight: bold;
   }
 }
-
-// ... твої існуючі стилі ...
-
-// src/scss/pages/_product-details.scss
 
 .reviews-layout {
   @include mixins.grid(1fr, auto, 40px);
@@ -178,7 +194,7 @@
   }
 }
 
-// Стилі для існуючих відгуків
+// styles for individual review items
 .review-item {
   display: flex;
   gap: 20px;
@@ -195,67 +211,34 @@
 .review-rating {
   color: vars.$gold;
 }
-.review-text {
-  color: vars.$dark-grey;
-  font-size: 15px;
-  line-height: 1.6;
+
+.review-author {
+  @include mixins.fonts(vars.$mont-font, 16px, 17px, 600, vars.$dark-grey);
 }
 
-// Стилі для форми відгуку
-.review-form-container {
-  .review-form-subtitle {
-    font-size: 14px;
-    color: vars.$light-grey;
-    margin-bottom: 20px;
-  }
+.secure-checkout {
+  @include mixins.fonts(vars.$mont-font, 23px, 23px, bold, vars.$light-grey);
+  margin-top: 20px;
+  @include mixins.flex-row(flex-start, center, 30px);
+  flex-wrap: wrap;
 }
 
-.review-form {
-  @include mixins.flex-column(flex-start, stretch, 20px);
-
-  .form-group,
-  .form-group-checkbox {
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: vars.$dark-grey;
-    }
-  }
-
-  input[type="text"],
-  input[type="email"],
-  textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    &:focus {
-      border-color: vars.$pink;
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(vars.$pink, 0.2);
-    }
-  }
-
-  .form-row {
-    @include mixins.grid(1fr, auto, 20px);
-    @include mixins.respond(mobile) {
-      grid-template-columns: 1fr 1fr;
-    }
+.rating-group {
+  @include mixins.flex-row(flex-start, center, 10px);
+  .star-rating-label {
+    @include mixins.fonts(vars.$mont-font, 16px, 18px, 600, vars.$black);
   }
 }
 
-// Стилі для інтерактивних зірочок
+// styles for star rating input
 .star-rating {
-  display: flex;
+  @include mixins.flex-row(flex-end, center, 5px);
   flex-direction: row-reverse;
-  justify-content: flex-end;
   input[type="radio"] {
     display: none;
   }
   label {
     font-size: 24px;
-    color: #ccc;
     cursor: pointer;
     transition: color 0.2s;
   }
