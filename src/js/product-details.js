@@ -111,6 +111,13 @@ function initThumbnailGallery () {
   }
 }
 
+// Render related products (4 random products excluding current)
+function secureRandom () {
+  const buf = new Uint32Array(1);
+  crypto.getRandomValues(buf);
+  return buf[0] / (0xffffffff + 1);
+}
+
 // Main function to initialize product details page
 export async function initProductDetails () {
   const allProducts = await loadProducts();
@@ -207,13 +214,6 @@ export async function initProductDetails () {
   } else {
     // eslint-disable-next-line quotes
     productDetailsContainer.innerHTML = `<p>Product not found.</p>`;
-  }
-
-  // Render related products (4 random products excluding current)
-  function secureRandom () {
-    const buf = new Uint32Array(1);
-    crypto.getRandomValues(buf);
-    return buf[0] / (0xffffffff + 1);
   }
 
   const relatedContainer = document.getElementById('related-products');
