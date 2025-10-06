@@ -267,10 +267,12 @@ export async function initCatalog () {
     }
     activeFilters.sortBy = 'default';
     // Reset selected labels in the UI
-    filtersForm.querySelectorAll('.filter-selected').forEach(label => {
+    const selectedLabels = filtersForm.querySelectorAll('.filter-selected');
+
+    for (const label of selectedLabels) {
       const filterItem = label.closest('.filter-item');
       label.textContent = (filterItem && filterItem.dataset.filter === 'category') ? 'All' : 'Any';
-    });
+    }
     handleStateChange();
   });
   // Handle hide/show filters button click to toggle compact mode

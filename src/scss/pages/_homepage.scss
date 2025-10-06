@@ -57,7 +57,6 @@
       }
     }
     &_text {
-      // margin: 30px 0;
       padding: 40px 0;
       max-width: 640px;
       @include mixins.flex-column(center, flex-start, clamp(20px, 8vw, 30px));

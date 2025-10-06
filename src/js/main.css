@@ -444,9 +444,6 @@ button {
 .header__social a:hover {
   color: #000000;
 }
-.header .logo {
-  justify-content: center;
-}
 @media (min-width: 768px) {
   .header .logo {
     flex: 0 0 auto;
@@ -610,8 +607,6 @@ button {
 }
 .nav.active {
   right: 0;
-}
-.nav.active {
   color: #b92770;
 }
 .nav .nav__list {
@@ -1707,6 +1702,7 @@ button {
 
 .product-details {
   margin-top: 80px;
+  padding-top: 40px;
 }
 .product-details__card {
   background: #ffffff;
@@ -1811,10 +1807,6 @@ button {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
-}
-
-.product-details {
-  padding-top: 40px;
 }
 
 .thumbnail-gallery {

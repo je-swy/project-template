@@ -10,7 +10,7 @@
 // Example: esc('<script>') => '&lt;script&gt;'
 
 export function esc (s = '') {
-  return String(s).replace(
+  return String(s).replaceAll(
     /[&<>']/g, // <-- Залишили тільки одну
     (c) =>
       ({

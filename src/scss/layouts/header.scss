@@ -45,8 +45,6 @@
   }
 
   .logo {
-    justify-content: center;
-
     @include mixins.respond(mobile) {
       flex: 0 0 auto;
       justify-content: flex-start;
@@ -193,9 +191,6 @@
 
   &.active {
     right: 0;
-  }
-
-  &.active {
     color: vars.$pink;
   }
 

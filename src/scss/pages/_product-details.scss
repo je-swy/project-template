@@ -3,7 +3,7 @@
 
 .product-details {
   margin-top: 80px;
-
+  padding-top: 40px;
   &__card {
     background: vars.$white;
     width: 100%;
@@ -101,10 +101,6 @@
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 20px;
   }
-}
-
-.product-details {
-  padding-top: 40px;
 }
 
 .thumbnail-gallery {
