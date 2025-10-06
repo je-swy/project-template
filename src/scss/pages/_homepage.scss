@@ -204,12 +204,10 @@
   }
 }
 
-/* 1. Carousel */
 .carousel {
   position: relative;
   overflow: hidden;
 
-  /* 2. slide list */
   &-list {
     @include mixins.flex-row(flex-start, flex-start, 30px);
     overflow-x: auto; // Enables horizontal scrolling if the content overflows
@@ -222,7 +220,6 @@
     }
   }
 
-  /* 3. Slide as backgroud + overlay + text*/
   &-item {
     // Set the flex property to allow the item to grow and shrink with a base width of 296px
     flex: 0 0 296px;
@@ -283,7 +280,6 @@
     }
   }
 
-  /* 4. Navigation buttons */
   &-prev,
   &-next {
     position: absolute;

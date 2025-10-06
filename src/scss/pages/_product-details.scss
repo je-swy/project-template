@@ -141,6 +141,7 @@
 // styles for product tabs
 .product-tabs-container {
   margin-top: 60px;
+  margin-bottom: 40px;
   @include mixins.flex-column(center, center, 20px);
 }
 

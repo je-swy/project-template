@@ -12,7 +12,6 @@
     padding-top: 48px;
   }
 
-  /* header inner container */
   &__inner {
     @include mixins.flex-row(space-between, center);
     flex-wrap: wrap;
@@ -81,7 +80,6 @@
         color: vars.$pink;
       }
 
-      /* cart count bubble */
       .cart-count {
         position: absolute;
         top: -8px;
@@ -93,7 +91,6 @@
         @include mixins.flex-row(center, center);
         @include mixins.fonts(vars.$mont-font, 10px, 10px, 400, vars.$white);
 
-        /* анімація появи / приховування */
         opacity: 0;
         transform: scale(0.85);
         pointer-events: none;
@@ -102,7 +99,6 @@
           transform 0.18s ease,
           visibility 0.18s;
 
-        /* Коли є items — показуємо бульбашку */
         &.is-visible {
           opacity: 1;
           transform: scale(1);
@@ -110,7 +106,6 @@
           visibility: visible;
         }
 
-        /* захищаємо від некоректного відображення при 0 (fallback) */
         &[data-count="0"] {
           opacity: 0;
           transform: scale(0.85);
@@ -118,7 +113,6 @@
           visibility: hidden;
         }
 
-        /* невеликий візуальний хак для читабельності числа */
         &.is-visible[data-count]:not([data-count="0"]) {
           font-weight: 700;
           font-size: 10px;
@@ -130,7 +124,6 @@
   }
 }
 
-/* burger*/
 .burger {
   display: block;
   width: 24px;
@@ -142,7 +135,6 @@
   z-index: 1001;
 
   span {
-    /* the three lines of the burger */
     position: absolute;
     left: 0;
     width: 100%;
@@ -162,7 +154,6 @@
     }
   }
 
-  /* transform the burger into a cross when active */
   &.active span:nth-child(1) {
     transform: rotate(45deg);
     top: 7px;
@@ -176,7 +167,6 @@
   }
 }
 
-/* nav - moobile*/
 .nav {
   position: fixed;
   top: 0;
@@ -204,7 +194,6 @@
   }
 }
 
-/* nav - not mobile*/
 @include mixins.respond(mobile) {
   .header__icons li:nth-child(3) {
     display: none;
@@ -241,7 +230,6 @@
   }
 }
 
-/* catalog arrow */
 .arrow {
   border: solid vars.$black;
   border-width: 0 2px 2px 0;
@@ -261,9 +249,7 @@
   -webkit-transform: rotate(45deg);
 }
 
-/*  MODAL */
 .modal {
-  //modal basic styles
   position: fixed;
   inset: 0;
   background: rgba(vars.$black, 0.6);
@@ -271,7 +257,6 @@
   @include mixins.flex-row(center, center);
   padding: 20px;
 
-  // if attribute [hidden] is present - hide the modal
   &[hidden] {
     display: none !important;
   }
@@ -369,7 +354,7 @@
 
     input {
       width: 100%;
-      padding-right: 45px; // Місце для іконки
+      padding-right: 45px;
     }
 
     .toggle-password {

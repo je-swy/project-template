@@ -92,18 +92,30 @@ function handleFetchFailure (candidates) {
 }
 
 /** Normalize and ensure each product has an id */
+function extractProductArray (json) {
+  if (!json) return [];
+
+  if (Array.isArray(json.data)) {
+    return json.data;
+  }
+  if (Array.isArray(json.products)) {
+    return json.products;
+  }
+  if (Array.isArray(json)) {
+    return json;
+  }
+
+  return [];
+}
+
 function normalizeProducts (json) {
-  const arr = Array.isArray(json.data)
-    ? json.data
-    : Array.isArray(json.products)
-      ? json.products
-      : Array.isArray(json)
-        ? json
-        : [];
+  const arr = extractProductArray(json);
 
   return arr.map((p, i) => {
     const o = Object.assign({}, p || {});
-    if (o.id == null) o.id = `auto-${i}`;
+    if (o.id == null) {
+      o.id = `auto-${i}`;
+    }
     return o;
   });
 }
