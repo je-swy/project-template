@@ -210,11 +210,17 @@ export async function initProductDetails () {
   }
 
   // Render related products (4 random products excluding current)
+  function secureRandom () {
+    const buf = new Uint32Array(1);
+    crypto.getRandomValues(buf);
+    return buf[0] / (0xffffffff + 1);
+  }
+
   const relatedContainer = document.getElementById('related-products');
   if (relatedContainer) {
     const relatedProducts = allProducts
       .filter((p) => p.id !== productId)
-      .sort(() => 0.5 - Math.random()) // Math.random() is safe here because cryptographic security is not required.
+      .sort(() => 0.5 - secureRandom())
       .slice(0, 4);
     renderBlock({
       products: relatedProducts,

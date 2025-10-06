@@ -92,9 +92,14 @@ function renderWidgetRatingStars (rating) {
 }
 
 function shuffleArray (array) {
+  const randomIndex = (max) => {
+    const buf = new Uint32Array(1);
+    crypto.getRandomValues(buf);
+    return buf[0] % (max + 1);
+  };
+
   for (let i = array.length - 1; i > 0; i--) {
-    // Math.random() is safe here because cryptographic security is not required.
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = randomIndex(i);
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
