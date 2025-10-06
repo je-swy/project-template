@@ -37,9 +37,29 @@ function unique (arr) {
  * @param {string} [url='/src/assets/data.json'] - The base URL for the data file
  * @returns {Promise<Array>} A promise that resolves with the products array
  */
-export async function loadProducts (url = '/src/assets/data.json') {
-  // Try a few likely locations if default fails
-  const candidates = unique([
+export async function loadProducts(url = '/src/assets/data.json') {
+  const candidates = buildCandidates(url);
+  const json = await fetchFirstAvailable(candidates);
+
+  resetData();
+
+  if (!json) {
+    handleFetchFailure(candidates);
+    return PRODUCTS;
+  }
+
+  const normalized = normalizeProducts(json);
+  const idx = buildIndex(normalized);
+
+  updateExports(normalized, idx);
+  exposeGlobals();
+
+  return PRODUCTS;
+}
+
+/** Return array of possible data file locations */
+function buildCandidates(url) {
+  return unique([
     url,
     '/src/assets/data.json',
     '/assets/data.json',
@@ -48,48 +68,48 @@ export async function loadProducts (url = '/src/assets/data.json') {
     '/data.json',
     './data.json'
   ]);
+}
 
-  // Attempt to fetch from each candidate URL until one succeeds
-  let json = null;
+/** Try fetching from candidate URLs until one succeeds */
+async function fetchFirstAvailable(candidates) {
   for (const u of candidates) {
-    json = await tryFetch(u);
-    if (json) break;
+    const json = await tryFetch(u);
+    if (json) return json;
   }
+  return null;
+}
 
-  // Clear existing data regardless of outcome
+/** Clear existing PRODUCTS and PRODUCT_INDEX */
+function resetData () {
   PRODUCTS.length = 0;
   PRODUCT_INDEX.clear();
+}
 
-  // If all attempts fail, log error and return the empty products array
-  if (!json) {
-    console.error(
-      'loadProducts: failed to fetch data.json from any candidate location',
-      candidates
-    );
-    try {
-      globalThis.PRODUCTS = PRODUCTS;
-      globalThis.PRODUCT_INDEX = PRODUCT_INDEX;
-    } catch (e) { /* ignore non-browser */ }
-    return PRODUCTS;
-  }
+/** Handle failure to fetch any JSON */
+function handleFetchFailure(candidates) {
+  console.error('loadProducts: failed to fetch data.json from any candidate location', candidates);
+  exposeGlobals();
+}
 
-  // Extract array (data / products / root array)
+/** Normalize and ensure each product has an id */
+function normalizeProducts(json) {
   const arr = Array.isArray(json.data)
     ? json.data
     : Array.isArray(json.products)
-      ? json.products
-      : Array.isArray(json)
-        ? json
-        : [];
+    ? json.products
+    : Array.isArray(json)
+    ? json
+    : [];
 
-  // Normalize: ensure each item is an object with an id
-  const normalized = arr.map((p, i) => {
+  return arr.map((p, i) => {
     const o = Object.assign({}, p || {});
     if (o.id == null) o.id = `auto-${i}`;
     return o;
   });
+}
 
-  // Build index: ensure unique keys (if duplicates, add suffix)
+/** Build index and handle duplicate ids */
+function buildIndex(normalized) {
   const idx = new Map();
   const counts = new Map();
 
@@ -106,20 +126,23 @@ export async function loadProducts (url = '/src/assets/data.json') {
     idx.set(key, p);
   }
 
-  // Populate the exported constants with new data
-  // Using push with spread operator for efficiency
+  return idx;
+}
+
+/** Push products and populate index map */
+function updateExports(normalized, idx) {
   PRODUCTS.push(...normalized);
   for (const [key, product] of idx.entries()) {
     PRODUCT_INDEX.set(key, product);
   }
+}
 
+/** Expose globals for debugging/cross-environment access */
+function exposeGlobals() {
   try {
-    // Using globalThis for better cross-environment compatibility (browser, workers, etc.)
     globalThis.PRODUCTS = PRODUCTS;
     globalThis.PRODUCT_INDEX = PRODUCT_INDEX;
-  } catch (e) {
-    /* ignore non-browser */
+  } catch {
+    // ignore non-browser
   }
-
-  return PRODUCTS;
 }

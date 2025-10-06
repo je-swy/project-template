@@ -232,8 +232,10 @@
 
 // styles for star rating input
 .star-rating {
-  @include mixins.flex-row(flex-end, center, 5px);
   flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
   input[type="radio"] {
     display: none;
   }

@@ -54,7 +54,6 @@
   &__name {
     @include mixins.fonts(vars.$mont-font, 14px, 19px, 600, vars.$black);
     text-align: center;
-    color: vars.$black;
     max-width: 220px;
     text-decoration: none;
   }

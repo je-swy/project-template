@@ -91,34 +91,44 @@ function renderWidgetRatingStars (rating) {
   return `<span class="rating-stars" aria-label="Rating: ${rating} out of 5 stars">${starsHTML}</span>`;
 }
 
-// Render the "Top Sets" widget with 4 random luggage sets
+function shuffleArray (array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 function renderTopSets () {
-  // Filter products to get only luggage sets
   const sets = allProducts.filter(p => p.category === 'luggage sets');
-  // Shuffle and select 4 random sets
-  // 1. Create a shallow copy of the `sets` array
-  const shuffledSets = [...sets].sort(() => 0.5 - Math.random());
-  // 2. Now we take the first 4 elements from the shuffled copy
+
+  const setsCopy = [...sets];
+
+  const shuffledSets = shuffleArray(setsCopy);
+
   const randomSets = shuffledSets.slice(0, 4);
-  // Find the list element within the top sets container
+
   const listElement = topSetsContainer.querySelector('.widget-list');
-  if (!listElement) return;
-  // Generate HTML for each selected set and insert into the list element
+  if (!listElement) {
+    console.error('Render Top Sets: list element not found');
+    return;
+  }
+
   listElement.innerHTML = randomSets.map(product => {
     const ratingHtml = product.rating ? renderWidgetRatingStars(product.rating) : '';
     return `
-    <li>
-      <a href="/src/pages/product-details-template.html?id=${esc(product.id)}">
-        <img src="${esc(resolveAssetPath(product.imageUrl))}" alt="${esc(product.name)}">
-      </a>
-      <article>
-        <a href="/src/pages/product-details-template.html?id=${esc(product.id)}">${esc(product.name)}</a>
-        <br>
-        ${ratingHtml}
-        <p>$${product.price.toFixed(2)}</p>
-      </article>
-    </li>
-  `;
+      <li>
+        <a href="/src/pages/product-details-template.html?id=${esc(product.id)}">
+          <img src="${esc(resolveAssetPath(product.imageUrl))}" alt="${esc(product.name)}">
+        </a>
+        <article>
+          <a href="/src/pages/product-details-template.html?id=${esc(product.id)}">${esc(product.name)}</a>
+          <br>
+          ${ratingHtml}
+          <p>$${product.price.toFixed(2)}</p>
+        </article>
+      </li>
+    `;
   }).join('');
 }
 
