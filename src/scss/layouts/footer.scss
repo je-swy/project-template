@@ -8,7 +8,6 @@
     line-height: 1.7;
   }
 
-  /* footer top wavy section */
   &__top {
     background-color: #504e4a;
     padding: 38px 0;
@@ -30,7 +29,6 @@
     margin-bottom: 32px;
   }
 
-  /* benefits grid with auto scaling */
   &__benefits {
     color: vars.$white;
     @include mixins.grid(
@@ -49,7 +47,6 @@
     }
   }
 
-  /* footer bottom section */
   &__columns {
     @include mixins.flex-column(
       flex-start,
@@ -62,19 +59,16 @@
       margin-bottom: 24px;
     }
 
-    /* footer columns - tablet and up */
     @include mixins.respond(tablet) {
       flex-direction: row;
       padding: 100px 0 110px;
     }
 
-    /* footer columns - desktop and up */
     @include mixins.respond(desktop) {
       gap: 280px;
     }
   }
 
-  /* left columns with links */
   &__left {
     @include mixins.grid(repeat(3, 1fr), auto, clamp(5px, 3vw, 60px));
 
@@ -82,7 +76,6 @@
       grid-column: 1 / -1;
     }
 
-    /* footer left columns - tablet and up */
     @include mixins.respond(tablet) {
       @include mixins.grid(repeat(3, 1fr), auto, clamp(20px, 5vw, 60px));
     }
@@ -111,19 +104,16 @@
     }
   }
 
-  /* right column with contact info */
   &__contact {
     margin-top: 50px;
     @include mixins.grid(repeat(1, 1fr), auto, clamp(5px, 1vw, 20px));
 
-    /* footer contact info - tablet and up */
     @include mixins.respond(tablet) {
       margin-top: 115px;
       @include mixins.grid(repeat(2, 1fr), auto, clamp(10px, 2vw, 20px));
     }
 
     &-item {
-      /* each contact item - icon + text */
       @include mixins.flex-row(center, center, 15px);
 
       @include mixins.respond(tablet) {
@@ -152,7 +142,6 @@
     }
   }
 
-  /* footer copyright section */
   &__copyright {
     text-align: center;
     padding: 20px;

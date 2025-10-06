@@ -836,9 +836,6 @@ button {
 .footer p {
   line-height: 1.7;
 }
-.footer {
-  /* footer top wavy section */
-}
 .footer__top {
   background-color: #504e4a;
   padding: 38px 0;
@@ -854,9 +851,6 @@ button {
   font-weight: bold;
   color: #ffffff;
   margin-bottom: 32px;
-}
-.footer {
-  /* benefits grid with auto scaling */
 }
 .footer__benefits {
   color: #ffffff;
@@ -876,9 +870,6 @@ button {
   max-width: 60px;
   height: auto;
 }
-.footer {
-  /* footer bottom section */
-}
 .footer__columns {
   display: flex;
   flex-direction: column;
@@ -890,25 +881,16 @@ button {
 .footer__columns h3 {
   margin-bottom: 24px;
 }
-.footer__columns {
-  /* footer columns - tablet and up */
-}
 @media (min-width: 1024px) {
   .footer__columns {
     flex-direction: row;
     padding: 100px 0 110px;
   }
 }
-.footer__columns {
-  /* footer columns - desktop and up */
-}
 @media (min-width: 1440px) {
   .footer__columns {
     gap: 280px;
   }
-}
-.footer {
-  /* left columns with links */
 }
 .footer__left {
   display: grid;
@@ -918,9 +900,6 @@ button {
 }
 .footer__left article:last-child {
   grid-column: 1/-1;
-}
-.footer__left {
-  /* footer left columns - tablet and up */
 }
 @media (min-width: 1024px) {
   .footer__left {
@@ -948,16 +927,12 @@ button {
 .footer__left-element ul li a:hover {
   color: #b92770;
 }
-.footer {
-  /* right column with contact info */
-}
 .footer__contact {
   margin-top: 50px;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: auto;
   gap: clamp(5px, 1vw, 20px);
-  /* footer contact info - tablet and up */
 }
 @media (min-width: 1024px) {
   .footer__contact {
@@ -969,7 +944,6 @@ button {
   }
 }
 .footer__contact-item {
-  /* each contact item - icon + text */
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -999,9 +973,6 @@ button {
 }
 .footer__contact-text a:hover {
   color: #b92770;
-}
-.footer {
-  /* footer copyright section */
 }
 .footer__copyright {
   text-align: center;
