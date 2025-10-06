@@ -1,55 +1,82 @@
-# Project Template
+# Project template
 
-This is a project template for EPAM learning practice.  
-It includes a setup for **Sass** compilation and project structure.
+# Best Shop - Suitcase E-commerce Project
 
----
+This is a fully responsive, multi-page e-commerce website for a suitcase store, built as part of a learning project. The application is created using HTML, SCSS, and vanilla JavaScript, with a strong focus on clean code, reusability, and modern development practices.
+
+## ✨ Features
+
+- **Homepage:** Featuring a dynamic hero section, a product carousel with hover effects, and sections for "Selected Products" and "New Arrivals".
+- **Catalog Page:** A fully functional product catalog with:
+  - Multi-criteria filtering (category, color, size, on-sale status).
+  - Dynamic sorting (by price, popularity, rating).
+  - Live search functionality.
+  - Client-side pagination.
+- **Product Details Page:** Dynamically generated pages for each product, including an image gallery, quantity selector, product description, and a "You May Also Like" section.
+- **Shopping Cart:** A fully interactive shopping cart that allows users to update item quantities, remove items, clear the cart, and proceed to checkout. It also includes dynamic calculation of totals and discounts.
+- **Static Pages:** Clean and responsive "About Us" and "Contact Us" pages.
+- **Interactive Forms:** All forms (Login, Reviews, Contact) include client-side validation and provide user feedback without reloading the page.
+- **Component-Based Architecture:** The project utilizes a component-based approach, loading shared elements like the header and footer dynamically with JavaScript.
+- **Responsive Design:** The layout is fully responsive and optimized for a seamless experience on desktop, tablet, and mobile devices.
 
 ## 🚀 Getting Started
 
-### 1. Prerequisites
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
-Make sure you have installed:
+### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v16+ recommended)
-- npm (comes with Node.js)
+Before you begin, ensure you have the following installed on your system:
 
-### 2. Installation
+- [Node.js](https://nodejs.org/) (v16 or later is recommended)
+- npm (which comes bundled with Node.js)
 
-Clone the repository and install dependencies:
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <your-repository-url>
+    ```
+2.  **Navigate to the project directory:**
+    ```bash
+    cd project-template
+    ```
+3.  **Install dependencies:**
+    This command will install all the necessary development dependencies listed in the `package.json` file, such as Sass, ESLint, and Stylelint.
+    ```bash
+    npm install
+    ```
+
+## 🔧 Usage
+
+### Sass Compilation
+
+The project uses Sass for styling. To compile the `.scss` files into a single `main.css` file, run the following command. The compiler will also watch for any changes you make to the SCSS files and automatically recompile them.
 
 ```bash
-git clone https://autocode.git.epam.com/campus_javascript/capstone-project/project-template.git
-cd project-template
-npm install
+npm run scss
 ```
 
-#### Run Sass compiler
+This command compiles src/scss/main.scss into src/js/main.css
 
-To start watching and compiling your SCSS files into CSS, run:
+### Running the Project
+
+To view the project, it is highly recommended to use a local server extension that serves files from the root of the project directory. The **Live Server** extension for Visual Studio Code is a great option.
+
+1.  Open the project folder in VS Code.
+2.  Right-click on the `src/index.html` file and select "Open with Live Server".
+
+Code Linting
+The project is set up with ESLint for JavaScript and Stylelint for SCSS to ensure code quality and consistency. To check your files for any linting errors, run:
 
 ```bash
-npm run sass
+npm run lint
 ```
 
-This will compile:
+You can also run checks for JavaScript and SCSS separately:
 
-src/scss/main.scss → src/main.css
+```bash
+npm run lint:js
+npm run lint:scss
+```
 
-Sass will watch for changes until you stop it (Ctrl + C).
-
-📂 Project Structure
-project-template/
-│
-├── src/
-│ ├── scss/ # SCSS styles
-│ │ ├── abstracts/ # variables, mixins
-│ │ ├── base/ # reset, fonts
-│ │ ├── components/ # buttons, forms
-│ │ ├── pages/ # page-specific styles
-│ │ └── main.scss # main entry point
-│ │
-│ └── main.css # compiled CSS (generated)
-│
-├── package.json
-└── README.md
+## Enjoy the project!
