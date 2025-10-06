@@ -9,7 +9,7 @@ export function initCarousel () {
   if (!list || !prevBtn || !nextBtn) return;
   // Get the gap size from CSS
   const listStyle = getComputedStyle(list);
-  const gap = parseFloat(listStyle.getPropertyValue('gap')) || 0;
+  const gap = Number.parseFloat((listStyle.getPropertyValue('gap'))) || 0;
 
   // Calculate the step size based on the width of a single slide plus the gap
   function getStep () {

@@ -29,7 +29,7 @@ export function addToCart (product, quantity = 1) {
   }
 
   setCartItems(items);
-  window.dispatchEvent(new CustomEvent('cart-updated'));
+  globalThis.dispatchEvent(new CustomEvent('cart-updated'));
 }
 
 // this function sets up event delegation for "Add to Cart" buttons
@@ -49,11 +49,11 @@ export function attachCartDelegation () {
     const id = btn.dataset.id;
     if (!id) return;
 
-    if (!window.PRODUCTS || window.PRODUCTS.length === 0) {
+    if (!globalThis.PRODUCTS || globalThis.PRODUCTS.length === 0) {
       await loadProducts('/src/assets/data.json');
     }
 
-    const product = window.PRODUCT_INDEX?.get(id) || window.PRODUCTS?.find(p => String(p.id) === String(id));
+    const product = globalThis.PRODUCT_INDEX?.get(id) || globalThis.PRODUCTS?.find(p => String(p.id) === String(id));
     if (!product) {
       console.warn(`Product with id "${id}" not found.`);
       return;

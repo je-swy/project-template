@@ -5,7 +5,7 @@ import { resolveAssetPath, esc } from './product-renderer.js';
 
 const SHIPPING_COST = 30;
 const DISCOUNT_THRESHOLD = 3000;
-const DISCOUNT_PERCENT = 0.10;
+const DISCOUNT_PERCENT = 0.1;
 
 function renderCart () {
   const items = getCartItems();
@@ -49,7 +49,7 @@ function renderCart () {
   `).join('');
 
   updateSummary(items);
-  window.dispatchEvent(new CustomEvent('cart-updated'));
+  globalThis.dispatchEvent(new CustomEvent('cart-updated'));
 }
 
 function updateSummary (items) {
@@ -73,7 +73,7 @@ function updateSummary (items) {
 
 function initCartPage () {
   renderCart();
-  window.addEventListener('cart-updated', renderCart);
+  globalThis.addEventListener('cart-updated', renderCart);
 
   const tableBody = document.getElementById('cart-items-body');
   if (tableBody) {

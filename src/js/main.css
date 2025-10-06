@@ -1554,7 +1554,6 @@ button {
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
-  align-items: center;
 }
 .catalog-filters.compact .filter-group {
   display: none;

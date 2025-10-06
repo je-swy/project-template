@@ -96,7 +96,10 @@ function renderTopSets () {
   // Filter products to get only luggage sets
   const sets = allProducts.filter(p => p.category === 'luggage sets');
   // Shuffle and select 4 random sets
-  const randomSets = sets.sort(() => 0.5 - Math.random()).slice(0, 4);
+  // 1. Create a shallow copy of the `sets` array
+  const shuffledSets = [...sets].sort(() => 0.5 - Math.random());
+  // 2. Now we take the first 4 elements from the shuffled copy
+  const randomSets = shuffledSets.slice(0, 4);
   // Find the list element within the top sets container
   const listElement = topSetsContainer.querySelector('.widget-list');
   if (!listElement) return;
@@ -200,7 +203,7 @@ export async function initCatalog () {
     if (!query) return;
     const exactMatch = allProducts.find(p => p.id.toLowerCase() === query);
     if (exactMatch) {
-      window.location.href = `/src/pages/product-details-template.html?id=${exactMatch.id}`;
+      globalThis.location.href = `/src/pages/product-details-template.html?id=${exactMatch.id}`;
     }
   }
   // Set up event listeners for search input, filter options, sales checkbox, sort select, and buttons
@@ -248,7 +251,9 @@ export async function initCatalog () {
     sortSelect.value = 'default';
     // Reset activeFilters state
     // eslint-disable-next-line no-return-assign
-    Object.keys(activeFilters).forEach(key => activeFilters[key] = '');
+    for (const key of Object.keys(activeFilters)) {
+      activeFilters[key] = '';
+    }
     activeFilters.sortBy = 'default';
     // Reset selected labels in the UI
     filtersForm.querySelectorAll('.filter-selected').forEach(label => {

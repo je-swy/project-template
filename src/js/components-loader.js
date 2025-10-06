@@ -3,7 +3,8 @@
 import { initCartCountAuto } from './cart-count.js';
 
 function fixComponentLinks (basePath, componentElement) {
-  componentElement.querySelectorAll('a[href]').forEach((link) => {
+  const links = componentElement.querySelectorAll('a[href]');
+  for (const link of links) {
     const href = link.getAttribute('href');
     if (
       href &&
@@ -13,8 +14,9 @@ function fixComponentLinks (basePath, componentElement) {
     ) {
       link.setAttribute('href', `${basePath}${href}`);
     }
-  });
-  componentElement.querySelectorAll('img[src]').forEach((img) => {
+  }
+  const images = componentElement.querySelectorAll('img[src]');
+  for (const img of images) {
     const src = img.getAttribute('src');
     if (
       src &&
@@ -24,7 +26,7 @@ function fixComponentLinks (basePath, componentElement) {
     ) {
       img.setAttribute('src', `${basePath}${src}`);
     }
-  });
+  }
 }
 
 // Initialize header components: modal login, burger menu, cart count
@@ -58,8 +60,9 @@ function initHeaderComponents () {
     };
 
     openModalBtn.addEventListener('click', openModal);
-    closeModalBtns.forEach((btn) => btn.addEventListener('click', closeModal));
-
+    for (const btn of closeModalBtns) {
+      btn.addEventListener('click', closeModal);
+    }
     if (togglePasswordBtn) {
       togglePasswordBtn.addEventListener('click', () => {
         const type =
@@ -77,11 +80,11 @@ function initHeaderComponents () {
         const emailValue = emailInput.value.trim();
         const emailErrorMsg = emailInput.nextElementSibling;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(emailValue)) {
+        if (emailRegex.test(emailValue)) {
+          emailErrorMsg.textContent = '';
+        } else {
           emailErrorMsg.textContent = 'Please enter a valid email.';
           isValid = false;
-        } else {
-          emailErrorMsg.textContent = '';
         }
         const passwordValue = passwordInput.value.trim();
         const passwordErrorMsg =

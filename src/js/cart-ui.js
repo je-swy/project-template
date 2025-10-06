@@ -30,7 +30,7 @@ export function setCartItems (items = []) {
 export function clearCart () {
   try {
     localStorage.removeItem(CART_KEY);
-    window.dispatchEvent(new CustomEvent('cart-updated', { detail: { items: [] } }));
+    globalThis.dispatchEvent(new CustomEvent('cart-updated', { detail: { items: [] } }));
   } catch (e) {
     console.warn('Could not clear cart', e);
   }

@@ -142,7 +142,6 @@
 
     nav.filter-actions {
       @include mixins.flex-row(flex-start, center, 8px);
-      align-items: center;
     }
 
     &.compact {

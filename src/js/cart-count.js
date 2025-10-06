@@ -15,7 +15,7 @@ export function updateCartCountUI () {
   const items = getCartItems();
   const total = computeCartTotal(items);
   // Update DOM element
-  el.setAttribute('data-count', String(total));
+  el.dataset.count = total;
   el.textContent = total > 0 ? String(total) : '0';
   el.setAttribute('aria-hidden', total === 0 ? 'true' : 'false');
   // Show/hide based on count
@@ -28,12 +28,12 @@ export function initCartCountAuto () {
   updateCartCountUI();
 
   // Listen to storage events (other tabs/windows)
-  window.addEventListener('storage', (e) => {
+  globalThis.addEventListener('storage', (e) => {
     if (e.key === 'cart_v1') updateCartCountUI();
   });
 
   // Also listen to custom in-window event fired when cart updated
-  window.addEventListener('cart-updated', () => {
+  globalThis.addEventListener('cart-updated', () => {
     updateCartCountUI();
   });
 }

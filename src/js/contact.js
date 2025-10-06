@@ -27,14 +27,14 @@ export function initContactForm () {
     let firstInvalidField = null;
 
     // Check all required fields
-    requiredInputs.forEach((input) => {
+    for (const input of requiredInputs) {
       if (input.value.trim() === '') {
         isValid = false;
         if (!firstInvalidField) {
           firstInvalidField = input;
         }
       }
-    });
+    }
 
     if (!isValid) {
       messageEl.textContent = 'Error: Please fill in all required fields.';
