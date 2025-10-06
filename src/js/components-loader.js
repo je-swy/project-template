@@ -124,7 +124,7 @@ function initHeaderComponents () {
 // Fixes relative links in loaded components
 // Initializes header functionalities after loading
 export async function includeComponents () {
-  const isInPages = window.location.pathname.includes('/pages/');
+  const isInPages = globalThis.location.pathname.includes('/pages/');
   const base = isInPages ? '../' : './';
   const headerPath = `${base}components/header.html`;
   const footerPath = `${base}components/footer.html`;

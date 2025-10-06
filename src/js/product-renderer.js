@@ -8,9 +8,10 @@
 // returns: escaped string
 // Default to empty string if input is falsy
 // Example: esc('<script>') => '&lt;script&gt;'
+
 export function esc (s = '') {
   return String(s).replace(
-    /[&<>'']/g,
+    /[&<>']/g, // <-- Залишили тільки одну
     (c) =>
       ({
         '&': '&amp;',

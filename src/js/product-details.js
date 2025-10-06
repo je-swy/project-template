@@ -23,11 +23,15 @@ function handleTabs () {
   const tabButtons = tabContainer.querySelectorAll('.product-tabs__btn');
   const tabPanes = tabContainer.querySelectorAll('.product-tabs__pane');
 
-  tabButtons.forEach((button) => {
+  for (const button of tabButtons) {
     button.addEventListener('click', () => {
       // deactivate all buttons and panes
-      tabButtons.forEach((btn) => btn.classList.remove('active'));
-      tabPanes.forEach((pane) => pane.classList.remove('active'));
+      for (const btn of tabButtons) {
+        btn.classList.remove('active');
+      }
+      for (const pane of tabPanes) {
+        pane.classList.remove('active');
+      }
 
       // activate the clicked button and corresponding pane
       const tabId = button.dataset.tab;
@@ -38,7 +42,7 @@ function handleTabs () {
         activePane.classList.add('active');
       }
     });
-  });
+  }
 }
 
 // function to handle review form submission
@@ -89,14 +93,22 @@ function initThumbnailGallery () {
   if (!mainImage || thumbnails.length === 0) return;
 
   // add click event listeners to each thumbnail
-  thumbnails.forEach((thumb) => {
+  const thumbnailsContainer = document.querySelector('.thumbnails-container');
+
+  for (const thumb of thumbnails) {
     thumb.addEventListener('click', () => {
-      mainImage.src = thumb.src; // change main image source
-      // remove active class from all thumbnails
-      thumbnails.forEach((t) => t.classList.remove('active'));
+      mainImage.src = thumb.src;
+
+      // 1. Find the currently active thumbnail and make it inactive
+      const currentActive = thumbnailsContainer.querySelector('.active');
+      if (currentActive) {
+        currentActive.classList.remove('active');
+      }
+
+      // 2. Make the clicked thumbnail active
       thumb.classList.add('active');
     });
-  });
+  }
 }
 
 // Main function to initialize product details page
@@ -104,7 +116,7 @@ export async function initProductDetails () {
   const allProducts = await loadProducts();
   const productDetailsContainer = document.getElementById('product-details');
   // Get product ID from URL query parameters
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(globalThis.location.search);
   const productId = params.get('id');
   // Find the product by ID
   const product = allProducts.find((p) => p.id === productId);
@@ -179,19 +191,18 @@ export async function initProductDetails () {
     document
       .querySelector('[data-action="dec"]')
       .addEventListener('click', () => {
-        const val = parseInt(qtyInput.value);
+        const val = Number.parseInt(qtyInput.value);
         if (val > 1) qtyInput.value = val - 1;
       });
     document
       .querySelector('[data-action="inc"]')
       .addEventListener('click', () => {
-        const val = parseInt(qtyInput.value);
+        const val = Number.parseInt(qtyInput.value);
         qtyInput.value = val + 1;
       });
     document.getElementById('add-to-cart-btn').addEventListener('click', () => {
-      const quantity = parseInt(qtyInput.value);
+      const quantity = Number.parseInt(qtyInput.value);
       addToCart(product, quantity);
-      // alert(`${product.name} (x${quantity}) added to cart!`);
     });
   } else {
     // eslint-disable-next-line quotes
